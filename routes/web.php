@@ -171,3 +171,7 @@ Route::group(array('prefix' => 'api'), function() {
     Route::resource('comments', 'CommentController', array('except' => array('create', 'edit', 'update')));
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
