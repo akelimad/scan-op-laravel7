@@ -1,4 +1,16 @@
 <?php
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\BaseController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
+use PDO;
+use Symfony\Component\Console\Input\Input;
+
 /**
  * Install Controller Class
  * 
@@ -21,9 +33,9 @@ class InstallerController extends BaseController {
         }
     }
 
-    public function startInstall() 
+    public function startInstall(Request $request) 
     {
-        $input = Input::all();
+        $input = $request->all();
         $rules = [
             'host' => 'required', 
             'name' => 'required', 
@@ -46,11 +58,10 @@ class InstallerController extends BaseController {
             $database_password = $input['password'];
 
             // config
-            $sql_dump = app_path() . "/views/install/db_dump.sql";
-            $config_file_directory = app_path() . "/config/";
-            $config_file_name = "config.inc.php";
-            $config_file_default = app_path() . "/views/install/config.default";
-            $config_file_path = $config_file_directory . $config_file_name;
+            $sql_dump =  resource_path('views/install/db_dump.sql');
+            $config_file = base_path() . "/config/config.inc.php";
+            $config_file_default = resource_path('views/install/config.default');
+            $config_file_path = $config_file;
 
             $config_file = file_get_contents($config_file_default);
             $config_file = str_replace("_DB_HOST_", $database_host, $config_file);

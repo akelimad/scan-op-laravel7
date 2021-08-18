@@ -158,7 +158,7 @@ Route::get('/robots.txt', 'FrontController@robots');
 Route::get('/sitemap.xml', 'FrontController@sitemap');
 Route::get('/feed', 'FrontController@feed');
 
-Route::when('manga/*', 'manga.view_throttle');
+// Route::when('manga/*', 'manga.view_throttle');
 
 Route::get('/download/{mangaSlug}/{chapterId}', ['as' => 'front.manga.download', 'uses' => 'FrontController@downloadChapter']);
 

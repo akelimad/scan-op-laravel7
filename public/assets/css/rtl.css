@@ -1,0 +1,148 @@
+#navbar-menu, .manga-footer {
+    font-weight: bold;
+}
+
+.hotmanga-header i, .listmanga-header i {
+    font-size: 17px;
+    margin-left: 15px;
+    margin-right: 0;
+    vertical-align: top;
+}
+
+.manga-heading i {
+    margin-left: 15px;
+    margin-right: 0;
+}
+
+.date-chapter-title-rtl {
+    float: left !important;
+    direction: ltr;
+}
+
+.chapter-title-rtl a {
+    float: right;
+}
+
+.tips-rtl {
+    font-size: 20px;
+}
+
+.login.breadcrumb li:last-child a {
+    float: left;
+}
+
+.login.breadcrumb .item-link i {
+    margin-right: 0px;
+    margin-left: 5px;
+}
+
+.manga-list li {
+    float: right;
+}
+
+.hot-thumbnails .manga-name {
+    left: auto;
+    right: 15px;
+}
+
+/** colorful theme **/
+.menu > li {
+    float: left;
+}
+
+.manga-list .separator {
+    float: left;
+}
+
+.menu.bg-image-home {
+    background-position: right -56px top -46px;
+}
+
+.menu > li:last-child > a {
+    border-right: 1px solid #f3f3f3;
+}
+
+.widget-schedule .widget-title {
+    float: right;
+}
+
+.widget-schedule .carousel {
+    float: left;
+}
+
+.timeline dl dd .time {
+    direction: ltr;
+}
+
+.chapters li {
+    padding: 19px 30px 19px 10px;
+}
+
+.chapters li::before {
+    border-bottom: 3px solid transparent;
+    border-right: 6px solid #eec6c6;
+    border-top: 3px solid transparent;
+    border-left: 0;
+    left: 0;
+    right: 15px;
+}
+
+.chapter-title-rtl em {
+    margin-right: 10px;
+    vertical-align: text-bottom;
+}
+
+.widget-schedule .prev, .widget-schedule .next {
+    box-shadow: 5px 0 5px -2px rgba(104, 16, 52, 0.3) inset;
+    right: 0;
+    left: auto;
+}
+
+.widget-schedule .next {
+    box-shadow: -5px 0 5px -2px rgba(104, 16, 52, 0.3) inset;
+    left: 0;
+    right: auto;
+}
+
+.tabs-framed-left {
+    margin-right: 92px;
+    margin-left: 0;
+}
+
+.tabs-framed-left .tabs {
+    box-shadow: 5px 0 5px -2px rgba(104, 16, 52, 0.2) inset, 0 2px 2px rgba(0, 0, 0, 0.2);
+    right: -92px;
+    left: auto;
+}
+
+.list-rtl {
+    float: right !important;
+}
+
+.price-list.style3 li::before {
+    left: 0;
+    right: 2px;
+}
+
+.price-list.style3 li {
+    padding-left: 0;
+    padding-right: 16px;
+}
+
+.schedule-name, .schedule-date {
+    text-align: right;
+}
+
+.chapters > li h5 {
+    margin: 0;
+}
+
+.manga-footer li:first-child::after {
+    content: "";
+    padding: 0;
+}
+
+.manga-footer li:last-child::after {
+    content: "|";
+    padding: 0 10px;
+}
