@@ -87,10 +87,10 @@ Route::group(['before' => 'auth'], function () {
     Route::get('admin/widgets', ['as' => 'admin.settings.widgets', 'uses' => 'SettingsController@widgets']);
     Route::post('admin/widgets', ['as' => 'admin.settings.widgets.save', 'uses' => 'SettingsController@saveWidgets']);
 
-    Route::get('admin/cache', ['as' => 'admin.settings.cache', 'uses' => 'SettingsController@cache']);
-    Route::post('admin/cache', ['as' => 'admin.settings.cache.save', 'uses' => 'SettingsController@saveCache']);
-    Route::post('admin/clear-cache', ['as' => 'admin.settings.cache.clear', 'uses' => 'SettingsController@clearCache']);
-    Route::post('admin/clear-downloads', ['as' => 'admin.settings.downloads.clear', 'uses' => 'SettingsController@clearDownloads']);
+    Route::get('admin/cache', ['as' => 'admin.settings.cache', 'uses' => 'Settings\SettingsController@cache']);
+    Route::post('admin/cache', ['as' => 'admin.settings.cache.save', 'uses' => 'Settings\SettingsController@saveCache']);
+    Route::post('admin/clear-cache', ['as' => 'admin.settings.cache.clear', 'uses' => 'Settings\SettingsController@clearCache']);
+    Route::post('admin/clear-downloads', ['as' => 'admin.settings.downloads.clear', 'uses' => 'Settings\SettingsController@clearDownloads']);
 
     // Google
     Route::get('admin/gdrive', ['as' => 'admin.settings.gdrive', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@index']);

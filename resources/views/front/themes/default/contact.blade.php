@@ -9,7 +9,7 @@
 @stop
 
 @section('keywords')
-{{$settings['seo.keywords']}}
+{{ $settings['seo.keywords'] }}
 @stop
 
 @include('front.themes.'.$theme.'.blocs.menu')

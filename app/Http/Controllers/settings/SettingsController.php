@@ -3,6 +3,16 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\BaseController;
+use App\Option;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Settings Controller Class
@@ -56,8 +66,7 @@ class SettingsController extends BaseController
         $menus = json_decode($options['site.menu']);
         $comment = json_decode($options['site.comment']);
         
-        return View::make(
-            'admin.settings.general',
+        return view('admin.settings.general',
             [
                 "options" => $options, 
                 "languages" => $languages,
@@ -73,9 +82,9 @@ class SettingsController extends BaseController
      * 
      * @return type
      */
-    public function saveGeneral()
+    public function saveGeneral(Request $request)
     {
-        $input = Input::all();
+        $input = $request->all();
 
         foreach ($input as $key => $value) {
             $option = str_replace('_', '.', $key);
@@ -97,8 +106,7 @@ class SettingsController extends BaseController
         // clean cache
         Cache::forget('options');
         
-        return Redirect::back()
-            ->with(
+        return Redirect::back()->with(
                 'updateSuccess',
                 Lang::get('messages.admin.settings.update.success')
             );
@@ -114,7 +122,7 @@ class SettingsController extends BaseController
         $options = Option::lists('value', 'key');
         $advanced = json_decode($options['seo.advanced']);
         
-        return View::make(
+        return view(
                 'admin.settings.seo', 
                 [
                     "options" => $options,
@@ -128,9 +136,9 @@ class SettingsController extends BaseController
      * 
      * @return type
      */
-    public function saveSeo()
+    public function saveSeo(Request $request)
     {
-        $input = Input::all();
+        $input = $request->all();
 
         foreach ($input as $key => $value) {
             $option = str_replace('_', '.', $key);
@@ -139,8 +147,7 @@ class SettingsController extends BaseController
                 $value = json_encode($value);
             }
 
-            Option::findByKey($option)
-                ->update(
+            Option::findByKey($option)->update(
                     [
                         'value' => $value
                     ]
@@ -150,8 +157,7 @@ class SettingsController extends BaseController
         // clean cache
         Cache::forget('options');
         
-        return Redirect::back()
-            ->with(
+        return Redirect::back()->with(
                 'updateSuccess', 
                 Lang::get('messages.admin.settings.update.success')
             );
@@ -166,7 +172,7 @@ class SettingsController extends BaseController
     {
         $user = User::find(Auth::user()->id);
 
-        return View::make('admin.settings.profile', ["user" => $user]);
+        return view('admin.settings.profile', ["user" => $user]);
     }
 
     /**
@@ -174,9 +180,9 @@ class SettingsController extends BaseController
      * 
      * @return type
      */
-    public function saveProfile()
+    public function saveProfile(Request $request)
     {
-        $input = Input::all();
+        $input = $request->all();
         $user = User::find(Auth::user()->id);
 
         $user->fill($input);
@@ -234,7 +240,7 @@ class SettingsController extends BaseController
 
 
         $themes['default - color variation'] = $bootswatch;
-        return View::make(
+        return view(
             'admin.settings.theme', 
             ["options" => $options, "themes" => $themes]
         );
@@ -245,9 +251,9 @@ class SettingsController extends BaseController
      * 
      * @return type
      */
-    public function saveTheme()
+    public function saveTheme(Request $request)
     {
-        $input = Input::all();
+        $input = $request->all();
 
         foreach ($input as $key => $value) {
             $option = str_replace('_', '.', $key);
@@ -277,7 +283,7 @@ class SettingsController extends BaseController
         $options = Option::lists('value', 'key');
         $widgets = json_decode($options['site.widgets']);
         
-        return View::make(
+        return view(
                 'admin.settings.widgets', 
                 [
                     "widgets" => $widgets,
@@ -285,9 +291,9 @@ class SettingsController extends BaseController
             );
     }
 
-    public function saveWidgets()
+    public function saveWidgets(Request $request)
     {
-        $input = Input::all();
+        $input = $request->all();
 
         foreach ($input as $key => $value) {
             $option = str_replace('_', '.', $key);
@@ -316,21 +322,17 @@ class SettingsController extends BaseController
     
     public function cache()
     {
-        $options = Option::lists('value', 'key');
+        $options = Option::pluck('value', 'key');
         $cache = json_decode($options['site.cache']);
         
-        return View::make(
-                'admin.settings.cache', 
-                [
-                    "cache" => $cache,
-                ]
-            );
+        return view('admin.settings.cache', [
+            "cache" => $cache,
+        ]);
     }
 
-    public function saveCache()
+    public function saveCache(Request $request)
     {
-        $input = Input::all();
-
+        $input = $request->except('_token');
         foreach ($input as $key => $value) {
             $option = str_replace('_', '.', $key);
 
@@ -338,22 +340,15 @@ class SettingsController extends BaseController
                 $value = json_encode($value);
             }
 
-            Option::findByKey($option)
-                ->update(
-                    [
-                        'value' => $value
-                    ]
-                );
+            Option::where('key', $option)->update(['value' => $value]);
         }
 
         // clean cache
         Cache::forget('options');
         
-        return Redirect::back()
-            ->with(
-                'updateSuccess', 
-                Lang::get('messages.admin.settings.update.success')
-            );
+        return Redirect::back()->with('updateSuccess', 
+            Lang::get('messages.admin.settings.update.success')
+        );
     }
     
     public function clearCache()

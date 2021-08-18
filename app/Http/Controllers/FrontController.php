@@ -2,9 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Chapter;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Utils\HelperController;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
+use App\Manga;
+use App\Placement;
+use App\Post;
+use App\Tag;
+use App\User;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\URL;
+use ZipArchive;
 
 /**
  * Frontpage Controller Class
@@ -26,17 +42,17 @@ class FrontController extends BaseController {
      */
     public function index()
     {
-        if (!File::exists(app_path() . "/config/config.inc.php")) {
+        if (!File::exists(base_path() . "/config/config.inc.php")) {
             return Redirect::route('install.index');
         }
 
-        $settings = Cache::get('options');
-        $theme = Cache::get('theme');
-        $variation = Cache::get('variation');
-        $limit = json_decode($settings['site.pagination']);
+        $settings = Cache::get('options', []);
+        $theme = Cache::get('theme', "default");
+        $variation = Cache::get('variation', "flatly");
+        $limit = json_decode(isset($settings['site.pagination']) ? $settings['site.pagination'] : "") ?: 10;
         
         $latestMangaUpdates = array();
-        $latestMangaUpdatesResutlSet = Manga::latestRelease($limit->homepage);
+        $latestMangaUpdatesResutlSet = Manga::latestRelease($limit->homepage ?? 10);
         foreach ($latestMangaUpdatesResutlSet as $manga) {
             $key = "";
             if(date("d-n-Y", strtotime($manga->chapter_created_at)) == date("d-n-Y", strtotime('-1 day'))) {
@@ -83,7 +99,7 @@ class FrontController extends BaseController {
         }
         // news
         $mangaNews = Post::where('posts.status', '1')
-            ->limit($limit->news_homepage)
+            ->limit($limit->news_homepage ?? 10)
             ->orderBy('created_at', 'desc')
             ->with('user')
             ->with('manga')
@@ -91,14 +107,13 @@ class FrontController extends BaseController {
 
         // ad placement
         $homepage = Placement::where('page', '=', 'HOMEPAGE')->first();
-        $ads = array();
-
+        $ads = array();        
         foreach ($homepage->ads()->get() as $key => $ad) {
             $ads[$ad->pivot->placement] = $ad->code;
         }
         
         // widgets
-        $widgets = json_decode($settings['site.widgets']);
+        $widgets = json_decode(isset($settings['site.widgets']) ? $settings['site.widgets'] : "") ?: [];
         $topManga = array();
         $topViewsManga = array();
         $tags = array();
@@ -118,9 +133,7 @@ class FrontController extends BaseController {
             }
         }
 
-        return View::make(
-            'front.themes.' . $theme . '.index', 
-            [
+        return view('front.themes.' . $theme . '.index', [
                 "theme" => $theme,
                 "variation" => $variation,
                 "settings" => $settings,
@@ -133,8 +146,7 @@ class FrontController extends BaseController {
                 "widgets" => $widgets,
                 "topViewsManga" => $topViewsManga,
                 "tags" => $tags
-            ]
-        );
+            ]);
     }
 
     /**
@@ -184,7 +196,7 @@ class FrontController extends BaseController {
 
         array_multisort(array_keys($sortedChapters), SORT_DESC, SORT_NATURAL, $sortedChapters);
 
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.manga.show', 
             [
                 "theme" => $theme,
@@ -228,7 +240,7 @@ class FrontController extends BaseController {
             $mangaList = Manga::orderBy('name', 'asc')->with('categories')->paginate($limit);
         }
         
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.manga.list', 
             [
                 "theme" => $theme,
@@ -272,7 +284,7 @@ class FrontController extends BaseController {
                 }
             }
 
-            return View::make(
+            return view(
                 'front.themes.' . $theme . '.blocs.manga.list.text', 
                 [
                     "theme" => $theme,
@@ -284,7 +296,7 @@ class FrontController extends BaseController {
         } else if ($type == 'image') {
             $mangaList = Manga::orderBy('name', 'asc')->with('categories')->paginate($limit);
 
-            return View::make(
+            return view(
                 'front.themes.' . $theme . '.blocs.manga.list.image', [
                     "theme" => $theme,
                     "variation" => $variation,
@@ -341,7 +353,7 @@ class FrontController extends BaseController {
             $mangaList = Manga::orderBy($sortBy, $direction)->paginate($limit);
         }
 
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.manga.list.filter', [
                 "theme" => $theme,
                 "variation" => $variation,
@@ -573,7 +585,7 @@ class FrontController extends BaseController {
     public function feed()
     {
         // create new feed
-        $feed = Feed::make();
+        $feed = App::make("feed");
 
         $settings = Cache::get('options');
         $limit = json_decode($settings['site.pagination'])->homepage;
@@ -644,7 +656,7 @@ class FrontController extends BaseController {
     /**
      * Latest release
      */
-    public function latestRelease()
+    public function latestRelease(Request $request)
     {
         $settings = Cache::get('options');
         $theme = Cache::get('theme');
@@ -653,7 +665,7 @@ class FrontController extends BaseController {
         
         $advancedSEO = json_decode($settings['seo.advanced']);
         
-        $page = Input::get('page', 1);        
+        $page = $request->input('page', 1);        
         $latestMangaUpdates = array();
         $data = Manga::allLatestRelease($page, $limit);
         foreach ($data['items'] as $manga) {
@@ -694,11 +706,10 @@ class FrontController extends BaseController {
                 ];
             }
         }
-        $mangaList = Paginator::make($latestMangaUpdates, $data['totalItems'], $limit);
+        // $mangaList = Paginator::make($latestMangaUpdates, $data['totalItems'], $limit);
+        $mangaList = $data['totalItems'];
         
-        return View::make(
-            'front.themes.' . $theme . '.blocs.manga.latest_release', 
-            [
+        return view('front.themes.' . $theme . '.blocs.manga.latest_release', [
                 "theme" => $theme,
                 "variation" => $variation,
                 "settings" => $settings,
@@ -717,7 +728,7 @@ class FrontController extends BaseController {
         
         $advancedSEO = json_decode($settings['seo.advanced']);
             
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.news.news', 
             [
                 "theme" => $theme,
@@ -746,7 +757,7 @@ class FrontController extends BaseController {
             ->with('manga')
             ->paginate($limit);
 
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.news.latest_news', 
             [
                 "theme" => $theme,
@@ -767,9 +778,7 @@ class FrontController extends BaseController {
         $theme = Cache::get('theme');
         $variation = Cache::get('variation');
 
-        return View::make(
-            'front.themes.' . $theme . '.contact', 
-            [
+        return view('front.themes.' . $theme . '.contact', [
                 "theme" => $theme,
                 "variation" => $variation,
                 "settings" => $settings,
@@ -777,9 +786,9 @@ class FrontController extends BaseController {
         );
     }
     
-    public function sendMessage()
+    public function sendMessage(Request $request)
     {
-        if (HelperController::isValidCaptcha(Input::all())) {
+        if (HelperController::isValidCaptcha($request->all())) {
             $data = array();
             $data['name'] = filter_input(INPUT_POST, 'name');
             $data['email'] = filter_input(INPUT_POST, 'email');
@@ -805,7 +814,7 @@ class FrontController extends BaseController {
         $theme = Cache::get('theme');
         $variation = Cache::get('variation');
         
-        return View::make(
+        return view(
                 'front.themes.' . $theme . '.blocs.manga.adv_search',
                 [
                 "theme" => $theme,
@@ -850,8 +859,7 @@ class FrontController extends BaseController {
 
         $mangaList = $query->paginate($limit);
 
-        return View::make(
-            'front.themes.' . $theme . '.blocs.manga.list.filter', [
+        return view('front.themes.' . $theme . '.blocs.manga.list.filter', [
                 "theme" => $theme,
                 "variation" => $variation,
                 "settings" => $settings,

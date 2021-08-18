@@ -1,12 +1,13 @@
 @section('menu')
-<?php $menus = json_decode($settings['site.menu']); ?>
+<?php $menus = json_decode(isset($settings['site.menu']) ?: ""); ?>
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
             <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-        </button> 
-        <h1 style="margin: 0px;"><a class="navbar-brand" href="{{route('front.index')}}">{{$settings['site.name']}}</a></h1>
+        </button>
+        <h1 style="margin: 0px;"><a class="navbar-brand" href="{{route('front.index')}}">{{ isset($settings['site.name']) ?: "Scan-op.cc
+" }}</a></h1>
     </div>
 
     <div class="collapse navbar-collapse" id="navbar-menu">
@@ -65,7 +66,7 @@
                         <a href="{{action('UsersController@logout')}}">
                             <i class="fa fa-sign-out"></i> {{Lang::get('messages.front.home.logout')}}
                         </a>
-                    </li>  
+                    </li>
                     @endif
                 </ul>
             </li>
@@ -78,7 +79,7 @@
                     <form class="navbar-form">
                         <div class="navbar-form @if(Config::get('orientation') === 'rtl') navbar-left @else navbar-right @endif" role="search">
                             <div class="form-group">
-                                <input id="autocomplete" class="form-control" type="text" placeholder="{{Lang::get('messages.front.menu.search')}}" style="border-radius:0;"/>
+                                <input id="autocomplete" class="form-control" type="text" placeholder="{{Lang::get('messages.front.menu.search')}}" style="border-radius:0;" />
                             </div>
                         </div>
                     </form>
@@ -126,17 +127,16 @@
 <script>
     $('#autocomplete').autocomplete({
         serviceUrl: "{{ action('FrontController@search') }}",
-        onSearchStart: function (query) {
+        onSearchStart: function(query) {
             $('#autocomplete').addClass('searching');
         },
-        onSearchComplete: function (query, suggestions) {
+        onSearchComplete: function(query, suggestions) {
             $('#autocomplete').removeClass('searching');
         },
-        onSelect: function (suggestion) {
+        onSelect: function(suggestion) {
             showURL = "{{ route('front.manga.show', 'SELECTION') }}";
             window.location.href = showURL.replace('SELECTION', suggestion.data);
         }
     });
 </script>
 @stop
-

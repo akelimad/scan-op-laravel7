@@ -32,6 +32,6 @@ class Placement extends Model
      */
     public function ads()
     {
-        return $this->belongsToMany('Ad')->withPivot('placement');
+        return $this->belongsToMany(Ad::class)->withPivot('placement');
     }
 }

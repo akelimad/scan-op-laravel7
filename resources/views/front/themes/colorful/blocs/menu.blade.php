@@ -1,8 +1,8 @@
 @section('menu')
-<?php $menus = json_decode($settings['site.menu']); ?>
+<?php $menus = json_decode(isset($settings['site.menu']) ?: ""); ?>
 <div style="position:relative">
     <a class="navbar-brand" href="{{route('front.index')}}">
-        <h1>{{$settings['site.name']}}</h1>
+        <h1>{{ isset($settings['site.name']) ?: "sitename" }}</h1>
     </a>
 
     <ul class="menu boxed clearfix bg-image-home">
@@ -33,4 +33,3 @@
     </ul>
 </div>
 @stop
-
