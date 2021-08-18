@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Chapter;
+use App\Manga;
+
 /**
  * Chapter Controller Class
  * 
@@ -36,7 +40,7 @@ class ChapterController extends BaseController
     {
         $mangas = Manga::all();
 
-        return View::make('admin.manga.index', ["mangas" => $mangas]);
+        return view('admin.manga.index', ["mangas" => $mangas]);
     }
 
     /**
@@ -50,7 +54,7 @@ class ChapterController extends BaseController
     {
         $manga = Manga::find($mangaId);
 
-        return View::make('admin.manga.chapter.create', ['manga' => $manga]);
+        return view('admin.manga.chapter.create', ['manga' => $manga]);
     }
 
     /**
@@ -100,7 +104,7 @@ class ChapterController extends BaseController
         $chapterInfo = Chapter::find($chapter);
         $settings = Cache::get('options');
 
-        return View::make(
+        return view(
             'admin.manga.chapter.show', 
             ['manga' => $mangaInfo, 'chapter' => $chapterInfo, 'settings' => $settings]
         );

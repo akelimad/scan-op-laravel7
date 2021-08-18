@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Http\Controllers\Communs;
+
+use App\Category;
+use App\Http\Controllers\BaseController;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+
 /**
  * Category Controller Class
  * 
@@ -35,7 +42,7 @@ class CategoryController extends BaseController
     {
         $categories = Category::all();
 
-        return View::make(
+        return view(
             'admin.category.index', 
             ["categories" => $categories]
         );
@@ -72,7 +79,7 @@ class CategoryController extends BaseController
         $category = Category::find($id);
         $categories = Category::all();
 
-        return View::make(
+        return view(
             'admin.category.edit', 
             ['category' => $category, "categories" => $categories]
         );

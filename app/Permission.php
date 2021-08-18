@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Zizaco\Entrust\EntrustPermission;
+use Shanmuga\LaravelEntrust\Models\EntrustPermission;
 
 /**
  * Page Model Class

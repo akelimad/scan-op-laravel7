@@ -57,7 +57,8 @@
                 <i class="fa fa-pencil-square-o fa-fw"></i> {{ Lang::get('messages.admin.dashboard.latest-added-manga') }}
                 @if(Entrust::can('add_manga'))
                 <div class="pull-right">
-                    {{ link_to_route('admin.manga.create', Lang::get('messages.admin.dashboard.create-manga'), null, array('class' => 'btn btn-primary btn-xs', 'role' => 'button')) }}
+                    <!-- to create : admin.manga.create -->
+                    <a href="#" class="btn-primary btn-xs">{{ Lang::get('messages.admin.dashboard.create-manga') }}</a>
                 </div>
                 @endif
             </div>
@@ -68,7 +69,7 @@
                     @foreach ($mangas as $manga)
                     <div class="list-group-item">
                         <div class="media-left">
-                            <a href='@if(Entrust::can("view_manga") || Entrust::can("add_manga") || Entrust::can("edit_manga") || Entrust::can("delete_manga")) {{url("/admin/manga/{$manga->id}")}} @endif'>                                
+                            <a href='@if(Entrust::can("view_manga") || Entrust::can("add_manga") || Entrust::can("edit_manga") || Entrust::can("delete_manga")) {{url("/admin/manga/{$manga->id}")}} @endif'>
                                 @if ($manga->cover)
                                 <img width="50" height="50" class="media-object" src='{{asset("uploads/manga/{$manga->slug}/cover/cover_thumb.jpg")}}' alt='{{ $manga->name }}' />
                                 @else
@@ -97,7 +98,8 @@
                     @endforeach
                 </div>
                 @if(Entrust::can('view_manga') || Entrust::can('add_manga') || Entrust::can('edit_manga') || Entrust::can('delete_manga'))
-                {{ link_to_route('admin.manga.index', Lang::get('messages.admin.dashboard.view-all-manga'), null, array('class' => 'btn btn-default btn-block')) }}
+                <!-- to create : admin.manga.index -->
+                <a href="#" class="btn btn-default btn-block">{{ Lang::get('messages.admin.dashboard.view-all-manga') }}</a>
                 @endif
                 @else
                 <div class="center-block">

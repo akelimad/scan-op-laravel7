@@ -1,6 +1,8 @@
 <?php
 
-use Zizaco\Entrust\EntrustRole;
+namespace App;
+
+use Shanmuga\LaravelEntrust\Models\EntrustRole;
 
 /**
  * Page Model Class

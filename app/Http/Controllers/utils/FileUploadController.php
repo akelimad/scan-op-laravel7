@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Controllers\Utils;
+
+use App\Http\Controllers\BaseController;
+
 /**
  * File upload Controller Class
  * 
