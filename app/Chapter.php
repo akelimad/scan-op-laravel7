@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Chapter Model Class
  * 
@@ -11,7 +15,7 @@
  * @license  commercial http://getcyberworks.com/
  * @link     http://getcyberworks.com/
  */
-class Chapter extends Eloquent
+class Chapter extends Model
 {
 
     public $fillable = ['name', 'slug', 'number', 'volume'];

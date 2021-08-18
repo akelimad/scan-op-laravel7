@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 /**
  * Role Controller Class
  * 

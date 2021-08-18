@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Comment Model Class
  * 
@@ -11,7 +15,7 @@
  * @license  commercial http://getcyberworks.com/
  * @link     http://getcyberworks.com/
  */
-class Comment extends Eloquent
+class Comment extends Model
 {
 
     public $fillable = ['comment', 'user_id', 'post_id', 'post_type', 'parent_comment'];

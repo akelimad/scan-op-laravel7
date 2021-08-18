@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('admin', 'DashboardController@index');
+
 
 // Confide routes
 Route::get('users/create', 'UsersController@create');

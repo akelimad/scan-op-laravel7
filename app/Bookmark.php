@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Bookmark Model Class
  * 
@@ -11,7 +15,8 @@
  * @license  commercial http://getcyberworks.com/
  * @link     http://getcyberworks.com/
  */
-class Bookmark extends Eloquent {
+class Bookmark extends Model 
+{
 
     public $fillable = ['user_id', 'manga_id', 'chapter_id', 'page_id'];
 

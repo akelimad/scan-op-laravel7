@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Page Model Class
  * 
@@ -11,7 +15,7 @@
  * @license  commercial http://getcyberworks.com/
  * @link     http://getcyberworks.com/
  */
-class Page extends Eloquent
+class Page extends Model
 {
 
     public $fillable = ['image', 'slug'];

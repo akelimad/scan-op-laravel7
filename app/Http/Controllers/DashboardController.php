@@ -1,4 +1,13 @@
 <?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\BaseController;
+use Illuminate\Support\Facades\Session;
+use App\Chapter;
+use App\Manga;
+use App\Option;
+
 /**
  * Admin Dashborad Controller Class
  * 
@@ -42,13 +51,10 @@ class DashboardController extends BaseController
         $sitename = Option::findByKey('site.name')->first();
         Session::put("sitename", $sitename['value']);
 
-        return View::make(
-            'admin.index', 
-            [
-                "hotmanga" => $hotmanga,
-                "mangas" => $mangas,
-                "chapters" => $chapters
-            ]
-        );
+        return view('admin.index', [
+            "hotmanga" => $hotmanga,
+            "mangas" => $mangas,
+            "chapters" => $chapters
+        ]);
     }
-}
+}   

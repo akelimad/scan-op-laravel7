@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+namespace App;
 
 use Illuminate\Support\Facades\App as App;
 use Illuminate\Support\Facades\Lang as Lang;

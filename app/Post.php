@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Post Model Class
  * 
@@ -11,7 +15,7 @@
  * @license  commercial http://getcyberworks.com/
  * @link     http://getcyberworks.com/
  */
-class Post extends Eloquent
+class Post extends Model
 {
 
     public $fillable = ['title', 'slug', 'content', 'status', 'manga_id', 'keywords'];

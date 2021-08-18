@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Status Model Class
  * 
@@ -11,7 +15,7 @@
  * @license  commercial http://getcyberworks.com/
  * @link     http://getcyberworks.com/
  */
-class ComicType extends Eloquent
+class ComicType extends Model
 {
     public $fillable = ['label'];
     public static $rules = [

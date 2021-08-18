@@ -1,4 +1,6 @@
 <?php
+
+namespace App\Http\Controllers;
 /**
  * User Management System Controller Class
  * 

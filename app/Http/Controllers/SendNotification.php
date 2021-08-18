@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 class SendNotification {
 
     public function fire($job, $data) {
