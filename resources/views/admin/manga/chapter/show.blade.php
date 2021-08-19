@@ -58,7 +58,7 @@
                 </div>
                 @endif
                 
-                {{ Form::open(array('route' => array('admin.manga.chapter.update', $manga->id, $chapter->id), 'method' => 'PUT')) }}
+                {{ Form::open(array('route' => array('manga.chapter.update', $manga->id, $chapter->id), 'method' => 'PUT')) }}
                 <div class="form-group">
                     {{Form::label('name', Lang::get('messages.admin.chapter.create.chapter-name'))}}
                     {{Form::text('name', $chapter->name, array('class' => 'form-control'))}}
@@ -111,7 +111,7 @@
                                 </a>
                             </li>
                             <li>
-                                {{ link_to_route('admin.manga.chapter.page.create', Lang::get('messages.admin.chapter.edit.upload-images'), array('manga' => $manga->id, 'chapter' => $chapter->id)); }}
+                                {{ link_to_route('manga.chapter.page.create', Lang::get('messages.admin.chapter.edit.upload-images'), array('manga' => $manga->id, 'chapter' => $chapter->id)) }}
                             </li>
                             <li>
                                 <a href="#" onclick="$('#imagesUrlPanel').show();
@@ -125,7 +125,7 @@
                     @endif
                     @if(Entrust::hasRole('Admin') || (Auth::user()->id===$chapter->user->id && Entrust::can('delete_chapter')))
                     <div style="display: inline-block">
-                        {{ Form::open(array('route' => array('admin.manga.chapter.destroy', $manga->id, $chapter->id), 'method' => 'delete')) }}
+                        {{ Form::open(array('route' => array('manga.chapter.destroy', $manga->id, $chapter->id), 'method' => 'delete')) }}
                         {{ Form::submit(Lang::get('messages.admin.chapter.edit.delete-chapter'), array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'. Lang::get('messages.admin.chapter.edit.confirm-delete'). '")) {return false;}')) }}
                         {{ Form::close() }}
                     </div>
@@ -138,7 +138,7 @@
                         {{ Form::close() }}
                     </div>
                     
-                    {{ link_to_route('admin.manga.show', Lang::get('messages.admin.chapter.back'), $manga->id, array('class' => 'btn btn-default btn-xs')); }}                
+                    {{ link_to_route('manga.show', Lang::get('messages.admin.chapter.back'), $manga->id, array('class' => 'btn btn-default btn-xs')) }}                
                 </div>
             </div>
             <!-- /.panel-heading -->
@@ -182,7 +182,7 @@
                             {{ Form::close() }}
 
                             <div id="waiting-upload" style="display: none;">
-                                <center><img src="{{ asset('images/ajax-loader.gif') }}" /></center>
+                                <center><img src="{{ asset('assets/images/ajax-loader.gif') }}" /></center>
                             </div>
                         </div>
 
@@ -201,7 +201,7 @@
                             @endif
 
                             <div id="waiting" style="display: none; float: right;">
-                                <img src="{{ asset('images/ajax-loader.gif') }}" />
+                                <img src="{{ asset('assets/images/ajax-loader.gif') }}" />
                             </div>
                         </div>
 
@@ -241,7 +241,7 @@
                                         </td>
                                         <td>
                                             @if(Entrust::hasRole('Admin') || (Auth::user()->id===$chapter->user->id && Entrust::can('delete_chapter')))
-                                            {{ Form::open(array('route' => array('admin.manga.chapter.page.destroy', $manga->id, $chapter->id, $page->id), 'method' => 'delete')) }}
+                                            {{ Form::open(array('route' => array('manga.chapter.page.destroy', $manga->id, $chapter->id, $page->id), 'method' => 'delete')) }}
                                             {{ Form::submit(Lang::get('messages.admin.chapter.edit.delete-page'), array('class' => 'btn btn-danger btn-xs', 'onclick' => 'if (!confirm("'. Lang::get('messages.admin.chapter.edit.confirm-delete-page'). '")) {return false;}')) }}
                                             {{ Form::close() }}
                                             @endif
@@ -316,7 +316,7 @@
     function deletefile(value)
     {
         $.post(
-                "{{ action('FileUploadController@deleteImage') }}",
+                "{{ action('Utils\FileUploadController@deleteImage') }}",
                 {manga: "{{ $manga->id }}", filename: value.name}
         );
     }

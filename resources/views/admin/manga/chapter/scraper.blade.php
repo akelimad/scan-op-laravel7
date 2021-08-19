@@ -15,7 +15,7 @@
             <div class="panel-heading">
                 <i class="fa fa-magnet fa-fw"></i> {{ Lang::get('messages.admin.chapter.scraper.title') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.manga.show', Lang::get('messages.admin.manga.back'), array('manga' => $manga->id), array('class' => 'btn btn-default btn-xs pull-right')); }}
+                    {{ link_to_route('admin.manga.show', Lang::get('messages.admin.manga.back'), array('manga' => $manga->id), array('class' => 'btn btn-default btn-xs pull-right')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
@@ -86,7 +86,7 @@
                 </div>
 
                 <br/>
-                <div id="waiting" style="display: none;"><center><img src="{{ asset('images/ajax-loader.gif') }}" /></center></div>
+                <div id="waiting" style="display: none;"><center><img src="{{ asset('assets/images/ajax-loader.gif') }}" /></center></div>
                 <br/>
 
                 <div id="startScrapingProgressTotal" class="panel panel-default" style="display:none;">

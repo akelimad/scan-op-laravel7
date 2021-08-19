@@ -37,7 +37,7 @@
 
 
                 <div class="actionBtn">
-                    {{ link_to_route('admin.manga.show', Lang::get('messages.admin.chapter.back'), $manga->id, array('class' => 'btn btn-default btn-xs')); }}
+                    {{ link_to_route('admin.manga.show', Lang::get('messages.admin.chapter.back'), $manga->id, array('class' => 'btn btn-default btn-xs')) }}
 
                     @if(Entrust::can('add_chapter'))
                     {{Form::submit(Lang::get('messages.admin.chapter.create.create-chapter'), array('class' => 'btn btn-primary btn-xs'))}}

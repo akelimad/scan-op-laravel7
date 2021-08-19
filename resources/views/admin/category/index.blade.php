@@ -32,7 +32,7 @@
                             {{ $errors->first('slug', '<label class="error" for="slug">:message</label>') }}
                         </div>
                         <div class="actionBtn">
-                            {{ link_to_route('admin.manga.index', Lang::get('messages.admin.category.back'), null, array('class' => 'btn btn-default btn-xs')); }}
+                            {{ link_to_route('admin.manga.index', Lang::get('messages.admin.category.back'), null, array('class' => 'btn btn-default btn-xs')) }}
 
                             {{Form::submit(Lang::get('messages.admin.category.create-category'), array('class' => 'btn btn-primary btn-xs'))}}
                         </div>
@@ -57,7 +57,7 @@
                                     {{ $category->slug }}
                                 </td>
                                 <td>
-                                    {{ link_to_route('admin.category.edit', Lang::get('messages.admin.category.edit'), $category->id, array('class' => 'btn btn-primary btn-xs')); }}
+                                    {{ link_to_route('admin.category.edit', Lang::get('messages.admin.category.edit'), $category->id, array('class' => 'btn btn-primary btn-xs')) }}
 
                                     <div style="display: inline-block">
                                         {{ Form::open(array('route' => array('admin.category.destroy', $category->id), 'method' => 'delete')) }}

@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Manga;
+use App\Post;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
 /**
  * Post Controller Class - manga-cat
  * 
@@ -41,7 +47,7 @@ class PostController extends BaseController
             $posts = Post::whereIn('user_id', $ids)->paginate(15);
         }*/
         
-        return View::make('admin.posts.index', [
+        return view('admin.posts.index', [
             'posts' => $posts,
         ]);
     }
@@ -49,8 +55,7 @@ class PostController extends BaseController
     public function create()
     {
     	$categories = array(0 => 'General') + Manga::lists('name', 'id');
-        return View::make(
-            'admin.posts.create', ['categories' => $categories]
+        return view('admin.posts.create', ['categories' => $categories]
         );
     }
 
@@ -82,7 +87,7 @@ class PostController extends BaseController
         $post = Post::find($id);
         $categories = array(0 => 'General') + Manga::lists('name', 'id');
 		
-        return View::make('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
+        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
     }
     
     public function update($id)
@@ -145,7 +150,7 @@ class PostController extends BaseController
             File::makeDirectory($UploadTeamPath, 0777, true);
         }
 
-        return View::make('admin.posts.imageuploader.imgbrowser',[
+        return view('admin.posts.imageuploader.imgbrowser',[
                 'UploadTeamPath' => $UploadTeamPath,
                 'CKEditorFuncNum' => $CKEditorFuncNum
         ]);

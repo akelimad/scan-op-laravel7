@@ -42,7 +42,7 @@
                 </div>
                 <br/>
                 
-                {{ Form::open(array('route' => 'admin.manga.store', 'role' => 'form')) }}
+                {{ Form::open(array('route' => 'manga.store', 'role' => 'form')) }}
                 <div class="form-group">
                     {{Form::label('name', Lang::get('messages.admin.manga.create.manga-name'))}}
                     {{Form::text('name','', array('class' => 'form-control'))}}
@@ -115,7 +115,7 @@
                 </div>
                 
                 <div class="actionBtn">
-                    {{ link_to_route('admin.manga.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs')); }}
+                    {{ link_to_route('manga.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs')) }}
 	
                     @if(Entrust::can('add_manga'))
                     {{Form::submit(Lang::get('messages.admin.manga.create-manga'), array('class' => 'btn btn-primary btn-xs'))}}
@@ -248,7 +248,7 @@
     $('#previewTemplate').remove();
 
     var myDropzone = new Dropzone("#coverContainer", {
-        url: "{{ action('FileUploadController@uploadMangaCover') }}",
+        url: "{{ action('Utils\FileUploadController@uploadMangaCover') }}",
         thumbnailWidth: 200,
         thumbnailHeight: 280,
         acceptedFiles: 'image/*',
@@ -277,7 +277,7 @@
     function deletefile(value)
     {
         $.post(
-                "{{ action('FileUploadController@deleteCover') }}",
+                "{{ action('Utils\FileUploadController@deleteCover') }}",
                 {filename: value}, function() {
             $('.previewWrapper').find('img').remove();
             $('.previewWrapper').append('<i class="fa fa-file-image-o"></i>');

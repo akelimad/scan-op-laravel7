@@ -54,7 +54,7 @@ class Manga extends Model
      */
     public function status()
     {
-        return $this->belongsTo('Status');
+        return $this->belongsTo(Status::class);
     }
 
     /**
@@ -64,7 +64,7 @@ class Manga extends Model
      */
     public function chapters()
     {
-        return $this->hasMany('Chapter')->orderBy('created_at', 'desc');
+        return $this->hasMany(Chapter::class)->orderBy('created_at', 'desc');
     }
 
     public function sortedChapters() {
@@ -98,7 +98,7 @@ class Manga extends Model
     
     public function type()
     {
-        return $this->belongsTo('ComicType');
+        return $this->belongsTo(ComicType::class);
     }
     
     /**
@@ -126,7 +126,7 @@ class Manga extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('Category');
+        return $this->belongsToMany(Category::class);
     }
 
     /**
@@ -136,7 +136,7 @@ class Manga extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('Tag');
+        return $this->belongsToMany(Tag::class);
     }
     
     /**
@@ -146,7 +146,7 @@ class Manga extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo(User::class);
     }
 	
     /**

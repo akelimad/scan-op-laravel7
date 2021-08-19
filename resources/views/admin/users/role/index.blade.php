@@ -35,7 +35,7 @@
                                 <tr>
                                     <td>{{ $role->name }}</td>
                                     <td>{{ App::make("HelperController")->listAsString($role->perms, ', ') }}</td>
-                                    <td style="text-align: right;"> {{ link_to_route('admin.role.edit', Lang::get('messages.admin.users.edit'), $role->id, array('class' => 'btn btn-primary btn-xs')); }}
+                                    <td style="text-align: right;"> {{ link_to_route('admin.role.edit', Lang::get('messages.admin.users.edit'), $role->id, array('class' => 'btn btn-primary btn-xs')) }}
                                         <div style="display: inline-block">
                                             {{ Form::open(array('route' => array('admin.role.destroy', $role->id), 'method' => 'delete')) }}
                                             {{ Form::submit(Lang::get('messages.admin.users.delete') , array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'.Lang::get('messages.admin.users.roles.confirm-delete').'")) {return false;}')) }}

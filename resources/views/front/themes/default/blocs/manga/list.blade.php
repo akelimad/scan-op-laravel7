@@ -237,7 +237,7 @@
 
 @section('content')
 <div id="waiting" style="display: none;" class="@if(Config::get('orientation') === 'rtl') pull-left @else pull-right @endif">
-    <img src="{{ asset('images/ajax-loader.gif') }}" />
+    <img src="{{ asset('assets/images/ajax-loader.gif') }}" />
 </div>
 
 <h2 class="widget-title">{{ Lang::get('messages.front.directory.manga-directory') }}</h2>

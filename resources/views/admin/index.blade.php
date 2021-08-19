@@ -91,7 +91,7 @@
                             </div>
                             <div>
                                 <i class="fa fa-calendar-o"></i>
-                                <small>{{ App::make("HelperController")->formateCreationDate($manga->created_at) }}</small>
+                                <small>{{ (new App\Http\Controllers\Utils\HelperController)->formateCreationDate($manga->created_at) }}</small>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         </h5>
                         <div class="pull-right">
                             <i class="fa fa-calendar-o"></i>
-                            <small>{{ App::make("HelperController")->formateCreationDate($chapter->created_at) }}</small>
+                            <small>{{ (new App\Http\Controllers\Utils\HelperController)->formateCreationDate($chapter->created_at) }}</small>
                         </div>
                         <p class="list-group-item-text"><em>{{ $chapter->name }}</em></p>
 

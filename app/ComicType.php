@@ -37,7 +37,7 @@ class ComicType extends Model
      */
     public function isValid()
     {
-        $validation = Validator::make($this->attributes, static::$rules);
+        $validation = \Validator::make($this->attributes, static::$rules);
 
         if ($validation->passes()) {
             return true;

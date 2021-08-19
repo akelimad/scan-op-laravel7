@@ -60,17 +60,17 @@
 
                             <ul class="dropdown-menu pull-right" role="menu">
                                 <li>                                        
-                                    {{ link_to_route('admin.manga.edit', Lang::get('messages.admin.manga.edit-manga'), $manga->id) }}
+                                    {{ link_to_route('manga.edit', Lang::get('messages.admin.manga.edit-manga'), $manga->id) }}
                                 </li>
                                 <li>
-                                    {{ Form::open(array('route' => array('admin.manga.destroy', $manga->id), 'method' => 'delete')) }}
+                                    {{ Form::open(array('route' => array('manga.destroy', $manga->id), 'method' => 'delete')) }}
                                     {{ Form::submit(Lang::get('messages.admin.manga.delete-manga'), array('class' => 'delete-btn',  'onclick' => 'if (!confirm("'. Lang::get('messages.admin.manga.confirm-delete') .'")) {return false;}')) }}
                                     {{ Form::close() }}
                                 </li>
                             </ul>
                         </div>
                         @endif
-                        {{ link_to_route('admin.manga.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs')); }}
+                        {{ link_to_route('manga.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs')) }}
                     </div>
                 </div>
                 <!-- /.panel-heading -->
@@ -105,7 +105,7 @@
                         @if (count($manga->categories)>0)
                         <dt>{{ Lang::get('messages.admin.manga.detail.categories') }}</dt>
                         <dd>
-                            {{ App::make("HelperController")->listAsString($manga->categories, ', ') }}
+                            {{ (new App\Http\Controllers\Utils\HelperController)->listAsString($manga->categories, ', ') }}
                         </dd>
                         @endif
 
@@ -117,7 +117,7 @@
                         @if (count($manga->tags)>0)
                         <dt>{{ Lang::get('messages.admin.manga.create.tags') }}</dt>
                         <dd>
-                            {{ App::make("HelperController")->listAsString($manga->tags, ', ') }}
+                            {{ (new App\Http\Controllers\Utils\HelperController)->listAsString($manga->tags, ', ') }}
                         </dd>
                         @endif
                     </dl>
@@ -139,10 +139,10 @@
 
                             <ul class="dropdown-menu pull-right" role="menu">
                                 <li>                                        
-                                    {{ link_to_route('admin.manga.chapter.create', Lang::get('messages.admin.chapter.edit.manually'), $manga->id) }}
+                                    {{ link_to_route('manga.chapter.create', Lang::get('messages.admin.chapter.edit.manually'), $manga->id) }}
                                 </li>
                                 <li>
-                                    {{ link_to_route('admin.manga.chapter.scraper', Lang::get('messages.admin.chapter.edit.grap-sites'), array('manga' => $manga->id)); }}
+                                    {{ link_to_route('admin.manga.chapter.scraper', Lang::get('messages.admin.chapter.edit.grap-sites'), array('manga' => $manga->id)) }}
                                 </li>
                             </ul>
                         </div>
@@ -191,7 +191,7 @@
                                     {{ $chapter->user->username }}
                                 </td>
                                 <td>
-                                    {{ App::make("HelperController")->formateCreationDate($chapter->created_at) }}
+                                    {{ (new App\Http\Controllers\Utils\HelperController)->formateCreationDate($chapter->created_at) }}
                                 </td>
                             </tr>
                             @endforeach

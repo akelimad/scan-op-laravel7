@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\ComicType;
+
 /**
  * ComicType Controller Class
  * 

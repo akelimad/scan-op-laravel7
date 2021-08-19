@@ -19,7 +19,7 @@
                 <div class="media-left manga-cover">
                     <a href='{{ url("/admin/manga/{$manga->id}") }}'>
                         @if ($manga->cover)
-                        <img width="100" height="100" src='{{asset("uploads/manga/{$manga->slug}/cover/cover_thumb.jpg")}}' alt='{{ $manga->name }}'/>
+                        <img width="100" height="100" src='{{asset("uploads/manga/{$manga->slug}/cover/cover_thumb.jpg")}}' alt='{{ $manga->name }}' />
                         @else
                         <img width="100" height="100" src='{{asset("images/no-image.png")}}' alt='{{ $manga->name }}' />
                         @endif
@@ -30,16 +30,20 @@
                         <i class="fa fa-user"></i>
                         <small>{{ $manga->user->username }},</small>
                         <i class="fa fa-calendar-o"></i>
-                        <small>{{ App::make("HelperController")->formateCreationDate($manga->created_at) }}</small>
+                        <small>{{ (new App\Http\Controllers\Utils\HelperController)->formateCreationDate($manga->created_at) }}</small>
                     </div>
                     <h5 style="margin: 5px 0 0;">
-                        {{ link_to("/admin/manga/{$manga->id}", $manga->name) }}    
+                        {{ link_to("/admin/manga/{$manga->id}", $manga->name) }}
                     </h5>
 
                     <div class="readOnly-{{$manga->id}}" style="display: inline-block;"></div>
-                    <span style="vertical-align: middle;">{{Jraty::get($manga->id)->avg}}</span>
+                    <span style="vertical-align: middle;">{{-- Jraty::get($manga->id)->avg --}}</span>
                     <script>
-                        $('.readOnly-{{$manga->id}}').raty({path: "{{asset('/packages/escapeboy/jraty/raty/lib/img')}}", readOnly: true, score: "{{Jraty::get($manga->id)->avg}}"});
+                        $('.readOnly-{{$manga->id}}').raty({
+                            path: "{{asset('/packages/escapeboy/jraty/raty/lib/img')}}",
+                            readOnly: true,
+                            score: "{{-- Jraty::get($manga->id)->avg --}}"
+                        });
                     </script>
                     <div>
                         <i class="fa fa-eye"></i> {{$manga->views}}
@@ -48,7 +52,7 @@
                     @if (count($manga->categories)>0)
                     <div class="categories">
                         <i class="fa fa-tags"></i>
-                        {{ App::make("HelperController")->listAsString($manga->categories, ', ') }}
+                        {{ (new App\Http\Controllers\Utils\HelperController)->listAsString($manga->categories, ', ') }}
                     </div>
                     @endif
                     @if (!is_null($manga->lastChapter()))

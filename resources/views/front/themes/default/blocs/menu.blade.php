@@ -119,7 +119,7 @@
 
 <style>
     .searching {
-        background-image: url('{{asset("images/ajax-loader.gif")}}');
+        background-image: url('{{asset("assets/images/ajax-loader.gif")}}');
         background-position: 95% 50%;
         background-repeat: no-repeat;
     }

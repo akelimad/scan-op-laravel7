@@ -48,7 +48,7 @@
                                         <td>@if($post->status == 1) <span class="label label-success">{{ Lang::get('messages.admin.posts.status-published') }}</span> @else <span class="label label-danger">{{ Lang::get('messages.admin.posts.status-disabled') }}</span> @endif </td>
                                         <td>{{ $post->created_at }}</td>
                                         <td style="text-align: right;"> 
-                                            {{ link_to_route('admin.posts.edit', Lang::get('messages.admin.category.edit'), $post->id, array('class' => 'btn btn-primary btn-xs')); }}
+                                            {{ link_to_route('admin.posts.edit', Lang::get('messages.admin.category.edit'), $post->id, array('class' => 'btn btn-primary btn-xs')) }}
                                             <div style="display: inline-block">
                                                 {{ Form::open(array('route' => array('admin.posts.destroy', $post->id), 'method' => 'delete')) }}
                                                 {{ Form::submit(Lang::get('messages.admin.category.delete'), array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'.Lang::get('messages.admin.posts.confirm-delete').'")) {return false;}')) }}

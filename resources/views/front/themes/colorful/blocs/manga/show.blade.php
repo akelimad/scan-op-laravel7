@@ -39,7 +39,7 @@ score: score
 });
 }',
 'path' => "'".asset('/packages/escapeboy/jraty/raty/lib/img')."'"
-)); }}
+)) }}
 @stop
 
 @section('allpage')

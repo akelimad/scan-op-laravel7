@@ -13,7 +13,7 @@
             <div class="panel-heading">
                 <i class="fa fa-book fa-fw"></i> {{ Lang::get('messages.admin.chapter.page.title') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.manga.chapter.show', Lang::get('messages.admin.chapter.page.back'), array('manga' => $manga->id, 'chapter' => $chapter->id), array('class' => 'btn btn-default btn-xs')); }}
+                    {{ link_to_route('admin.manga.chapter.show', Lang::get('messages.admin.chapter.page.back'), array('manga' => $manga->id, 'chapter' => $chapter->id), array('class' => 'btn btn-default btn-xs')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->

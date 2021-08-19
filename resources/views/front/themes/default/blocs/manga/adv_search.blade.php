@@ -126,7 +126,7 @@
         <div class="form-group">
             <button id="search" class="btn btn-primary">{{ Lang::get('messages.front.adv-search.search') }}</button>
             <div id="waiting" style="display: none;" class="@if(Config::get('orientation') === 'rtl') pull-left @else pull-right @endif">
-                <img src="{{ asset('images/ajax-loader.gif') }}" />
+                <img src="{{ asset('assets/images/ajax-loader.gif') }}" />
             </div>
         </div>
     </div>

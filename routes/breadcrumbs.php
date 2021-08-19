@@ -18,7 +18,7 @@ Breadcrumbs::register(
     function ($breadcrumbs) {
         $breadcrumbs->push(
             Lang::get('messages.admin.layout.manage-manga'), 
-            route('admin.manga.index')
+            route('manga.index')
         );
     }
 );
@@ -27,7 +27,7 @@ Breadcrumbs::register(
     'admin.manga.show',
     function ($breadcrumbs, $manga) {
         $breadcrumbs->parent('admin.manga.index');
-        $breadcrumbs->push($manga->name, route('admin.manga.show', $manga->id));
+        $breadcrumbs->push($manga->name, route('manga.show', $manga->id));
     }
 );
 
@@ -37,18 +37,18 @@ Breadcrumbs::register(
         $breadcrumbs->parent('admin.manga.show', $manga);
         $breadcrumbs->push(
             Lang::get('messages.admin.manga.edit'), 
-            route('admin.manga.edit')
+            route('manga.edit', $manga->id)
         );
     }
 );
 
 Breadcrumbs::register(
-    'admin.manga.create', 
+    'manga.create', 
     function ($breadcrumbs) {
         $breadcrumbs->parent('admin.manga.index');
         $breadcrumbs->push(
             Lang::get('messages.admin.manga.create'), 
-            route('admin.manga.create')
+            route('manga.create')
         );
     }
 );
@@ -71,7 +71,7 @@ Breadcrumbs::register(
         $breadcrumbs->push(
             Lang::get('messages.admin.chapter.edit', array('number' => $chapter->number)),
             route(
-                'admin.manga.chapter.show', 
+                'manga.chapter.show', 
                 array($manga->id, $chapter->id)
             )
         );

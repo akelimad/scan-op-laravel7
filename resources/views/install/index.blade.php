@@ -133,7 +133,7 @@
 
                         <div id="waiting" style="display: none; margin-top: 20px; margin-bottom: 10px;">
                             <center>
-                                <img src="{{ asset('assets/images/ajax-loader.gif') }}" alt='Installing...' />
+                                <img src="{{ asset('assets/assets/images/ajax-loader.gif') }}" alt='Installing...' />
                             </center>
                         </div>
                     </div>

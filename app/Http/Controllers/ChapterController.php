@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Chapter;
 use App\Manga;
+use App\Page;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Chapter Controller Class
@@ -77,7 +85,7 @@ class ChapterController extends BaseController
         $chapter = $manga->chapters()->save($this->chapter);
 
         // queue send notification
-        $date = Carbon\Carbon::now()->addMinutes(5);
+        $date = \Carbon\Carbon::now()->addMinutes(5);
         Queue::later($date, 'SendNotification', array(
             'mangaId' => $mangaId, 
             'chapter_number' => $chapter->number,
@@ -120,7 +128,7 @@ class ChapterController extends BaseController
      */
     public function update($mangaId, $chapterId)
     {
-        $input = Input::all();
+        $input = request()->all();
         $chapter = Chapter::find($chapterId);
 
         $slugDiff = false;
@@ -252,7 +260,7 @@ class ChapterController extends BaseController
         $mangaSlug = filter_input(INPUT_POST, 'mangaSlug');
         
         // queue send notification
-        $date = Carbon\Carbon::now()->addMinutes(5);
+        $date = \Carbon\Carbon::now()->addMinutes(5);
         Queue::later($date, 'SendNotification', array(
             'mangaId' => $mangaId, 
             'chapter_number' => null,

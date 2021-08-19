@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\ComicType;
 use App\Manga;
+use App\Status;
+use App\Tag;
 use Goutte\Client;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Manga Controller Class
@@ -40,7 +47,7 @@ class MangaController extends BaseController
     {
         $mangas = Manga::orderBy('name')->paginate($this->mangaPerPage);
 
-        return View::make('admin.manga.index', ["mangas" => $mangas]);
+        return view('admin.manga.index', ["mangas" => $mangas]);
     }
 
     public function filterList()
@@ -61,7 +68,7 @@ class MangaController extends BaseController
             $mangaList = Manga::orderBy($sortBy)->paginate($this->mangaPerPage);
         }
 
-        return View::make(
+        return view(
             'admin.manga.filter', [
                 "mangas" => $mangaList
             ]
@@ -75,12 +82,12 @@ class MangaController extends BaseController
      */
     public function create()
     {
-        $status = array('' => Lang::get('messages.admin.manga.create.choose-status')) + Status::lists('label', 'id');
-        $comicTypes = array('' => 'Choose the comic type') + ComicType::lists('label', 'id');
-        $categories = Category::lists('name', 'id');
-        $tags = Tag::lists('name', 'id');
-        $str=implode(',', $tags);
-        return View::make(
+        $status = array('' => Lang::get('messages.admin.manga.create.choose-status')) + Status::pluck('label', 'id')->toArray();
+        $comicTypes = array('' => 'Choose the comic type') + ComicType::pluck('label', 'id')->toArray();
+        $categories = Category::pluck('name', 'id')->toArray();
+        $tags = Tag::pluck('name', 'id')->toArray();
+        $str = implode(',', $tags);
+        return view(
             'admin.manga.create', 
             [
                 'status' => $status, 
@@ -98,7 +105,7 @@ class MangaController extends BaseController
      */
     public function store()
     {
-        $input = Input::all();
+        $input = request()->all();
 
         if (!$this->manga->fill($input)->isValid()) {
             return Redirect::back()
@@ -122,7 +129,7 @@ class MangaController extends BaseController
     {
         $mangaInfo = Manga::find($id);
 
-        return View::make('admin.manga.show', ['manga' => $mangaInfo]);
+        return view('admin.manga.show', ['manga' => $mangaInfo]);
     }
 
     /**
@@ -136,10 +143,10 @@ class MangaController extends BaseController
     {
         $mangaInfo = Manga::find($id);
 		
-        $status = array('' => 'Choose Status') + Status::lists('label', 'id');
-        $comicTypes = array('' => 'Choose the comic type') + ComicType::lists('label', 'id');
-        $categories = Category::lists('name', 'id');
-        $tags = Tag::lists('name', 'id');
+        $status = array('' => 'Choose Status') + Status::pluck('label', 'id')->toArray();
+        $comicTypes = array('' => 'Choose the comic type') + ComicType::pluck('label', 'id')->toArray();
+        $categories = Category::pluck('name', 'id')->toArray();
+        $tags = Tag::pluck('name', 'id')->toArray();
         $str = implode(',', $tags);
         
         $categories_id = array();
@@ -156,7 +163,7 @@ class MangaController extends BaseController
             }
         }
 
-        return View::make(
+        return view(
             'admin.manga.edit',
             [
                 'manga' => $mangaInfo,
@@ -179,7 +186,7 @@ class MangaController extends BaseController
      */
     public function update($id)
     {
-        $input = Input::all();
+        $input = request()->all();
         $this->manga = Manga::find($id);
 
         $slugDiff = false;
@@ -231,7 +238,7 @@ class MangaController extends BaseController
         $mangas = Manga::whereNull('hot')->get();
         $hotest = Manga::whereNotNull('hot')->get();
 
-        return View::make(
+        return view(
             'admin.manga.hot',
             ["mangas" => $mangas, "hotest" => $hotest]
         );
@@ -424,7 +431,7 @@ class MangaController extends BaseController
         $options = Option::where('key', '=' , 'manga.options')->first();
         $mangaOptions = json_decode($options->value);
         
-        return View::make(
+        return view(
             'admin.manga.options',
             [
                 'mangaOptions' => $mangaOptions, 
@@ -439,7 +446,7 @@ class MangaController extends BaseController
      */
     public function saveMangaOptions()
     {
-    	$input = Input::all();
+    	$input = request()->all();
         unset($input['_token']);
 
         Option::findByKey("manga.options")

@@ -3,7 +3,7 @@
 @section('breadcrumbs', Breadcrumbs::render('admin.manga.index'))
 
 @section('head')
-{{ Jraty::js() }}
+<!-- Jraty::js() -->
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
                 <i class="fa fa-list fa-fw"></i> {{ Lang::get('messages.admin.manga.list') }}
                 @if(Entrust::can('add_manga'))
                 <div class="pull-right">
-                    {{ link_to_route('admin.manga.create', Lang::get('messages.admin.manga.create'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
+                    {{ link_to_route('manga.create', Lang::get('messages.admin.manga.create'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
                 </div>
                 @endif
             </div>
@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div id="waiting" style="position: relative; display: none;" class="col-sm-12">
-                        <img src="{{ asset('images/ajax-loader.gif') }}" 
-                             style="position: absolute; right: 10px; top: 10px;" />
+                        <img src="{{ asset('assets/images/ajax-loader.gif') }}" style="position: absolute; right: 10px; top: 10px;" />
                     </div>
 
                     <div class="content">
@@ -70,13 +69,16 @@
         var page = $(this).attr('href').split('page=')[1];
         getMangaList(page);
     });
-    
+
     function getMangaList(page) {
         $('#waiting').show();
-        
+
         $.ajax({
             url: 'filterMangaList',
-            data: {'page': page, 'alpha': alpha}
+            data: {
+                'page': page,
+                'alpha': alpha
+            }
         }).done(function(data) {
             $('#waiting').hide();
             $('.content').html(data);

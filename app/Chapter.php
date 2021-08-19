@@ -40,7 +40,7 @@ class Chapter extends Model
      */
     public function pages()
     {
-        return $this->hasMany('Page')->orderBy('slug');
+        return $this->hasMany(Page::class)->orderBy('slug');
     }
 
     /**
@@ -78,7 +78,7 @@ class Chapter extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo(User::class);
     }
     
     /**
@@ -88,7 +88,7 @@ class Chapter extends Model
      */
     public function manga()
     {
-        return $this->belongsTo('Manga');
+        return $this->belongsTo(Manga::class);
     }
     
     /**
@@ -103,7 +103,7 @@ class Chapter extends Model
         static::$rules = str_replace(':mangaid', $mangaid, static::$rules);
         static::$rules = str_replace(':id', $this->id, static::$rules);
 
-        $validation = Validator::make($this->attributes, static::$rules);
+        $validation = \Validator::make($this->attributes, static::$rules);
 
         if ($validation->passes()) {
             return true;

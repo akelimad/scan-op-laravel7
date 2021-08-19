@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Permission;
+use App\Role;
+
 /**
  * Role Controller Class
  * 
@@ -37,8 +40,7 @@ class RoleController extends BaseController
     {
     	$roles = Role::all();
 		
-        return View::make(
-            'admin.users.role.index',
+        return view('admin.users.role.index',
             ['roles' => $roles]
         );
     }
@@ -52,8 +54,7 @@ class RoleController extends BaseController
     {
     	$permissions = Permission::all();
 		
-        return View::make(
-            'admin.users.role.create', 
+        return view('admin.users.role.create', 
             ['permissions' => $permissions]
         );
     }

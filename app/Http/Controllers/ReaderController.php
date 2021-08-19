@@ -2,6 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Chapter;
+use App\Http\Controllers\Utils\HelperController;
+use App\Manga;
+use App\Page;
+use App\Placement;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+
 /**
  * Reader Controller Class
  * 
@@ -106,8 +117,7 @@ class ReaderController extends BaseController
                 }
                 if (isset($sortedChapters[$i + 1])) {
                     $prevChapter = $sortedChapters[$i + 1];
-                    $counter = Page::where('chapter_id', '=', $prevChapter->chapter_id)
-                            ->count();
+                    $counter = Page::where('chapter_id', '=', $prevChapter->chapter_id)->count();
                     if ($counter > 0) {
                         $prevChapterLastPage = $counter;
                     }
@@ -128,26 +138,23 @@ class ReaderController extends BaseController
         $settings = Cache::get('options');
         $advancedSEO = json_decode($settings['seo.advanced']);
         
-        return View::make(
-            'front.reader', 
-            [
-                'settings' => $settings,
-                'page' => $page,
-                'current' => $currentChapter,
-                'chapters' => $sortedChapters,
-                'allPages' => $allPagesSorted,
-                'nextChapter' => $nextChapter,
-                'prevChapter' => $prevChapter,
-                'prevChapterLastPage' => $prevChapterLastPage,
-                'ads' => $ads,
-                'seo' => $advancedSEO
-            ]
-        );
+        return view('front.reader', [
+            'settings' => $settings,
+            'page' => $page,
+            'current' => $currentChapter,
+            'chapters' => $sortedChapters,
+            'allPages' => $allPagesSorted,
+            'nextChapter' => $nextChapter,
+            'prevChapter' => $prevChapter,
+            'prevChapterLastPage' => $prevChapterLastPage,
+            'ads' => $ads,
+            'seo' => $advancedSEO
+        ]);
     }
     
-    public function reportBug()
+    public function reportBug(Request $request)
     {
-        if (HelperController::isValidCaptcha(Input::all())) {
+        if (HelperController::isValidCaptcha($request->all())) {
             $data = array();
             $data['broken-image'] = filter_input(INPUT_POST, 'broken-image');
             $data['email'] = filter_input(INPUT_POST, 'email');

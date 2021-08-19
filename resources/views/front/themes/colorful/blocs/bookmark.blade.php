@@ -130,7 +130,7 @@
     });
     
     waiting = '<div style="padding: 10px 0;" class="text-center">' +
-                    '<img src="{{ asset('images/ajax-loader.gif') }}" />'+
+                    '<img src="{{ asset('assets/images/ajax-loader.gif') }}" />'+
                 '</div>';
                 
     function loadTabData(status) {

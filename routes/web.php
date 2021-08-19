@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,16 +22,16 @@ Route::get('admin', 'DashboardController@index');
 
 
 // Confide routes
-Route::get('users/create', 'UsersController@create');
-Route::post('users', 'UsersController@store');
-Route::get('admin/login', 'UsersController@login');
-Route::post('users/login', 'UsersController@doLogin');
-Route::get('users/confirm/{code}', 'UsersController@confirm');
-Route::get('users/forgot_password', 'UsersController@forgotPassword');
-Route::post('users/forgot_password', 'UsersController@doForgotPassword');
-Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
-Route::post('users/reset_password', 'UsersController@doResetPassword');
-Route::get('admin/logout', ['as' => 'admin.logout', 'uses' => 'UsersController@logout']);
+// Route::get('users/create', 'UsersController@create');
+// Route::post('users', 'UsersController@store');
+// Route::get('admin/login', 'UsersController@login');
+// Route::post('users/login', 'UsersController@doLogin');
+// Route::get('users/confirm/{code}', 'UsersController@confirm');
+// Route::get('users/forgot_password', 'UsersController@forgotPassword');
+// Route::post('users/forgot_password', 'UsersController@doForgotPassword');
+// Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
+// Route::post('users/reset_password', 'UsersController@doResetPassword');
+// Route::get('admin/logout', ['as' => 'admin.logout', 'uses' => 'UsersController@logout']);
 
 Route::group(['before' => 'auth'], function () {
     Route::get('admin/hot-manga', ['as' => 'admin.manga.hot', 'uses' => 'MangaController@hotManga']);
@@ -61,7 +62,7 @@ Route::group(['before' => 'auth'], function () {
     Route::post('movePage', 'PageController@movePage');
     Route::resource('admin/manga.chapter.page', 'PageController');
 
-    Route::resource('admin/category', 'CategoryController');
+    Route::resource('admin/category', 'Communs\CategoryController');
 
     // CKeditor upload image
     Route::post('admin/uploadPostImage', ['as' => 'admin.posts.uploadImage', 'uses' => 'PostController@uploadImage']);
@@ -72,20 +73,20 @@ Route::group(['before' => 'auth'], function () {
     Route::resource('admin/posts', 'PostController');
 
     // Settings
-    Route::get('admin/general', ['as' => 'admin.settings.general', 'uses' => 'SettingsController@general']);
-    Route::post('admin/general', ['as' => 'admin.settings.general.save', 'uses' => 'SettingsController@saveGeneral']);
+    Route::get('admin/general', ['as' => 'admin.settings.general', 'uses' => 'Settings\SettingsController@general']);
+    Route::post('admin/general', ['as' => 'admin.settings.general.save', 'uses' => 'Settings\SettingsController@saveGeneral']);
 
-    Route::get('admin/seo', ['as' => 'admin.settings.seo', 'uses' => 'SettingsController@seo']);
-    Route::post('admin/seo', ['as' => 'admin.settings.seo.save', 'uses' => 'SettingsController@saveSeo']);
+    Route::get('admin/seo', ['as' => 'admin.settings.seo', 'uses' => 'Settings\SettingsController@seo']);
+    Route::post('admin/seo', ['as' => 'admin.settings.seo.save', 'uses' => 'Settings\SettingsController@saveSeo']);
 
-    Route::get('admin/profile', ['as' => 'admin.settings.profile', 'uses' => 'SettingsController@profile']);
-    Route::post('admin/profile', ['as' => 'admin.settings.profile.save', 'uses' => 'SettingsController@saveProfile']);
+    Route::get('admin/profile', ['as' => 'admin.settings.profile', 'uses' => 'Settings\SettingsController@profile']);
+    Route::post('admin/profile', ['as' => 'admin.settings.profile.save', 'uses' => 'Settings\SettingsController@saveProfile']);
 
-    Route::get('admin/theme', ['as' => 'admin.settings.theme', 'uses' => 'SettingsController@theme']);
-    Route::post('admin/theme', ['as' => 'admin.settings.theme.save', 'uses' => 'SettingsController@saveTheme']);
+    Route::get('admin/theme', ['as' => 'admin.settings.theme', 'uses' => 'Settings\SettingsController@theme']);
+    Route::post('admin/theme', ['as' => 'admin.settings.theme.save', 'uses' => 'Settings\SettingsController@saveTheme']);
 
-    Route::get('admin/widgets', ['as' => 'admin.settings.widgets', 'uses' => 'SettingsController@widgets']);
-    Route::post('admin/widgets', ['as' => 'admin.settings.widgets.save', 'uses' => 'SettingsController@saveWidgets']);
+    Route::get('admin/widgets', ['as' => 'admin.settings.widgets', 'uses' => 'Settings\SettingsController@widgets']);
+    Route::post('admin/widgets', ['as' => 'admin.settings.widgets.save', 'uses' => 'Settings\SettingsController@saveWidgets']);
 
     Route::get('admin/cache', ['as' => 'admin.settings.cache', 'uses' => 'Settings\SettingsController@cache']);
     Route::post('admin/cache', ['as' => 'admin.settings.cache.save', 'uses' => 'Settings\SettingsController@saveCache']);
@@ -102,12 +103,12 @@ Route::group(['before' => 'auth'], function () {
     Route::resource('admin/role', 'RoleController');
     Route::resource('admin/user', 'ManageUserController');
 
-    Route::post('uploadMangaCover', 'FileUploadController@uploadMangaCover');
-    Route::post('uploadMangaChapterPage', 'FileUploadController@uploadMangaChapterPage');
-    Route::post('deleteImage', 'FileUploadController@deleteImage');
-    Route::post('deleteCover', 'FileUploadController@deleteCover');
-    Route::post('uploadAvatar', 'FileUploadController@uploadAvatar');
-    Route::post('deleteAvatar', 'FileUploadController@deleteAvatar');
+    Route::post('uploadMangaCover', 'Utils\FileUploadController@uploadMangaCover');
+    Route::post('uploadMangaChapterPage', 'Utils\FileUploadController@uploadMangaChapterPage');
+    Route::post('deleteImage', 'Utils\FileUploadController@deleteImage');
+    Route::post('deleteCover', 'Utils\FileUploadController@deleteCover');
+    Route::post('uploadAvatar', 'Utils\FileUploadController@uploadAvatar');
+    Route::post('deleteAvatar', 'Utils\FileUploadController@deleteAvatar');
 
     Route::post('admin/ads/storePlacements', ['as' => 'admin.ads.storePlacements', 'uses' => 'ManageAdsController@storePlacements']);
     Route::resource('admin/ads', 'ManageAdsController');
