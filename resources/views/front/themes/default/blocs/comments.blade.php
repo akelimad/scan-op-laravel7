@@ -6,9 +6,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script> <!-- load angular -->
 
 <!-- ANGULAR -->
-{{ HTML::script('js/comment/controllers/mainCtrl.js') }}
-{{ HTML::script('js/comment/services/commentService.js') }}
-{{ HTML::script('js/comment/app.js') }}
+{{ HTML::script('assets/js/comment/controllers/mainCtrl.js') }}
+{{ HTML::script('assets/js/comment/services/commentService.js') }}
+{{ HTML::script('assets/js/comment/app.js') }}
 
 <div class="row comments" ng-app="commentApp" ng-controller="mainController">
     <div class="col-xs-12">

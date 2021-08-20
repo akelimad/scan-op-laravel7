@@ -38,8 +38,8 @@
     @yield('header')
 
     <!--[if lt IE 9]>
-        {{ HTML::script('js/vendor/html5shiv.js') }}
-        {{ HTML::script('js/vendor/respond.min.js') }}
+        {{ HTML::script('assets/js/vendor/html5shiv.js') }}
+        {{ HTML::script('assets/js/vendor/respond.min.js') }}
         <![endif]-->
 </head>
 

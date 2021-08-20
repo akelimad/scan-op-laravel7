@@ -1,7 +1,7 @@
 @extends('admin.layouts.default')
 
 @section('head')
-{{ HTML::script('js/dropzone.js') }}
+{{ HTML::script('assets/js/dropzone.js') }}
 @stop
 
 @section('breadcrumbs', Breadcrumbs::render('admin.manga.chapter.page.create', $manga, $chapter))

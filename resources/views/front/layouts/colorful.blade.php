@@ -35,8 +35,8 @@
     {{ HTML::script('assets/js/colorful/jquery.touchSwipe.min.js') }}
 
     <!-- Responsive Menu -->
-    {{ HTML::script('js/colorful/jquery.slicknav.min.js') }}
-    {{ HTML::style('css/colorful/slicknav.css') }}
+    {{ HTML::script('assets/js/colorful/jquery.slicknav.min.js') }}
+    {{ HTML::style('assets/css/colorful/slicknav.css') }}
 
     @if(Config::get('orientation') === 'rtl')
     {{ HTML::style('assets/css/bootstrap-rtl.min.css') }}
@@ -52,8 +52,8 @@
     @yield('header')
 
     <!--[if lt IE 9]>
-        {{ HTML::script('js/vendor/html5shiv.js') }}
-        {{ HTML::script('js/vendor/respond.min.js') }}
+        {{ HTML::script('assets/js/vendor/html5shiv.js') }}
+        {{ HTML::script('assets/js/vendor/respond.min.js') }}
         <![endif]-->
 </head>
 

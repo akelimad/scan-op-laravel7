@@ -1,13 +1,13 @@
 @extends('admin.layouts.default')
 
 @section('head')
-{{ HTML::style('css/bootstrap-select.min.css') }}
+{{ HTML::style('assets/css/bootstrap-select.min.css') }}
 
-{{ HTML::script('js/vendor/bootstrap-select.min.js') }}
-{{ HTML::script('js/dropzone.js') }}
+{{ HTML::script('assets/js/vendor/bootstrap-select.min.js') }}
+{{ HTML::script('assets/js/dropzone.js') }}
 
-{{ HTML::style('css/selectize.css') }}
-{{ HTML::script('js/vendor/selectize.js') }}
+{{ HTML::style('assets/css/selectize.css') }}
+{{ HTML::script('assets/js/vendor/selectize.js') }}
 @stop
 
 @section('breadcrumbs', Breadcrumbs::render())

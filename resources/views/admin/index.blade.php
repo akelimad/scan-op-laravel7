@@ -98,8 +98,7 @@
                     @endforeach
                 </div>
                 @if(Entrust::can('view_manga') || Entrust::can('add_manga') || Entrust::can('edit_manga') || Entrust::can('delete_manga'))
-                <!-- to create : admin.manga.index -->
-                <a href="#" class="btn btn-default btn-block">{{ Lang::get('messages.admin.dashboard.view-all-manga') }}</a>
+                        {{ link_to_route('manga.index', Lang::get('messages.admin.dashboard.view-all-manga'), null, array('class' => 'btn btn-default btn-block')) }}
                 @endif
                 @else
                 <div class="center-block">

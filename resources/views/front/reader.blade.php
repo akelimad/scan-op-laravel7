@@ -41,26 +41,26 @@ use App\Http\Controllers\Utils\HelperController;
     <meta name="google-site-verification" content="{{$settings['seo.google.webmaster']}}" />
     @endif
 
-    {{ HTML::style('css/bootswatch/darkly/bootstrap.min.css') }}
+    {{ HTML::style('assets/css/bootswatch/darkly/bootstrap.min.css') }}
 
-    {{ HTML::style('css/reader.css') }}
-    {{ HTML::style('css/font-awesome.min.css') }}
-    {{ HTML::style('css/bootstrap-select.min.css') }}
+    {{ HTML::style('assets/css/reader.css') }}
+    {{ HTML::style('assets/css/font-awesome.min.css') }}
+    {{ HTML::style('assets/css/bootstrap-select.min.css') }}
 
-    {{ HTML::script('js/vendor/jquery-1.11.0.min.js') }}
-    {{ HTML::script('js/vendor/bootstrap.min.js') }}
-    {{ HTML::script('js/vendor/bootstrap-select.min.js') }}
-    {{ HTML::script('js/vendor/jquery.unveil.js') }}
-    {{ HTML::script('js/vendor/jquery.plugins.js') }}
+    {{ HTML::script('assets/js/vendor/jquery-1.11.0.min.js') }}
+    {{ HTML::script('assets/js/vendor/bootstrap.min.js') }}
+    {{ HTML::script('assets/js/vendor/bootstrap-select.min.js') }}
+    {{ HTML::script('assets/js/vendor/jquery.unveil.js') }}
+    {{ HTML::script('assets/js/vendor/jquery.plugins.js') }}
 
     @if(Config::get('orientation') === 'rtl')
-    {{ HTML::style('css/bootstrap-rtl.min.css') }}
-    {{ HTML::style('css/rtl.css') }}
+    {{ HTML::style('assets/css/bootstrap-rtl.min.css') }}
+    {{ HTML::style('assets/css/rtl.css') }}
     @endif
 
     <!--[if lt IE 9]>
-        {{ HTML::script('js/vendor/html5shiv.js') }}
-        {{ HTML::script('js/vendor/respond.min.js') }}
+        {{ HTML::script('assets/js/vendor/html5shiv.js') }}
+        {{ HTML::script('assets/js/vendor/respond.min.js') }}
         <![endif]-->
 </head>
 

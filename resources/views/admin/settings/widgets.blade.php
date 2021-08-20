@@ -144,7 +144,7 @@
         </div>
     </div>
 </div>
-{{ HTML::script('js/vendor/jquery-sortable-min.js') }}
+{{ HTML::script('assets/js/vendor/jquery-sortable-min.js') }}
 <script>
     $(document).ready(function () {
         site_description = '<li class="highlight"><div class="panel panel-default">' +

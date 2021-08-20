@@ -5,7 +5,7 @@
 @stop
 
 @section('header')
-{{ HTML::script('js/dropzone.js') }}
+{{ HTML::script('assets/js/dropzone.js') }}
 @stop
 
 @include('front.themes.'.$theme.'.blocs.menu')

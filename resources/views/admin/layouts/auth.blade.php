@@ -9,15 +9,15 @@
 
 		@yield('head')
 		
-        {{ HTML::style('css/bootstrap.min.css') }}
-		{{ HTML::style('css/admin/main.css') }}
+        {{ HTML::style('assets/css/bootstrap.min.css') }}
+		    {{ HTML::style('assets/css/admin/main.css') }}
 		
-        {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
-        {{ HTML::script('js/vendor/jquery-1.11.0.min.js') }}
-        {{ HTML::script('js/vendor/bootstrap.min.js') }}
+        {{ HTML::script('assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
+        {{ HTML::script('assets/js/vendor/jquery-1.11.0.min.js') }}
+        {{ HTML::script('assets/js/vendor/bootstrap.min.js') }}
 
 		@if(Config::get('orientation') === 'rtl')
-        {{ HTML::style('css/bootstrap-rtl.min.css') }}
+        {{ HTML::style('assets/css/bootstrap-rtl.min.css') }}
         @endif
         
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -1,9 +1,9 @@
 @extends('admin.layouts.default')
 
 @section('head')
-{{ HTML::style('css/bootstrap-select.min.css') }}
+{{ HTML::style('assets/css/bootstrap-select.min.css') }}
 
-{{ HTML::script('js/vendor/bootstrap-select.min.js') }}
+{{ HTML::script('assets/js/vendor/bootstrap-select.min.js') }}
 @stop
 
 @section('breadcrumbs', Breadcrumbs::render())

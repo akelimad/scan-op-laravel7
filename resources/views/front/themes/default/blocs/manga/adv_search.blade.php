@@ -13,8 +13,8 @@
 @stop
 
 @section('header')
-{{ HTML::style('css/selectize.css') }}
-{{ HTML::script('js/vendor/selectize.js') }}
+{{ HTML::style('assets/css/selectize.css') }}
+{{ HTML::script('assets/js/vendor/selectize.js') }}
 
 <script>
     $(document).ready(function () {

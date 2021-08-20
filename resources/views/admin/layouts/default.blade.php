@@ -114,8 +114,7 @@
                             <ul class="nav nav-second-level">
                                 @if(Entrust::can('view_manga'))
                                 <li>
-                                    <!-- to create : admin.manga.index -->
-                                    <a href="#">{{ Lang::get('messages.admin.layout.manga-list') }}</a>
+                                    {{ link_to_route('manga.index', Lang::get('messages.admin.layout.manga-list')) }}
                                 </li>
                                 @endif
                                 @if(Entrust::can('manage_hotmanga'))
