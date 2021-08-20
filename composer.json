@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "biscolab/laravel-recaptcha": "^5.0",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "escapeboy/jraty": "dev-master",
         "fabpot/goutte": "^4.0",

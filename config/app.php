@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Shanmuga\LaravelEntrust\LaravelEntrustServiceProvider::class,
+        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Entrust' => Shanmuga\LaravelEntrust\Facades\LaravelEntrustFacade::class,
+        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
 
     ],
 

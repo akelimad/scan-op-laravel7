@@ -209,8 +209,8 @@ class HelperController extends BaseController
     
     public static function isValidCaptcha($input)
     {
-        $rules =  ['captcha' => 'required|captcha'];
-        $validation = Validator::make($input, $rules);
+        $rules =  ['g-recaptcha-response' => 'recaptcha'];
+        $validation = \Validator::make($input, $rules);
 
         if ($validation->passes()) {
             return true;

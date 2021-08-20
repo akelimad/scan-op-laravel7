@@ -6,6 +6,7 @@ use App\Category;
 use App\Chapter;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Utils\HelperController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
@@ -17,7 +18,6 @@ use App\Tag;
 use App\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
 use ZipArchive;
@@ -775,6 +775,8 @@ class FrontController extends BaseController {
     public function contactUs()
     {
         $settings = Cache::get('options');
+
+
         $theme = Cache::get('theme');
         $variation = Cache::get('variation');
 
@@ -799,7 +801,7 @@ class FrontController extends BaseController {
             Mail::send('admin.emails.contact-us', compact('data'), function($message) use ($data,$user)
             {
               $message->to($user->email, $user->username)
-                      ->subject('Contact from '.$data['name']);
+                      ->subject('Contact from ' . $data['name']);
             });
 
             return Redirect::back()->with('sentSuccess', 'Message sent');
