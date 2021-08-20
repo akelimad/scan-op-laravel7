@@ -29,7 +29,7 @@
     <div class="col-xs-12 col-sm-9">
         <dl class="dl-horizontal">
             <dt>{{ Lang::get('messages.front.myprofil.member-since') }}</dt>
-            <dd>{{ App::make("HelperController")->formateCreationDate($user->created_at) }}</dd>
+            <dd>{{ (new App\Http\Controllers\Utils\HelperController())->formateCreationDate($user->created_at) }}</dd>
         </dl>
     </div>
 </div>

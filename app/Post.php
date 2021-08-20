@@ -38,12 +38,12 @@ class Post extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo(User::class);
     }
 	
     public function manga()
     {
-        return $this->belongsTo('Manga');
+        return $this->belongsTo(Manga::class);
     }
 	
     /**
@@ -55,7 +55,7 @@ class Post extends Model
      */
     public function isValid()
     {
-        $validation = Validator::make($this->attributes, static::$rules);
+        $validation = \Validator::make($this->attributes, static::$rules);
 
         if ($validation->passes()) {
             return true;

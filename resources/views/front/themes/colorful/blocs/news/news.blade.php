@@ -4,7 +4,7 @@
 @if(isset($seo->news->title->global) && $seo->news->title->global == '1')
 {{$settings['seo.title']}} | {{$post->title}}
 @else
-{{ App::make("HelperController")->advSeoNewsPage($seo->news->title->value, $post) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoNewsPage($seo->news->title->value, $post) }}
 @endif
 @stop
 
@@ -12,7 +12,7 @@
 @if(isset($seo->news->description->global) && $seo->news->description->global == '1')
 {{$settings['seo.description']}}
 @else
-{{ App::make("HelperController")->advSeoNewsPage($seo->news->description->value, $post) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoNewsPage($seo->news->description->value, $post) }}
 @endif
 @stop
 
@@ -20,7 +20,7 @@
 @if(isset($seo->news->keywords->global) && $seo->news->keywords->global == '1')
 {{$settings['seo.keywords']}}
 @else
-{{ App::make("HelperController")->advSeoNewsPage($seo->news->keywords->value, $post) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoNewsPage($seo->news->keywords->value, $post) }}
 @endif
 @stop
 
@@ -30,7 +30,7 @@
 <h1 class="widget-title">{{$post->title}}</h1>
 <div class="pull-right" style="padding: 15px 0;">
     <span class="pull-left">
-        <i class="glyphicon glyphicon-time"></i> {{ App::make("HelperController")->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
+        <i class="glyphicon glyphicon-time"></i> {{ (new App\Http\Controllers\Utils\HelperController())->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
     </span>
     <span class="pull-left"><i class="glyphicon glyphicon-user"></i> {{$post->user->username}}</span>
     @if(!is_null($post->manga))

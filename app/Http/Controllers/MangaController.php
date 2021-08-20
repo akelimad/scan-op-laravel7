@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\ComicType;
+use App\Http\Controllers\Utils\HelperController;
 use App\Manga;
+use App\Option;
 use App\Status;
 use App\Tag;
 use Goutte\Client;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 /**
  * Manga Controller Class
@@ -204,7 +209,7 @@ class MangaController extends BaseController
 
         $this->createOrUpdate($input, $this->manga, $slugDiff, $oldSlug, $newSlug);
 
-        return Redirect::route('admin.manga.show', $id);
+        return Redirect::route('manga.show', $id);
     }
 
     /**
@@ -251,10 +256,10 @@ class MangaController extends BaseController
      */
     public function updateHotManga()
     {
-        $input = Input::get('hotlist');
+        $input = request()->get("hotlist");
         $hotlist = explode(",", $input);
 
-        if (count($hotlist > 0)) {
+        if (count($hotlist) > 0) {
             Manga::where('hot', '<>', 'null')->update(array('hot' => null));
 
             foreach ($hotlist as $id) {
@@ -294,27 +299,27 @@ class MangaController extends BaseController
 
         $manga->user_id = Auth::user()->id;
         $manga->save();
-
-        if (count(Input::get('categories')) > 0) {
+        if (count(request()->get('categories')) > 0) {
             $manga->categories()->detach();
-            $manga->categories()->attach(array_values(Input::get('categories')));
+            $manga->categories()->attach(array_values(request()->get('categories')));
         } else {
             $manga->categories()->detach();
         }
         
         // tags
-        if (count(Input::get('tags')) > 0) {
+
+        if (count(explode(",", request()->get('tags'))) > 0) {
             $manga->tags()->detach();
-            $tags = explode(",", Input::get('tags'));
+            $tags = explode(",", request()->get('tags'));
             $tags_tosave = array();
             
             foreach ($tags as $index=>$entry) {
                 if(strlen(trim($entry))>0) {
                 $tag = Tag::firstOrNew(array('id'=>Str::slug($entry)));
-                $tag->id=Str::slug($entry);
-                $tag->name=$entry;
+                $tag->id = Str::slug($entry);
+                $tag->name = $entry;
                 $tag->save();
-                $tags_tosave[$index]=Str::slug($entry);
+                $tags_tosave[$index] = Str::slug($entry);
                 }
             }
             if(count($tags_tosave)>0) {
@@ -350,8 +355,7 @@ class MangaController extends BaseController
         if (!File::isDirectory($coverNewPath)) {
             File::makeDirectory($coverNewPath, 0755, true);
         }
-        
-        $cover_name = substr(strrchr($cover, "/"), count($cover));
+        $cover_name = substr(strrchr($cover, "/"), count([$cover]));
         $coverCreated = File::move(
             $coverTmpPath . $cover_name, $coverNewPath . 'cover_250x350.jpg'
         );
@@ -431,12 +435,9 @@ class MangaController extends BaseController
         $options = Option::where('key', '=' , 'manga.options')->first();
         $mangaOptions = json_decode($options->value);
         
-        return view(
-            'admin.manga.options',
-            [
-                'mangaOptions' => $mangaOptions, 
-            ]
-        );
+        return view('admin.manga.options', [
+            'mangaOptions' => $mangaOptions,
+        ]);
     }
 	
     /**
@@ -446,24 +447,16 @@ class MangaController extends BaseController
      */
     public function saveMangaOptions()
     {
-    	$input = request()->all();
+    	  $input = request()->all();
         unset($input['_token']);
 
-        Option::findByKey("manga.options")
-            ->update(
-                [
-                    'value' => json_encode($input)
-                ]
-            );
+        Option::where("key", "manga.options")->update(['value' => json_encode($input)]);
 
         // clean cache
         Cache::forget('options');
         
         return Redirect::back()
-            ->with(
-                'updateSuccess', 
-                Lang::get('messages.admin.settings.update.success'
-            )
+            ->with('updateSuccess', Lang::get('messages.admin.settings.update.success')
         );
-    }	
+    }
 }

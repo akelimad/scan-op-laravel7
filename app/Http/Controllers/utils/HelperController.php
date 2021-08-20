@@ -44,9 +44,11 @@ class HelperController extends BaseController
     {
         $prefix = '';
         $str = '';
-        foreach ($list as $item) {
-            $str .= $prefix . $item->name;
-            $prefix = $separator;
+        if ($list != null && count($list) > 0) {
+            foreach ($list as $item) {
+                $str .= $prefix . $item->name;
+                $prefix = $separator;
+            }
         }
 
         return $str;
@@ -87,7 +89,7 @@ class HelperController extends BaseController
     {
         //detect type and process accordinally
         $size = getimagesize($file);
-        switch ($size["mime"]) {
+        switch ($size['mime']) {
             case "image/jpeg":
                 $im = imagecreatefromjpeg($file); //jpeg file
                 break;

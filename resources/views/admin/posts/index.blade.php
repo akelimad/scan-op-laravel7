@@ -22,7 +22,7 @@
                 <div class="panel-heading">
                     <i class="fa fa-users fa-fw"></i> {{ Lang::get('messages.admin.posts.manage') }}
                     <div class="@if(Config::get('orientation') === 'rtl') pull-left  @else pull-right @endif">
-                        {{ link_to_route('admin.posts.create', Lang::get('messages.admin.posts.create'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
+                        {{ link_to_route('posts.create', Lang::get('messages.admin.posts.create'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
                     </div>
                 </div>
                 <!-- /.panel-heading -->
@@ -44,13 +44,13 @@
                                     @foreach($posts as $post)
                                     <tr>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ $post->user->username }}</td>
+                                        <td>{{ $post->user->name }}</td>
                                         <td>@if($post->status == 1) <span class="label label-success">{{ Lang::get('messages.admin.posts.status-published') }}</span> @else <span class="label label-danger">{{ Lang::get('messages.admin.posts.status-disabled') }}</span> @endif </td>
                                         <td>{{ $post->created_at }}</td>
                                         <td style="text-align: right;"> 
-                                            {{ link_to_route('admin.posts.edit', Lang::get('messages.admin.category.edit'), $post->id, array('class' => 'btn btn-primary btn-xs')) }}
+                                            {{ link_to_route('posts.edit', Lang::get('messages.admin.category.edit'), $post->id, array('class' => 'btn btn-primary btn-xs')) }}
                                             <div style="display: inline-block">
-                                                {{ Form::open(array('route' => array('admin.posts.destroy', $post->id), 'method' => 'delete')) }}
+                                                {{ Form::open(array('route' => array('posts.destroy', $post->id), 'method' => 'delete')) }}
                                                 {{ Form::submit(Lang::get('messages.admin.category.delete'), array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'.Lang::get('messages.admin.posts.confirm-delete').'")) {return false;}')) }}
                                                 {{ Form::close() }}
                                             </div> 

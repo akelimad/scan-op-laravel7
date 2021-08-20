@@ -47,9 +47,9 @@ class SettingsController extends BaseController
      */
     public function general()
     {
-        $options = Option::lists('value', 'key');
+        $options = Option::pluck('value', 'key');
 
-        $langRootDirectory = app_path() . "/lang";
+        $langRootDirectory = base_path() . "/resources/lang";
         $languagesDirectories = File::directories($langRootDirectory);
 
         $languages = array();
@@ -93,12 +93,7 @@ class SettingsController extends BaseController
                 $value = json_encode($value);
             }
             
-            Option::findByKey($option)
-                ->update(
-                    [
-                        'value' => $value
-                    ]
-                );
+            Option::where("key", $option)->update(['value' => $value]);
         }
 
         Session::put("sitename", $input['site_name']);
@@ -357,10 +352,7 @@ class SettingsController extends BaseController
         Cache::flush();
         
         return Redirect::route('admin.index')
-            ->with(
-                'updateSuccess', 
-                Lang::get('messages.admin.settings.cache.cleared')
-            );
+            ->with('updateSuccess', Lang::get('messages.admin.settings.cache.cleared'));
     }
     
     public function clearDownloads()

@@ -32,7 +32,7 @@
         </h3>
         <div class="@if(Config::get('orientation') === 'rtl') pull-left @else pull-right @endif" style="font-size: 13px;">
             <span class="@if(Config::get('orientation') === 'rtl') pull-right @else pull-left @endif">
-                <i class="fa fa-clock-o"></i> {{ App::make("HelperController")->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
+                <i class="fa fa-clock-o"></i> {{ (new App\Http\Controllers\Utils\HelperController())->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
             </span>
             <span class="@if(Config::get('orientation') === 'rtl') pull-right @else pull-left @endif"><i class="fa fa-user"></i> {{$post->user->username}}</span>
             @if(!is_null($post->manga))

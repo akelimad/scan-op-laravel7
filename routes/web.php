@@ -94,9 +94,9 @@ Route::group(['before' => 'auth'], function () {
     Route::post('admin/clear-downloads', ['as' => 'admin.settings.downloads.clear', 'uses' => 'Settings\SettingsController@clearDownloads']);
 
     // Google
-    Route::get('admin/gdrive', ['as' => 'admin.settings.gdrive', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@index']);
+    /*Route::get('admin/gdrive', ['as' => 'admin.settings.gdrive', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@index']);
     Route::post('admin/gdrive/reset', ['as' => 'admin.settings.gdrive.reset', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@resetGdrive']);
-    Route::post('admin/gdrive', ['as' => 'admin.settings.gdrive.save', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@saveGdrive']);
+    Route::post('admin/gdrive', ['as' => 'admin.settings.gdrive.save', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@saveGdrive']);*/
 
     Route::post('saveSubscription', ['as' => 'admin.users.subsciption', 'uses' => 'ManageUserController@saveSubscription']);
     Route::get('admin/permissions', ['as' => 'admin.users.permissions', 'uses' => 'ManageUserController@permissions']);

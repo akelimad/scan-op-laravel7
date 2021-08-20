@@ -1,14 +1,13 @@
 @extends('admin.layouts.default')
 
 @section('head')
-{{ HTML::script('js/vendor/ckeditor/ckeditor.js') }}
-{{ HTML::style('css/bootstrap-select.min.css') }}
+{{ HTML::script('assets/js/vendor/ckeditor/ckeditor.js') }}
+{{ HTML::style('assets/css/bootstrap-select.min.css') }}
 
-{{ HTML::script('js/vendor/bootstrap-select.min.js') }}
+{{ HTML::script('assets/js/vendor/bootstrap-select.min.js') }}
 @stop
 
 @section('breadcrumbs', Breadcrumbs::render())
-
 @section('content')
 <div class="row">
     <div class="col-lg-12">
@@ -16,13 +15,13 @@
             <div class="panel-heading">
                 <i class="fa fa-plus-square-o fa-fw"></i> {{ Lang::get('messages.admin.posts.create') }}
                 <div class="@if(Config::get('orientation') === 'rtl') pull-left  @else pull-right @endif">
-                    {{ link_to_route('admin.posts.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
+                    {{ link_to_route('posts.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
 
-                {{ Form::open(array('route' => 'admin.posts.store')) }}
+                {{ Form::open(array('route' => 'posts.store')) }}
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">

@@ -1,13 +1,13 @@
 @extends('admin.layouts.default')
 
 @section('head')
-{{ HTML::style('css/bootstrap-select.min.css') }}
+{{ HTML::style('assets/css/bootstrap-select.min.css') }}
 
-{{ HTML::script('js/vendor/bootstrap-select.min.js') }}
-{{ HTML::script('js/dropzone.js') }}
+{{ HTML::script('assets/js/vendor/bootstrap-select.min.js') }}
+{{ HTML::script('assets/js/dropzone.js') }}
 
-{{ HTML::style('css/selectize.css') }}
-{{ HTML::script('js/vendor/selectize.js') }}
+{{ HTML::style('assets/css/selectize.css') }}
+{{ HTML::script('assets/js/vendor/selectize.js') }}
 @stop
 
 @section('breadcrumbs', Breadcrumbs::render('admin.manga.edit', $manga))
@@ -204,7 +204,7 @@
     });
     
     function deletefile(value) {
-    $.post(
+        $.post(
         "{{ action('Utils\FileUploadController@deleteCover') }}",
         {filename: value}, function() {
             $('.previewWrapper').find('img').remove();
@@ -220,6 +220,9 @@
     $('#previewTemplate').remove();
     var myDropzone = new Dropzone("#coverContainer", {
         url: "{{ action('Utils\FileUploadController@uploadMangaCover') }}",
+        headers: {
+            'x-csrf-token': "{{ csrf_token() }}"
+        },
         thumbnailWidth: 200,
         thumbnailHeight: 280,
         acceptedFiles: 'image/*',

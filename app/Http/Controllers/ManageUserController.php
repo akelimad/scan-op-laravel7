@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Option;
+use App\Permission;
+use App\Role;
 use App\User;
 
 /**
@@ -39,7 +42,7 @@ class ManageUserController extends BaseController
     {
     	$permissions = Permission::all();
 			
-        return View::make(
+        return view(
             'admin.users.permissions',
             ['permissions' => $permissions]
         );        
@@ -54,13 +57,12 @@ class ManageUserController extends BaseController
     public function index()
     {
     	$users = User::all();
-        $roles = array('' => '-- Nothing --') + Role::lists('name', 'id');
+        $roles = array('' => '-- Nothing --') + Role::pluck('name', 'id')->toArray();
 
-        $options = Option::lists('value', 'key');
+        $options = Option::pluck('value', 'key')->toArray();
         $subscription = json_decode($options['site.subscription']);
         
-        return View::make(
-            'admin.users.user.index',
+        return view('admin.users.user.index',
             [
                 'users' => $users, 
                 'subscription' => $subscription, 
@@ -78,7 +80,7 @@ class ManageUserController extends BaseController
     {
         $roles = Role::all();
 		
-        return View::make(
+        return view(
             'admin.users.user.create', 
             ['roles' => $roles]
         );
@@ -91,7 +93,7 @@ class ManageUserController extends BaseController
      */
     public function store()
     {
-        $inputs = Input::all();
+        $inputs = request()->all();
         $user = new User();
 
         $user->fill($inputs);
@@ -134,7 +136,7 @@ class ManageUserController extends BaseController
             }
 	}
 		
-        return View::make(
+        return view(
             'admin.users.user.edit',
             [
             	'user' => $user,
@@ -153,7 +155,7 @@ class ManageUserController extends BaseController
      */
     public function update($id)
     {
-		$inputs = Input::all();
+		    $inputs = request()->all();
         $user = User::find($id);
 		
         $user->fill($inputs);
@@ -210,7 +212,7 @@ class ManageUserController extends BaseController
     }
     
     public function saveSubscription(){
-        $input = Input::all();
+        $input = request()->all();
         unset($input['_token']);
 
         Option::findByKey("site.subscription")

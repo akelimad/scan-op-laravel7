@@ -4,7 +4,7 @@
 @if(isset($seo->info->title->global) && $seo->info->title->global == '1')
 {{$settings['seo.title']}} | {{$manga->name}}
 @else
-{{ App::make("HelperController")->advSeoInfoPage($seo->info->title->value, $manga) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoInfoPage($seo->info->title->value, $manga) }}
 @endif
 @stop
 
@@ -12,7 +12,7 @@
 @if(isset($seo->info->description->global) && $seo->info->description->global == '1')
 {{$settings['seo.description']}}
 @else
-{{ App::make("HelperController")->advSeoInfoPage($seo->info->description->value, $manga) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoInfoPage($seo->info->description->value, $manga) }}
 @endif
 @stop
 
@@ -20,7 +20,7 @@
 @if(isset($seo->info->keywords->global) && $seo->info->keywords->global == '1')
 {{$settings['seo.keywords']}}
 @else
-{{ App::make("HelperController")->advSeoInfoPage($seo->info->keywords->value, $manga) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoInfoPage($seo->info->keywords->value, $manga) }}
 @endif
 @stop
 
@@ -200,7 +200,7 @@ score: score
             </h3>
             <div class="pull-right" style="font-size: 13px;">
                 <span class="pull-left">
-                    <i class="fa fa-clock-o"></i> {{ App::make("HelperController")->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
+                    <i class="fa fa-clock-o"></i> {{ (new App\Http\Controllers\Utils\HelperController())->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
                 </span>
                 <span class="pull-left"><i class="fa fa-user"></i> {{$post->user->username}}</span>
             </div>
@@ -262,7 +262,7 @@ score: score
                         @endif
                     <?php } ?>
                     <div style="float:right" class="date-chapter-title-rtl">
-                        {{ App::make("HelperController")->formateCreationDate($chapter->created_at) }}
+                        {{ (new App\Http\Controllers\Utils\HelperController())->formateCreationDate($chapter->created_at) }}
                     </div>
                     <?php if (isset($mangaOptions->show_contributer_pseudo) && $mangaOptions->show_contributer_pseudo == '1') { ?>
                         <div @if(Config::get('orientation') === 'rtl') style="float: left; margin-left: 10%;"  @else style="float:right; margin-right: 10%" @endif>

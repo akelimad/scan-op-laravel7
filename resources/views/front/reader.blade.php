@@ -30,7 +30,7 @@ use App\Http\Controllers\Utils\HelperController;
         @if(isset($seo->reader->title->global) && $seo->reader->title->global == '1')
         {{$settings['seo.title']}} | {{$current->manga_name}} {{' #'.$current->chapter_number.': '. $current->chapter_name}} @if (!is_null($page)) - {{Lang::get('messages.front.reader.page')}} @endif
         @else
-        {{ App::make("HelperController")->advSeoReaderPage($seo->reader->title->value, $current, is_null($page)?0:$page) }}
+        {{ (new App\Http\Controllers\Utils\HelperController())->advSeoReaderPage($seo->reader->title->value, $current, is_null($page)?0:$page) }}
         @endif
     </title>
     <meta name="description" content="<?php echo $description ?>" />

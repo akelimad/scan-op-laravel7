@@ -202,17 +202,17 @@ Breadcrumbs::register(
 );
 
 Breadcrumbs::register(
-    'admin.user.index', 
+    'user.index',
     function ($breadcrumbs) {
         $breadcrumbs->push(Lang::get('messages.admin.users.manage-users'));
-        $breadcrumbs->push(Lang::get('messages.admin.users.users'), route('admin.user.index'));
+        $breadcrumbs->push(Lang::get('messages.admin.users.users'), route('user.index'));
     }
 );
 
 Breadcrumbs::register(
-    'admin.user.create', 
+    'user.create',
     function ($breadcrumbs) {
-        $breadcrumbs->parent('admin.user.index');
+        $breadcrumbs->parent('user.index');
         $breadcrumbs->push(Lang::get('messages.admin.users.create'));
     }
 );
@@ -226,10 +226,10 @@ Breadcrumbs::register(
 );
 
 Breadcrumbs::register(
-    'admin.role.index', 
+    'role.index',
     function ($breadcrumbs) {
         $breadcrumbs->push(Lang::get('messages.admin.users.manage-users'));
-        $breadcrumbs->push(Lang::get('messages.admin.users.roles'), route('admin.role.index'));
+        $breadcrumbs->push(Lang::get('messages.admin.users.roles'), route('role.index'));
     }
 );
 
@@ -258,24 +258,24 @@ Breadcrumbs::register(
 );
 
 Breadcrumbs::register(
-    'admin.posts.index', 
+    'posts.index',
     function ($breadcrumbs) {
-        $breadcrumbs->push('Manage posts', route('admin.posts.index'));
+        $breadcrumbs->push('Manage posts', route('posts.index'));
     }
 );
 
 Breadcrumbs::register(
-    'admin.posts.create', 
+    'posts.create',
     function ($breadcrumbs) {
-        $breadcrumbs->parent('admin.posts.index');
+        $breadcrumbs->parent('posts.index');
         $breadcrumbs->push('Create Post');
     }
 );
 
 Breadcrumbs::register(
-    'admin.posts.edit', 
+    'posts.edit',
     function ($breadcrumbs) {
-        $breadcrumbs->parent('admin.posts.index');
+        $breadcrumbs->parent('posts.index');
         $breadcrumbs->push('Edit Post');
     }
 );

@@ -4,7 +4,7 @@
 @if(isset($seo->news->title->global) && $seo->news->title->global == '1')
 {{$settings['seo.title']}} | {{$post->title}}
 @else
-{{ App::make("HelperController")->advSeoNewsPage($seo->news->title->value, $post) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoNewsPage($seo->news->title->value, $post) }}
 @endif
 @stop
 
@@ -12,7 +12,7 @@
 @if(isset($seo->news->description->global) && $seo->news->description->global == '1')
 {{$settings['seo.description']}}
 @else
-{{ App::make("HelperController")->advSeoNewsPage($seo->news->description->value, $post) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoNewsPage($seo->news->description->value, $post) }}
 @endif
 @stop
 
@@ -20,7 +20,7 @@
 @if(isset($seo->news->keywords->global) && $seo->news->keywords->global == '1')
 {{$settings['seo.keywords']}}
 @else
-{{ App::make("HelperController")->advSeoNewsPage($seo->news->keywords->value, $post) }}
+{{ (new App\Http\Controllers\Utils\HelperController())->advSeoNewsPage($seo->news->keywords->value, $post) }}
 @endif
 @stop
 
@@ -30,7 +30,7 @@
 <h1 class="widget-title @if(Config::get('orientation') === 'rtl') pull-right @else pull-left @endif" style="font-size: 26px; margin: 5px 0;">{{$post->title}}</h1>
 <div style="font-size: 12px; padding: 10px 0;" class="@if(Config::get('orientation') === 'rtl') pull-left @else pull-right @endif">
     <span class="@if(Config::get('orientation') === 'rtl') pull-right @else pull-left @endif">
-        <i class="fa fa-clock-o"></i> {{ App::make("HelperController")->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
+        <i class="fa fa-clock-o"></i> {{ (new App\Http\Controllers\Utils\HelperController())->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
     </span>
     <span class="@if(Config::get('orientation') === 'rtl') pull-right @else pull-left @endif"><i class="fa fa-user"></i> {{$post->user->username}}</span>
     @if(!is_null($post->manga))

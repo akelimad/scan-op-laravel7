@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Utils;
 
 use App\Http\Controllers\BaseController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 /**
  * File upload Controller Class
@@ -23,18 +26,16 @@ class FileUploadController extends BaseController
      * 
      * @return type
      */
-    public function uploadMangaCover()
+    public function uploadMangaCover(Request $request)
     {
         $destinationPath = 'uploads/tmp/mangacover/';
 
         if (!File::isDirectory($destinationPath)) {
             File::makeDirectory($destinationPath, 0755, true);
         }
-
-        $file = Input::file('file');
+        $file = $request->file("file");
         if ($file) {
             $cover_250x350 = 'cover_250x350_' . time() . '.jpg';
-
 
             // GD API
             $image = HelperController::openImage($file);

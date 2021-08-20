@@ -21,7 +21,7 @@
             </div>
             @if (count($manga->categories)>0)
             <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 95%;">
-                {{ App::make("HelperController")->listAsString($manga->categories, ', ') }}
+                {{ (new App\Http\Controllers\Utils\HelperController())->listAsString($manga->categories, ', ') }}
             </div>
             @endif
             <?php $lastChapter = $manga->lastChapter(); ?>

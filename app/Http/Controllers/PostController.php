@@ -7,6 +7,8 @@ use App\Post;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 /**
  * Post Controller Class - manga-cat
@@ -54,7 +56,7 @@ class PostController extends BaseController
 
     public function create()
     {
-    	$categories = array(0 => 'General') + Manga::lists('name', 'id');
+    	$categories = array(0 => 'General') + Manga::pluck('name', 'id')->toArray();
         return view('admin.posts.create', ['categories' => $categories]
         );
     }
@@ -66,7 +68,7 @@ class PostController extends BaseController
      */
     public function store()
     {
-        $input = Input::all();
+        $input = request()->all();
 
         if (!$this->post->fill($input)->isValid()) {
             return Redirect::back()
@@ -78,21 +80,21 @@ class PostController extends BaseController
         $this->post->user_id = Auth::user()->id;
         $this->post->save();
 
-        return Redirect::route('admin.posts.index');
+        return Redirect::route('posts.index');
         
     }
 
     public function edit($id)
     {
         $post = Post::find($id);
-        $categories = array(0 => 'General') + Manga::lists('name', 'id');
+        $categories = array(0 => 'General') + Manga::pluck('name', 'id')->toArray();
 		
         return view('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
     }
     
     public function update($id)
     {
-        $input = Input::all();
+        $input = request()->all();
         $this->post = Post::find($id);
 
         if (!$this->post->fill($input)->isValid()) {
@@ -105,7 +107,7 @@ class PostController extends BaseController
 		         
         $this->post->save();
 
-        return Redirect::route('admin.posts.index');
+        return Redirect::route('posts.index');
     }
     
     /**
@@ -118,9 +120,9 @@ class PostController extends BaseController
     public function destroy($id)
     {
         $post = Post::find($id);
-        $post->delete();
+        if ($post) $post->delete();
 
-        return Redirect::route('admin.posts.index');
+        return Redirect::route('posts.index');
     }
 	
 	/**

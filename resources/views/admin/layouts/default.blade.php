@@ -185,7 +185,8 @@
                                 @endif
                                 @if(Entrust::can('edit_general'))
                                 <li>
-                                    {{ link_to_route('admin.settings.gdrive', Lang::get('messages.admin.settings.gdrive')) }}
+                                    <!--admin.settings.gdrive -->
+                                    <a href="#">{{ Lang::get('messages.admin.settings.gdrive') }}</a>
                                 </li>
                                 @endif
                             </ul>
@@ -202,10 +203,10 @@
                                     {{ link_to_route('admin.users.permissions', 'Permissions') }}
                                 </li>
                                 <li>
-                                    <a href="#">Roles</a>
+                                    {{ link_to_route('role.index', 'Roles') }}
                                 </li>
                                 <li>
-                                    <a href="#">Users</a>
+                                    {{ link_to_route('user.index', 'Users') }}
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -218,7 +219,7 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">{{ Lang::get('messages.admin.posts.posts') }}</a>
+                                    {{ link_to_route('posts.index', Lang::get('messages.admin.posts.posts')) }}
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

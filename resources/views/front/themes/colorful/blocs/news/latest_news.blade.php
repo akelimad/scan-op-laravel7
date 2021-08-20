@@ -37,7 +37,7 @@
             <li>
                 <div class="pull-right">
                     <span class="pull-left">
-                        <i class="glyphicon glyphicon-time"></i> {{ App::make("HelperController")->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
+                        <i class="glyphicon glyphicon-time"></i> {{ (new App\Http\Controllers\Utils\HelperController())->formateCreationDate($post->created_at) }}&nbsp;&middot;&nbsp;
                     </span>
                     <span class="pull-left"><i class="glyphicon glyphicon-user"></i> {{$post->user->username}}</span>
                     @if(!is_null($post->manga))

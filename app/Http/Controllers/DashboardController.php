@@ -21,6 +21,10 @@ use App\Option;
  */
 class DashboardController extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Load dashboard page
@@ -48,7 +52,7 @@ class DashboardController extends BaseController
                         )
                     ->orderBy('created_at', 'desc')->take(10)->get();
 
-        $sitename = Option::findByKey('site.name')->first();
+        $sitename = Option::where('key', 'site.name')->first();
         Session::put("sitename", $sitename['value']);
 
         return view('admin.index', [

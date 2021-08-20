@@ -35,7 +35,7 @@
                         <div class="panel-heading">
                             <i class="fa fa-users fa-fw"></i> {{ Lang::get('messages.admin.users.users') }}
                             <div class="pull-right">
-                                {{ link_to_route('admin.user.create', Lang::get('messages.admin.users.add'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
+                                {{ link_to_route('user.create', Lang::get('messages.admin.users.add'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
                             </div>
                         </div>
                         <!-- /.panel-heading -->
@@ -58,12 +58,12 @@
                                             @if(count($users)>0)
                                             @foreach($users as $user)
                                             <tr>
-                                                <td>{{ $user->username }}</td>
+                                                <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ App::make("HelperController")->listAsString($user->roles, ', ') }}</td>
+                                                <td>{{ (new \App\Http\Controllers\Utils\HelperController())->listAsString($user->roles, ', ') }}</td>
                                                 <td>@if($user->confirmed == 1) <span class="label label-success">{{ Lang::get('messages.admin.users.enabled') }}</span> @else <span class="label label-danger">{{ Lang::get('messages.admin.users.disabled') }}</span> @endif </td>
-                                                <td>{{ count($user->manga) }}</td>
-                                                <td>{{ count($user->chapters) }}</td>
+                                                <td>{{ $user->manga != null ? count($user->manga) : '---' }}</td>
+                                                <td>{{ $user->chapters != null ? count($user->chapters) : '---' }}</td>
                                                 <td style="text-align: right;"> @if($user->id != 1)
                                                     {{ link_to_route('admin.user.edit', Lang::get('messages.admin.users.edit'), $user->id, array('class' => 'btn btn-primary btn-xs')) }}
                                                     <div style="display: inline-block">

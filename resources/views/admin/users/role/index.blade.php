@@ -15,7 +15,7 @@
             <div class="panel-heading">
                 <i class="fa fa-bars fa-fw"></i> {{ Lang::get('messages.admin.users.roles') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.role.create', Lang::get('messages.admin.users.roles.add'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
+                    {{ link_to_route('role.create', Lang::get('messages.admin.users.roles.add'), null, array('class' => 'btn btn-primary btn-xs pull-right', 'role' => 'button')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
@@ -34,10 +34,10 @@
                                 @foreach($roles as $role)
                                 <tr>
                                     <td>{{ $role->name }}</td>
-                                    <td>{{ App::make("HelperController")->listAsString($role->perms, ', ') }}</td>
-                                    <td style="text-align: right;"> {{ link_to_route('admin.role.edit', Lang::get('messages.admin.users.edit'), $role->id, array('class' => 'btn btn-primary btn-xs')) }}
+                                    <td>{{ (new App\Http\Controllers\Utils\HelperController())->listAsString($role->perms, ', ') }}</td>
+                                    <td style="text-align: right;"> {{ link_to_route('role.edit', Lang::get('messages.admin.users.edit'), $role->id, array('class' => 'btn btn-primary btn-xs')) }}
                                         <div style="display: inline-block">
-                                            {{ Form::open(array('route' => array('admin.role.destroy', $role->id), 'method' => 'delete')) }}
+                                            {{ Form::open(array('route' => array('role.destroy', $role->id), 'method' => 'delete')) }}
                                             {{ Form::submit(Lang::get('messages.admin.users.delete') , array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'.Lang::get('messages.admin.users.roles.confirm-delete').'")) {return false;}')) }}
                                             {{ Form::close() }}
                                         </div></td>
