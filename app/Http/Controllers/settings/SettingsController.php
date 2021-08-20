@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ class SettingsController extends BaseController
      */
     public function __construct(Option $settings)
     {
+        $this->middleware('auth');
         $this->settings = $settings;
     }
 
@@ -114,11 +116,10 @@ class SettingsController extends BaseController
      */
     public function seo()
     {
-        $options = Option::lists('value', 'key');
+        $options = Option::pluck('value', 'key')->toArray();
         $advanced = json_decode($options['seo.advanced']);
         
-        return view(
-                'admin.settings.seo', 
+        return view('admin.settings.seo',
                 [
                     "options" => $options,
                     "advanced" => $advanced,
@@ -141,12 +142,8 @@ class SettingsController extends BaseController
             if($option == "seo.advanced") {
                 $value = json_encode($value);
             }
-
-            Option::findByKey($option)->update(
-                    [
-                        'value' => $value
-                    ]
-                );
+            if ($value == "") $value = "";
+            Option::where("key", $option)->update(['value' => $value]);
         }
 
         // clean cache
@@ -181,17 +178,14 @@ class SettingsController extends BaseController
         $user = User::find(Auth::user()->id);
 
         $user->fill($input);
-        $user->password_confirmation = $input['password'];
+        $user->password = Hash::make($input['password']);
 		
         if ($user->save() === false) {
             return Redirect::back()->withInput()->withErrors($user->errors);
         }
 
         return Redirect::back()
-            ->with(
-                'updateSuccess', 
-                Lang::get('messages.admin.settings.update.profile-success')
-            );
+            ->with('updateSuccess', Lang::get('messages.admin.settings.update.profile-success'));
     }
 
     /**
@@ -201,17 +195,14 @@ class SettingsController extends BaseController
      */
     public function theme()
     {
-        $options = Option::lists('value', 'key');
-        $themeRootDirectory = app_path() . "/views/front/themes";
+        $options = Option::pluck('value', 'key')->toArray();
+        $themeRootDirectory = base_path() . "/resources/views/front/themes";
 
         $themesDirectories = File::directories($themeRootDirectory);
 
         $themes = array();
         foreach ($themesDirectories as $directory) {
-            $themeName = substr(
-                $directory, 
-                strrpos($directory, DIRECTORY_SEPARATOR) + 1
-            );
+            $themeName = substr($directory, strrpos($directory, DIRECTORY_SEPARATOR) + 1);
 
             if ($themeName != 'default') {
                 $themes[$themeName] = ucfirst($themeName);
@@ -232,13 +223,9 @@ class SettingsController extends BaseController
             'default.united' => 'United',
             'default.yeti' => 'Yeti'
         ];
-
-
         $themes['default - color variation'] = $bootswatch;
-        return view(
-            'admin.settings.theme', 
-            ["options" => $options, "themes" => $themes]
-        );
+
+        return view('admin.settings.theme', ["options" => $options, "themes" => $themes]);
     }
 
     /**
@@ -253,12 +240,7 @@ class SettingsController extends BaseController
         foreach ($input as $key => $value) {
             $option = str_replace('_', '.', $key);
 
-            Option::findByKey($option)
-                ->update(
-                    [
-                        'value' => $value
-                    ]
-                );
+            Option::where('key', $option)->update(['value' => $value]);
         }
 
         // clean cache
@@ -275,7 +257,7 @@ class SettingsController extends BaseController
     
     public function widgets()
     {
-        $options = Option::lists('value', 'key');
+        $options = Option::pluck('value', 'key')->toArray();
         $widgets = json_decode($options['site.widgets']);
         
         return view(
@@ -297,12 +279,7 @@ class SettingsController extends BaseController
                 $value = json_encode($value);
             }
 
-            Option::findByKey($option)
-                ->update(
-                    [
-                        'value' => $value
-                    ]
-                );
+            Option::where('key', $option)->update(['value' => $value]);
         }
 
         // clean cache

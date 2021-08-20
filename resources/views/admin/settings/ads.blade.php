@@ -30,7 +30,7 @@
                 </div>
                 @endif
 
-                {{ Form::open(array('route' => 'admin.ads.store', 'role' => 'form', 'id' => 'ads')) }}
+                {{ Form::open(array('route' => 'ads.store', 'role' => 'form', 'id' => 'ads')) }}
                 @if(count($ads)>0)
                 @foreach($ads as $index => $ad)
                 <div class="col-xs-6 bloc">

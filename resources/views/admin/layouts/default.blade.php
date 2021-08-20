@@ -169,7 +169,7 @@
                                 @endif
                                 @if(Entrust::can('edit_general'))
                                 <li>
-                                    <a href="#">{{ Lang::get('messages.admin.settings.ads.manage-ads') }}</a>
+                                    {{ link_to_route('ads.index', Lang::get('messages.admin.settings.ads.manage-ads')) }}
                                 </li>
                                 @endif
                                 @if(Entrust::can('edit_general'))

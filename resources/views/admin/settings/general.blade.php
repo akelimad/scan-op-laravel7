@@ -261,7 +261,7 @@
                                     <label class="radio">
                                         <input type="radio" name="storage.type" value="gdrive" <?php if ($options['storage.type'] === 'gdrive'): ?>
                                                    checked="checked"<?php endif ?>/>{{ Lang::get('messages.admin.settings.general.storage-type-gdrive') }}
-                                        {{ link_to_route('admin.settings.gdrive', '(Configuration)') }}
+                                        <a href="#">Configuration gdrive</a>
                                     </label>
                                     <label class="radio">
                                         <input type="radio" name="storage.type" value="mirror" <?php if ($options['storage.type'] === 'mirror'): ?>

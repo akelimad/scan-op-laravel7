@@ -57,8 +57,7 @@
                 <i class="fa fa-pencil-square-o fa-fw"></i> {{ Lang::get('messages.admin.dashboard.latest-added-manga') }}
                 @if(Entrust::can('add_manga'))
                 <div class="pull-right">
-                    <!-- to create : admin.manga.create -->
-                    <a href="#" class="btn-primary btn-xs">{{ Lang::get('messages.admin.dashboard.create-manga') }}</a>
+                    {{ link_to_route('manga.create', Lang::get('messages.admin.dashboard.create-manga'), null, array('class' => 'btn btn-primary btn-xs', 'role' => 'button')) }}
                 </div>
                 @endif
             </div>

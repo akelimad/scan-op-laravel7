@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Ad;
+use App\Placement;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+
 /**
  * Ads Controller Class
  * 
@@ -17,58 +22,57 @@ class ManageAdsController extends BaseController
 
     public function index()
     {
-    	$ads = Ad::all();
+    		$ads = Ad::all();
         $adsList = array('' => 'NO AD');
 		
-		if (count($ads)>0) {
+				if (count($ads)>0) {
             foreach ($ads as $ad) {
                 $adsList[$ad->id] = $ad->bloc_id;
             }
         }
 		
-		$reader = Placement::where('page', '=', 'READER')->first();
-		$homepage = Placement::where('page', '=', 'HOMEPAGE')->first();
-		$info = Placement::where('page', '=', 'MANGAINFO')->first();
-		$placements = ['reader' => array(), 'homepage' => array(), 'info' => array()];
-		
-		foreach ($reader->ads()->get() as $key => $ad) {
-			$placements['reader'][$ad->pivot->placement] = $ad->id;
-		}
-		
-		foreach ($homepage->ads()->get() as $key => $ad) {
-			$placements['homepage'][$ad->pivot->placement] = $ad->id;
-		}
-		
-		foreach ($info->ads()->get() as $key => $ad) {
-			$placements['info'][$ad->pivot->placement] = $ad->id;
-		}
+				$reader = Placement::where('page', '=', 'READER')->first();
+				$homepage = Placement::where('page', '=', 'HOMEPAGE')->first();
+				$info = Placement::where('page', '=', 'MANGAINFO')->first();
+				$placements = ['reader' => array(), 'homepage' => array(), 'info' => array()];
 
-	   	return View::make('admin.settings.ads',
-			[
-				'ads' => $ads,
-				'adsList' => $adsList,
-				'placements' => $placements,
-			]
-		);
+				foreach ($reader->ads()->get() as $key => $ad) {
+					$placements['reader'][$ad->pivot->placement] = $ad->id;
+				}
+
+				foreach ($homepage->ads()->get() as $key => $ad) {
+					$placements['homepage'][$ad->pivot->placement] = $ad->id;
+				}
+
+				foreach ($info->ads()->get() as $key => $ad) {
+					$placements['info'][$ad->pivot->placement] = $ad->id;
+				}
+
+					return view('admin.settings.ads',[
+						'ads' => $ads,
+						'adsList' => $adsList,
+						'placements' => $placements,
+					]
+				);
     }
     
     public function store()
     {
-        $input = Input::all();
+        $input = request()->all();
 		
-		//return var_dump($input);
-		foreach ($input['bloc_id'] as $key => $bloc) {
-			$ad = new Ad();
-			if(isset($input['id'][$key])) {
-				$ad = Ad::find($input['id'][$key]);
-				$ad->bloc_id = $bloc;
-				$ad->code = $input['code'][$key];
-			} else {
-				$ad->bloc_id = $bloc;
-				$ad->code = $input['code'][$key];
-			}
-			$ad->save();
-		}
+				//return var_dump($input);
+				foreach ($input['bloc_id'] as $key => $bloc) {
+					$ad = new Ad();
+					if(isset($input['id'][$key])) {
+						$ad = Ad::find($input['id'][$key]);
+						$ad->bloc_id = $bloc;
+						$ad->code = $input['code'][$key];
+					} else {
+						$ad->bloc_id = $bloc;
+						$ad->code = $input['code'][$key];
+					}
+					$ad->save();
+				}
 
         return Redirect::back()
             ->with(
@@ -79,7 +83,7 @@ class ManageAdsController extends BaseController
 	
 	public function storePlacements()
     {
-        $inputs = Input::all();
+        $inputs = request()->all();
 		
 		//return var_dump($input);
 		foreach ($inputs as $id => $input) {
