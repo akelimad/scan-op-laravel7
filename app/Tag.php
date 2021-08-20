@@ -34,7 +34,7 @@ class Tag extends Model
 
     public function manga()
     {
-        return $this->belongsToMany('Manga');
+        return $this->belongsToMany(Manga::class);
     }
     
     /**
@@ -46,7 +46,7 @@ class Tag extends Model
     {
         static::$rules = str_replace(':id', $this->id, static::$rules);
 
-        $validation = Validator::make($this->attributes, static::$rules);
+        $validation = \Validator::make($this->attributes, static::$rules);
 
         if ($validation->passes()) {
             return true;

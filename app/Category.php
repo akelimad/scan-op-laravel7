@@ -34,7 +34,7 @@ class Category extends Model
 
     public function manga()
     {
-        return $this->belongsToMany('Manga');
+        return $this->belongsToMany(Manga::class);
     }
     
     /**
