@@ -502,3 +502,9 @@ section.comments .actions::after {
         display: block!important;
     }
 }
+
+.fa-star-o, .fa-star {
+    font-size: 2rem !important;
+    color: black;
+    cursor: pointer;
+}

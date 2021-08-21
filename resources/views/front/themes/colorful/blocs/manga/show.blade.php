@@ -44,7 +44,7 @@ score: score
 
 @section('allpage')
 <h2 class="widget-title">{{$manga->name}}</h2>
-@if(Confide::user())
+@if(Auth::user())
 <span class="bookmark" style="float: right; display: inline-block; margin: 21px 0px 10.5px;">
     <a href="#"><i class="glyphicon glyphicon-heart-empty"></i>{{Lang::get('messages.front.bookmarks.bookmark')}}</a>
 </span>

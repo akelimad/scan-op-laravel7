@@ -178,3 +178,6 @@ Route::group(array('prefix' => 'api'), function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::post('score/store', 'FrontController@storeRatingScore')->name("score.store");

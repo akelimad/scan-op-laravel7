@@ -13,7 +13,7 @@
 <div class="row comments" ng-app="commentApp" ng-controller="mainController">
     <div class="col-xs-12">
         <div id="comments" style="margin: 30px 0;">
-            @if(Confide::user())
+            @if(Auth::user())
             <form ng-submit="submitComment()" class="comment-form">
                 <div class="form-group">
                     <textarea id="comment" name="comment" ng-model="commentData.comment" rows="5" style="width: 100%"></textarea>

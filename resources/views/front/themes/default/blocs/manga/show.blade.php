@@ -27,6 +27,9 @@
 @include('front.themes.'.$theme.'.blocs.menu')
 
 @section('header')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
     {{--
         {{ Jraty::js() }}
 
@@ -161,6 +164,7 @@
             <dd>{{ $manga->views }}</dd>
 
             <dt>{{ Lang::get('messages.front.manga.rating') }}</dt>
+            {{--
             <dd>
                 <div class="rating clearfix">
                     <?php echo Jraty::html($manga->id, $manga->name, asset("uploads/manga/{$manga->slug}/cover/cover_250x350.jpg"), $seo = true); ?>
@@ -168,6 +172,13 @@
                     {{ Lang::get('messages.front.manga.note', array('avg' => $rating->avg, 'votes' => $rating->votes)) }}
                 </div>
             </dd>
+            --}}
+                @php($item = App\ItemRating::where("ip_address", Request::ip())->orderBy('id', 'desc')->first())
+                <dd class="rating">
+                    @for($i = 1; $i <= 5; $i++)
+                        <i class="fa fa-star{{ $item != null && $i <= $item->score ? "":"-o" }} {{ $item != null && $item->score == $i ? "active":"" }}" aria-hidden="true" data-score="{{ $i }}" style="{{ $item != null ? "color: orange;":"" }}"></i>
+                    @endfor
+                </dd>
         </dl>
 
         @if ($manga->caution == 1)
@@ -391,6 +402,55 @@
             $('li.' + volume).toggle();
             $(this).find('i').toggleClass('fa-minus-square-o')
                     .toggleClass('fa-plus-square-o');
+        });
+
+        $(".rating i").hover(function() {
+            var $this = $(this);
+            $this.nextAll().removeClass('fa-star').addClass( "fa-star-o" );
+            $this.prevUntil("h1").removeClass( "fa-star-o" ).addClass('fa-star');
+            $this.removeClass( "fa-star-o" ).addClass('fa-star');
+        });
+
+        //**on mouseOut** change back to fa-star-o OR the result of the click event
+        $(".rating i").mouseout(function() {
+            var select = $('.rating .active');
+            if ($('.rating .active').length > 0) {
+                select.nextAll().removeClass('fa-star').addClass('fa-star-o');
+                select.prevUntil("h1").removeClass('fa-star-o').addClass('fa-star');
+                select.removeClass('fa-star-o').addClass('fa-star');
+            } else {
+                $('.rating .fa').removeClass('fa-star').addClass('fa-star-o');
+            }
+        });
+
+        //on Click change star to fa-star and change color to red (prevAll)
+        $(".rating i").click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            $(this).attr("style","color:orange");
+            $(this).prevUntil("h1").css("color","orange");
+            $(this).nextAll().css("color","orange");
+
+            // store score in DB
+            var score = $(this).data("score")
+            $.ajax({
+                url: "{{ route("score.store") }}",
+                type: "post",
+                headers: {
+                    'x-csrf-token': "{{ csrf_token() }}"
+                },
+                data: {
+                    item_id: {{ $manga->id }},
+                    score: score,
+                    added_on: "{{ now() }}",
+                    ip_address: "{{ Request::ip() }}"
+                },
+                success: function (response) {
+                    console.log("saved successfully !");
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
         });
     });
 </script>

@@ -2,7 +2,7 @@
 @if(Config::get('subscribe'))
 <div class="login-box">
     <ol class="login breadcrumb">
-        @if(!Confide::user())
+        @if(!Auth::user())
         <li class="item-link">
             <a href="{{action('UsersController@create')}}">
                 <i class="glyphicon glyphicon-edit"></i>{{Lang::get('messages.front.home.subscribe')}}
@@ -29,7 +29,7 @@
 </div>
 @endif
 
-@if(Config::get('subscribe') && Confide::user())
+@if(Config::get('subscribe') && Auth::user())
 <ol class="login breadcrumb">
         <li class="item-link">
             <a href="{{route('bookmark.index')}}">

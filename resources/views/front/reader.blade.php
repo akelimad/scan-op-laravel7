@@ -109,9 +109,9 @@ use App\Http\Controllers\Utils\HelperController;
                 @if(Config::get('subscribe'))
                 <ul class="nav navbar-nav @if(Config::get('orientation') === 'rtl') navbar-left @else navbar-right @endif">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> @if(Confide::user()){{Auth::user()->username}}@endif<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> @if(Auth::user()){{Auth::user()->username}}@endif<span class="caret"></span></a>
                         <ul class="dropdown-menu profil-menu">
-                            @if(!Confide::user())
+                            @if(!Auth::user())
                             <li>
                                 <a href="{{action('UsersController@create')}}">
                                     <i class="fa fa-pencil-square-o"></i> {{Lang::get('messages.front.home.subscribe')}}
@@ -190,7 +190,7 @@ use App\Http\Controllers\Utils\HelperController;
                         </ul>
                     </li>
 
-                    @if(Confide::user())
+                    @if(Auth::user())
                     <li>
                         <span class="bookmark" style="float: right; display: inline-block; margin: 21px 0px 10.5px;">
                             <a href="#" class=""><i class="fa fa-heart" style="color: red"></i> {{Lang::get('messages.front.bookmarks.bookmark')}}</a>

@@ -6,6 +6,7 @@ use App\Category;
 use App\Chapter;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Utils\HelperController;
+use App\ItemRating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
@@ -867,5 +868,15 @@ class FrontController extends BaseController {
                 "filter" => $mangaList
             ]
         )->render();
+    }
+
+    public function storeRatingScore(Request $request) {
+        $item_rating = ItemRating::where("ip_address", $request->ip())->first();
+        if (!$item_rating) {
+            $item_rating = new ItemRating();
+        }
+        $input = request()->all();
+        $item_rating->fill($input);
+        $item_rating->save();
     }
 }

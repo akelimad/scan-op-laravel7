@@ -178,6 +178,7 @@ return [
 
         Shanmuga\LaravelEntrust\LaravelEntrustServiceProvider::class,
         Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+        willvincent\Rateable\RateableServiceProvider::class,
 
     ],
 

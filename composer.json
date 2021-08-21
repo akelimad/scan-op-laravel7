@@ -22,7 +22,8 @@
         "laravelcollective/html": "^6.2",
         "laravelium/feed": "7.*",
         "laravelium/sitemap": "7.*",
-        "shanmuga/laravel-entrust": "^2.2"
+        "shanmuga/laravel-entrust": "^2.2",
+        "willvincent/laravel-rateable": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
