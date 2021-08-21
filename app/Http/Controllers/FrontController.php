@@ -79,7 +79,7 @@ class FrontController extends BaseController {
                     'manga_id' => $manga->manga_id, 
                     'manga_name' => $manga->manga_name, 
                     'manga_slug' => $manga->manga_slug,
-					'manga_status' => $manga->manga_status,
+					          'manga_status' => $manga->manga_status,
                     'hot' => $manga->hot,
                     'chapters' => [
                     	[

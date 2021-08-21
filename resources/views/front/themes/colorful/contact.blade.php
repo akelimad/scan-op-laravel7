@@ -12,6 +12,10 @@
 {{$settings['seo.keywords']}}
 @stop
 
+@section("header")
+    {!! htmlScriptTagJsApi() !!}
+@endsection
+
 @include('front.themes.'.$theme.'.blocs.menu')
 
 @section('allpage')
@@ -29,35 +33,34 @@
         {{ Lang::get('messages.front.home.contact.info') }}
     </p>
     {{ Form::open(array('route' => 'front.manga.sendMessage', 'role' => 'form')) }}
-    <div class="row control-group">
-        <div class="form-group col-xs-12">
-            <label for="name">{{ Lang::get('messages.front.home.contact.name') }}</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+        <div class="row control-group">
+            <div class="form-group col-xs-12">
+                <label for="name">{{ Lang::get('messages.front.home.contact.name') }}</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
         </div>
-    </div>
-    <div class="row control-group">
-        <div class="form-group col-xs-12">
-            <label for="email">{{ Lang::get('messages.front.home.contact.email') }}</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+        <div class="row control-group">
+            <div class="form-group col-xs-12">
+                <label for="email">{{ Lang::get('messages.front.home.contact.email') }}</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
         </div>
-    </div>
-    <div class="row control-group">
-        <div class="form-group col-xs-12 controls">
-            <label for="message">{{ Lang::get('messages.front.home.contact.subject') }}</label>
-            <textarea rows="5" class="form-control" id="subject" name="subject" required></textarea>
+        <div class="row control-group">
+            <div class="form-group col-xs-12 controls">
+                <label for="message">{{ Lang::get('messages.front.home.contact.subject') }}</label>
+                <textarea rows="5" class="form-control" id="subject" name="subject" required></textarea>
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="form-group">
-        {{HTML::image(Captcha::url())}}
-        {{Form::text('captcha')}}
-    </div>
-    <br>
-    <div class="row">
-        <div class="form-group col-xs-12">
-            <button type="submit" class="btn-lg btn-primary">{{ Lang::get('messages.front.home.contact.send') }}</button>
+        <br>
+        <div class="form-group">
+            {!! htmlFormSnippet() !!}
         </div>
-    </div>
+        <br>
+        <div class="row">
+            <div class="form-group col-xs-12">
+                <button type="submit" class="btn-lg btn-primary">{{ Lang::get('messages.front.home.contact.send') }}</button>
+            </div>
+        </div>
     {{ Form::close() }}
 </div>
 @stop

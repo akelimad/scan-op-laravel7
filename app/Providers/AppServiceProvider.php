@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Option;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -52,5 +54,19 @@ class AppServiceProvider extends ServiceProvider
             }
             return $variation;
         });
+
+        $subscription = json_decode($options['site.subscription']);
+
+        // set language
+        App::setLocale($options['site.lang'], 'en');
+
+        // set orientation
+        Config::set('orientation', $options['site.orientation']);
+
+        // allow subscribe
+        Config::set('subscribe', ($subscription->subscribe === 'true'));
+
+        // default role
+        Config::set('default_role', $subscription->default_role);
     }
 }

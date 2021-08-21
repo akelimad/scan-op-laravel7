@@ -2,7 +2,7 @@
 <?php $menus = json_decode(isset($settings['site.menu']) ?: ""); ?>
 <div style="position:relative">
     <a class="navbar-brand" href="{{route('front.index')}}">
-        <h1>{{ isset($settings['site.name']) ?: "sitename" }}</h1>
+        <h1 class="mb-3">{{ isset($settings['site.name']) ? $settings['site.name'] : "sitename" }}</h1>
     </a>
 
     <ul class="menu boxed clearfix bg-image-home">

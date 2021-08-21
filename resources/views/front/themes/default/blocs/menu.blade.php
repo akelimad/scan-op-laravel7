@@ -1,12 +1,12 @@
 @section('menu')
-<?php $menus = json_decode(isset($settings['site.menu']) ?: ""); ?>
+<?php $menus = json_decode(isset($settings['site.menu']) ? $settings['site.menu'] : ""); ?>
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
             <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
-        <h1 style="margin: 0px;"><a class="navbar-brand" href="{{route('front.index')}}">{{ isset($settings['site.name']) ?: "Scan-op.cc
+        <h1 style="margin: 0px;"><a class="navbar-brand" href="{{route('front.index')}}">{{ isset($settings['site.name']) ? $settings['site.name'] : "Scan-op.cc
 " }}</a></h1>
     </div>
 
@@ -90,28 +90,28 @@
         <!-- menu -->
         <ul class="nav navbar-nav @if(Config::get('orientation') === 'rtl') navbar-left @else navbar-right @endif">
             @if(isset($menus->home))
-            <li>{{link_to_route('front.index', Lang::get('messages.front.menu.home'))}}</li>
+                <li>{{link_to_route('front.index', Lang::get('messages.front.menu.home'))}}</li>
             @endif
             @if(isset($menus->mangalist))
-            <li>{{link_to_route('front.manga.list', Lang::get('messages.front.menu.manga-list'))}}</li>
+                <li>{{link_to_route('front.manga.list', Lang::get('messages.front.menu.manga-list'))}}</li>
             @endif
             @if(isset($menus->latest_release))
-            <li>{{link_to_route('front.manga.latestRelease', Lang::get('messages.front.home.latest-release'))}}</li>
+                <li>{{link_to_route('front.manga.latestRelease', Lang::get('messages.front.home.latest-release'))}}</li>
             @endif
             @if(isset($menus->news))
-            <li>{{link_to_route('front.manga.latestNews', Lang::get('messages.front.home.news'))}}</li>
+                <li>{{link_to_route('front.manga.latestNews', Lang::get('messages.front.home.news'))}}</li>
             @endif
             @if(isset($menus->random))
-            <li>{{link_to_route('front.manga.random', Lang::get('messages.front.menu.random-manga'))}}</li>
+                <li>{{link_to_route('front.manga.random', Lang::get('messages.front.menu.random-manga'))}}</li>
             @endif
             @if(isset($menus->adv_search))
-            <li>{{link_to_route('front.advSearch', Lang::get('messages.front.home.adv-search'))}}</li>
+                <li>{{link_to_route('front.advSearch', Lang::get('messages.front.home.adv-search'))}}</li>
             @endif
             <!-- custom menu -->
             @if(isset($menus->label) && count($menus->label)>0)
-            @foreach($menus->label as $index => $menu)
-            <li><a href="{{$menus->url[$index]}}">{{$menu}}</a></li>
-            @endforeach
+                @foreach($menus->label as $index => $menu)
+                    <li><a href="{{$menus->url[$index]}}">{{$menu}}</a></li>
+                @endforeach
             @endif
         </ul>
     </div>

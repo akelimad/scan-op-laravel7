@@ -84,7 +84,9 @@
         </div>
         <!--/ row -->
 
-        <?php $menus = json_decode(isset($settings['site.menu']) ?: ""); ?>
+        <?php
+        $menus = json_decode(isset($settings['site.menu']) ? $settings['site.menu'] : "");
+        ?>
         <!-- row -->
         <div class="row">
             <div class="col-sm-12">
@@ -115,7 +117,7 @@
                         </ul>
                         &copy;&nbsp;<?php echo date("Y") ?>&nbsp;
                         <a href="{{route('front.index')}}">
-                            {{ isset($settings['site.name']) ?: "Scan-op.cc" }}
+                            {{ isset($settings['site.name']) ? $settings['site.name'] : "Scan-op.cc" }}
                         </a>
                         &nbsp;
                         <a href="{{URL::to('/contact-us')}}" title="{{Lang::get('messages.front.home.contact-us')}}"><i class="fa fa-envelope-square"></i></a>

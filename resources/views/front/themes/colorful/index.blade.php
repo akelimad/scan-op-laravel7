@@ -1,7 +1,7 @@
 @extends('front.layouts.colorful')
 
 @section('title')
-{{ Lang::get('messages.front.home.title', array('sitename' => isset($settings['seo.title']) ?: "sitename")) }}
+{{ Lang::get('messages.front.home.title', array('sitename' => isset($settings['seo.title']) ? $settings['seo.title'] : "sitename")) }}
 @stop
 
 @section('description')

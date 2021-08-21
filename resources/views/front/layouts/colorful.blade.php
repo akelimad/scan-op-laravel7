@@ -67,7 +67,7 @@
     @endif
 
     <div class="mobile_sitename">
-        <h1>{{ isset($settings['site.name']) ?: "sitename" }}</h1>
+        <h1>{{ isset($settings['site.name']) ? $settings['site.name'] : "sitename" }}</h1>
     </div>
     <div class="body-wrap">
         <div class="content">
