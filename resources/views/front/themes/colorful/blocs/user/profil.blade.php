@@ -12,7 +12,7 @@
         <div class="page-header">
             <h3>
                 {{ Lang::get('messages.front.myprofil.my-profil')}} <small>{{$user->username}}</small>
-                @if(Confide::user() && Confide::user()->id == $user->id)
+                @if(Auth::user() && Auth::user()->id == $user->id)
                 <a class="btn-sm btn-default pull-left" href="{{route('user.profil.edit', $user->id)}}">
                     <i class="glyphicon glyphicon-edit"></i> {{ Lang::get('messages.front.myprofil.edit') }}
                 </a>

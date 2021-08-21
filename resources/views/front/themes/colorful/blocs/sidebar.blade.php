@@ -16,7 +16,7 @@
         @else
         <li class="item-link">
             <a href="admin">
-                <i class="glyphicon glyphicon-tasks"></i>{{Lang::get('messages.front.home.hello-user', array('user'=> Confide::user()->username))}}
+                <i class="glyphicon glyphicon-tasks"></i>{{Lang::get('messages.front.home.hello-user', array('user'=> Auth::user()->username))}}
             </a>
         </li>
         <li class="item-link">
@@ -37,7 +37,7 @@
             </a>
         </li>
         <li class="item-link">
-            <a href="{{route('user.profil.index', Confide::user()->username)}}">
+            <a href="{{route('user.profil.index', Auth::user()->username)}}">
                 <i class="glyphicon glyphicon-user"></i> {{Lang::get('messages.front.myprofil.my-profil')}}
             </a>
         </li>  

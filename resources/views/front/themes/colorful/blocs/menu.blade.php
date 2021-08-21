@@ -1,5 +1,5 @@
 @section('menu')
-<?php $menus = json_decode(isset($settings['site.menu']) ?: ""); ?>
+<?php $menus = json_decode(isset($settings['site.menu']) ? $settings['site.menu'] : ""); ?>
 <div style="position:relative">
     <a class="navbar-brand" href="{{route('front.index')}}">
         <h1 class="mb-3">{{ isset($settings['site.name']) ? $settings['site.name'] : "sitename" }}</h1>

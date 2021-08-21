@@ -109,7 +109,7 @@ use App\Http\Controllers\Utils\HelperController;
                 @if(Config::get('subscribe'))
                 <ul class="nav navbar-nav @if(Config::get('orientation') === 'rtl') navbar-left @else navbar-right @endif">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> @if(Confide::user()){{Confide::user()->username}}@endif<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> @if(Confide::user()){{Auth::user()->username}}@endif<span class="caret"></span></a>
                         <ul class="dropdown-menu profil-menu">
                             @if(!Confide::user())
                             <li>

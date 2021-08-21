@@ -113,7 +113,7 @@ class FrontController extends BaseController {
         }
         
         // widgets
-        $widgets = json_decode(isset($settings['site.widgets']) ? $settings['site.widgets'] : "") ?: [];
+        $widgets = json_decode(isset($settings['site.widgets']) ? $settings['site.widgets'] : "");
         $topManga = array();
         $topViewsManga = array();
         $tags = array();
@@ -167,7 +167,7 @@ class FrontController extends BaseController {
         $advancedSEO = json_decode($settings['seo.advanced']);
         
         // +1 hit
-        Event::fire('manga.views', $mangaInfo);
+        Event::dispatch('manga.views', $mangaInfo);
             
         // ad placement
         $info = Placement::where('page', '=', 'MANGAINFO')->first();
@@ -196,8 +196,7 @@ class FrontController extends BaseController {
 
         array_multisort(array_keys($sortedChapters), SORT_DESC, SORT_NATURAL, $sortedChapters);
 
-        return view(
-            'front.themes.' . $theme . '.blocs.manga.show', 
+        return view('front.themes.' . $theme . '.blocs.manga.show',
             [
                 "theme" => $theme,
                 "variation" => $variation,

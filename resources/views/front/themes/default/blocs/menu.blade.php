@@ -14,7 +14,7 @@
         @if(Config::get('subscribe'))
         <ul class="nav navbar-nav @if(Config::get('orientation') === 'rtl') navbar-left @else navbar-right @endif">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> @if(Confide::user()){{Confide::user()->username}}@endif<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> @if(Confide::user()){{Auth::user()->username}}@endif<span class="caret"></span></a>
                 <ul class="dropdown-menu profil-menu">
                     @if(!Confide::user())
                     <li>
@@ -29,7 +29,7 @@
                     </li>
                     @else
                     <li>
-                        <a href="{{route('user.profil.index', Confide::user()->username)}}">
+                        <a href="{{route('user.profil.index', Auth::user()->username)}}">
                             <i class="fa fa-user"></i> {{Lang::get('messages.front.myprofil.my-profil')}}
                         </a>
                     </li>

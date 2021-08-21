@@ -27,27 +27,29 @@
 @include('front.themes.'.$theme.'.blocs.menu')
 
 @section('header')
-{{ Jraty::js() }}
+    {{--
+        {{ Jraty::js() }}
 
-{{ Jraty::js_init(array(
-'score' => 'function() { return $(this).attr(\'data-score\'); }',
-'number' => 5,
-'click' => 'function(score, evt) {
-$.post("'.URL::to('/').'/save/item_rating",{
-item_id: $(\'[data-item]\').attr(\'data-item\'),
-score: score
-});
-}',
-'path' => "'".asset('/packages/escapeboy/jraty/raty/lib/img')."'"
-)) }}
+        {{ Jraty::js_init(array(
+        'score' => 'function() { return $(this).attr(\'data-score\'); }',
+        'number' => 5,
+        'click' => 'function(score, evt) {
+        $.post("'.URL::to('/').'/save/item_rating",{
+        item_id: $(\'[data-item]\').attr(\'data-item\'),
+        score: score
+        });
+        }',
+        'path' => "'".asset('/packages/escapeboy/jraty/raty/lib/img')."'"
+        )) }}
+    --}}
 @stop
 
 @section('allpage')
 <h2 class="widget-title" style="display: inline-block;">{{$manga->name}}</h2>
-@if(Confide::user())
-<span class="bookmark @if(Config::get('orientation') === 'rtl') pull-left @else pull-right @endif" style="; display: inline-block; margin: 21px 0px 10.5px;">
-    <a href="#"><i class="fa fa-heart" style="color: red"></i> {{Lang::get('messages.front.bookmarks.bookmark')}}</a>
-</span>
+@if(Auth::user())
+    <span class="bookmark @if(Config::get('orientation') === 'rtl') pull-left @else pull-right @endif" style="; display: inline-block; margin: 21px 0px 10.5px;">
+        <a href="#"><i class="fa fa-heart" style="color: red"></i> {{Lang::get('messages.front.bookmarks.bookmark')}}</a>
+    </span>
 @endif
 <hr/>
 

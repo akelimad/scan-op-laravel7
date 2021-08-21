@@ -5,11 +5,11 @@
 @stop
 
 @section('description')
-{{ isset($settings['seo.description']) ?: "description" }}
+{{ isset($settings['seo.description']) ? $settings['seo.description'] : "description" }}
 @stop
 
 @section('keywords')
-{{ isset($settings['seo.keywords']) ?: "keywords" }}
+{{ isset($settings['seo.keywords']) ? $settings['seo.keywords'] : "keywords" }}
 @stop
 
 @section('header')
