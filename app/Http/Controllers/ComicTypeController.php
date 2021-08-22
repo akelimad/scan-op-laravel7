@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ComicType;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * ComicType Controller Class
@@ -39,7 +41,7 @@ class ComicTypeController extends BaseController
     {
         $types = ComicType::all();
 
-        return View::make(
+        return view(
             'admin.type.index', 
             ["types" => $types]
         );
@@ -52,7 +54,7 @@ class ComicTypeController extends BaseController
      */
     public function store()
     {
-        $input = Input::all();
+        $input = request()->all();
 
         if (!$this->type->fill($input)->isValid()) {
             return Redirect::back()
@@ -76,7 +78,7 @@ class ComicTypeController extends BaseController
         $type = ComicType::find($id);
         $types = ComicType::all();
 
-        return View::make(
+        return view(
             'admin.type.edit', 
             ['type' => $type, "types" => $types]
         );
@@ -91,7 +93,7 @@ class ComicTypeController extends BaseController
      */
     public function update($id)
     {
-        $input = Input::all();
+        $input = request()->all();
         $this->type = ComicType::find($id);
 
         if (!$this->type->fill($input)->isValid()) {
@@ -100,7 +102,7 @@ class ComicTypeController extends BaseController
         }
 
         $this->type->save();
-        return Redirect::route('admin.comictype.index')
+        return Redirect::route('comictype.index')
             ->with('msgSuccess', Lang::get('messages.admin.comictype.update-success'));
     }
 
@@ -117,7 +119,7 @@ class ComicTypeController extends BaseController
 
         $this->type->delete();
 
-        return Redirect::route('admin.comictype.index')
+        return Redirect::route('comictype.index')
             ->with('msgSuccess', Lang::get('messages.admin.comictype.delete-success'));
     }
 

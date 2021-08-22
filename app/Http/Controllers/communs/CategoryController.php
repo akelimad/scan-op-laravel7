@@ -55,7 +55,7 @@ class CategoryController extends BaseController
      */
     public function store()
     {
-        $input = Input::all();
+        $input = request()->all();
 
         if (!$this->category->fill($input)->isValid()) {
             return Redirect::back()
@@ -94,7 +94,7 @@ class CategoryController extends BaseController
      */
     public function update($id)
     {
-        $input = Input::all();
+        $input = request()->all();
         $this->category = Category::find($id);
 
         if (!$this->category->fill($input)->isValid()) {
@@ -103,7 +103,7 @@ class CategoryController extends BaseController
         }
 
         $this->category->save();
-        return Redirect::route('admin.category.index')
+        return Redirect::route('category.index')
             ->with('msgSuccess', Lang::get('messages.admin.category.update-success'));
     }
 
@@ -120,7 +120,7 @@ class CategoryController extends BaseController
 
         $this->category->delete();
 
-        return Redirect::route('admin.category.index')
+        return Redirect::route('category.index')
             ->with('msgSuccess', Lang::get('messages.admin.category.delete-success'));
     }
 

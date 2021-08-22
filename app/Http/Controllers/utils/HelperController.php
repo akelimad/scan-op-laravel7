@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Utils;
 
 use App\Http\Controllers\BaseController;
+use App\Manga;
 use DateTime;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * File upload Controller Class
@@ -175,9 +177,10 @@ class HelperController extends BaseController
      * @return string
      */
     public static function advSeoReaderPage($value, $current, $page) {
-        if (str_contains($value, [self::MANGA_AUTHOR, self::MANGA_ARTIST, self::MANGA_CAT, self::MANGA_DESC])) {
-            $manga = Cache::remember('manga-reader-'.$current->manga_id, 30, function() use($current) {
-              return  Manga::where('id',$current->manga_id)->with('categories')->first();
+
+        if (str_contains($value, self::MANGA_AUTHOR, self::MANGA_ARTIST, self::MANGA_CAT, self::MANGA_DESC)) {
+            $manga = Cache::remember('manga-reader-'.$current->manga_id, 30, function() use ($current) {
+              return  Manga::where('id', $current->manga_id)->with('categories')->first();
             });
             $str = static::advSeoInfoPage($value, $manga);
         } else {

@@ -19,7 +19,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-5">
-                        {{ Form::open(array('route' => 'admin.comictype.store', 'role' => 'form')) }}
+                        {{ Form::open(array('route' => 'comictype.store', 'role' => 'form')) }}
                         <div class="form-group">
                             {{Form::label('label', Lang::get('messages.admin.comictype.label'))}}
                             {{Form::text('label','', array('class' => 'form-control'))}}
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="actionBtn">
-                            {{ link_to_route('admin.manga.index', Lang::get('messages.admin.category.back'), null, array('class' => 'btn btn-default btn-xs')) }}
+                            {{ link_to_route('manga.index', Lang::get('messages.admin.category.back'), null, array('class' => 'btn btn-default btn-xs')) }}
 
                             {{Form::submit(Lang::get('messages.admin.comictype.create-type'), array('class' => 'btn btn-primary btn-xs'))}}
                         </div>
@@ -48,10 +48,10 @@
                                     {{ $type->label }}
                                 </td>
                                 <td>
-                                    {{ link_to_route('admin.comictype.edit', Lang::get('messages.admin.comictype.edit'), $type->id, array('class' => 'btn btn-primary btn-xs')) }}
+                                    {{ link_to_route('comictype.edit', Lang::get('messages.admin.comictype.edit'), $type->id, array('class' => 'btn btn-primary btn-xs')) }}
 
                                     <div style="display: inline-block">
-                                        {{ Form::open(array('route' => array('admin.comictype.destroy', $type->id), 'method' => 'delete')) }}
+                                        {{ Form::open(array('route' => array('comictype.destroy', $type->id), 'method' => 'delete')) }}
                                         {{ Form::submit(Lang::get('messages.admin.comictype.delete'), array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'. Lang::get('messages.admin.comictype.confirm-delete') .'")) {return false;}')) }}
                                         {{ Form::close() }}
                                     </div>

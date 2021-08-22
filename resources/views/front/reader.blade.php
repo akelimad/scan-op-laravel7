@@ -54,14 +54,15 @@ use App\Http\Controllers\Utils\HelperController;
     {{ HTML::script('assets/js/vendor/jquery.plugins.js') }}
 
     @if(Config::get('orientation') === 'rtl')
-    {{ HTML::style('assets/css/bootstrap-rtl.min.css') }}
-    {{ HTML::style('assets/css/rtl.css') }}
+        {{ HTML::style('assets/css/bootstrap-rtl.min.css') }}
+        {{ HTML::style('assets/css/rtl.css') }}
     @endif
 
     <!--[if lt IE 9]>
-        {{ HTML::script('assets/js/vendor/html5shiv.js') }}
-        {{ HTML::script('assets/js/vendor/respond.min.js') }}
-        <![endif]-->
+    {{ HTML::script('assets/js/vendor/html5shiv.js') }}
+    {{ HTML::script('assets/js/vendor/respond.min.js') }}
+    <![endif]-->
+    {!! htmlScriptTagJsApi() !!}
 </head>
 
 <body>
@@ -773,8 +774,7 @@ use App\Http\Controllers\Utils\HelperController;
                     </div>
                     <br />
                     <div class="form-group">
-                        {{HTML::image(Captcha::url())}}
-                        {{Form::text('captcha')}}
+                        {!! htmlFormSnippet() !!}
                     </div>
                 </div>
                 <div class="modal-footer">

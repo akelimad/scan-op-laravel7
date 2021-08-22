@@ -19,7 +19,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-5">
-                        {{ Form::open(array('route' => 'admin.category.store', 'role' => 'form')) }}
+                        {{ Form::open(array('route' => 'category.store', 'role' => 'form')) }}
                         <div class="form-group">
                             {{Form::label('name', Lang::get('messages.admin.category.name'))}}
                             {{Form::text('name','', array('class' => 'form-control'))}}
@@ -32,7 +32,7 @@
                             {{ $errors->first('slug', '<label class="error" for="slug">:message</label>') }}
                         </div>
                         <div class="actionBtn">
-                            {{ link_to_route('admin.manga.index', Lang::get('messages.admin.category.back'), null, array('class' => 'btn btn-default btn-xs')) }}
+                            {{ link_to_route('manga.index', Lang::get('messages.admin.category.back'), null, array('class' => 'btn btn-default btn-xs')) }}
 
                             {{Form::submit(Lang::get('messages.admin.category.create-category'), array('class' => 'btn btn-primary btn-xs'))}}
                         </div>
@@ -57,10 +57,10 @@
                                     {{ $category->slug }}
                                 </td>
                                 <td>
-                                    {{ link_to_route('admin.category.edit', Lang::get('messages.admin.category.edit'), $category->id, array('class' => 'btn btn-primary btn-xs')) }}
+                                    {{ link_to_route('category.edit', Lang::get('messages.admin.category.edit'), $category->id, array('class' => 'btn btn-primary btn-xs')) }}
 
                                     <div style="display: inline-block">
-                                        {{ Form::open(array('route' => array('admin.category.destroy', $category->id), 'method' => 'delete')) }}
+                                        {{ Form::open(array('route' => array('category.destroy', $category->id), 'method' => 'delete')) }}
                                         {{ Form::submit(Lang::get('messages.admin.category.delete'), array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'. Lang::get('messages.admin.category.confirm-delete') .'")) {return false;}')) }}
                                         {{ Form::close() }}
                                     </div>

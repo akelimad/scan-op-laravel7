@@ -124,12 +124,12 @@
                                 @endif
                                 @if(Entrust::can('manage_categories'))
                                 <li>
-                                    <a href="#">{{ Lang::get('messages.admin.layout.categories') }}</a>
+                                    {{ link_to_route('category.index', Lang::get('messages.admin.layout.categories')) }}
                                 </li>
                                 @endif
                                 @if(Entrust::can('manage_categories'))
                                 <li>
-                                    <a href="#">{{ Lang::get('messages.admin.layout.comic-types') }}</a>
+                                    {{ link_to_route('comictype.index', Lang::get('messages.admin.layout.comic-types')) }}
                                 </li>
                                 @endif
                                 @if(Entrust::can('edit_general'))
