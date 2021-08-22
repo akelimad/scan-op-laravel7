@@ -7,6 +7,7 @@ use App\Chapter;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Utils\HelperController;
 use App\ItemRating;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
@@ -694,7 +695,7 @@ class FrontController extends BaseController {
                     'manga_id' => $manga->manga_id, 
                     'manga_name' => $manga->manga_name, 
                     'manga_slug' => $manga->manga_slug,
-					'manga_status' => $manga->manga_status,
+					          'manga_status' => $manga->manga_status,
                     'hot' => $manga->hot,
                     'chapters' => [
                     	[
@@ -706,16 +707,17 @@ class FrontController extends BaseController {
                 ];
             }
         }
-        // $mangaList = Paginator::make($latestMangaUpdates, $data['totalItems'], $limit);
-        $mangaList = $data['totalItems'];
-        
+        //$mangaItems = Paginator::make($latestMangaUpdates, $data['totalItems'], $limit);
+        $mangaItems = HelperController::paginateArray($latestMangaUpdates, $limit, $page);
+
         return view('front.themes.' . $theme . '.blocs.manga.latest_release', [
-                "theme" => $theme,
-                "variation" => $variation,
-                "settings" => $settings,
-                "latestMangaUpdates" => $mangaList,
-                'seo' => $advancedSEO
-            ]
+            "theme" => $theme,
+            "variation" => $variation,
+            "settings" => $settings,
+            "latestMangaUpdates" => $latestMangaUpdates,
+            'seo' => $advancedSEO,
+            'mangaItems' => $mangaItems,
+          ]
         );
     }
     

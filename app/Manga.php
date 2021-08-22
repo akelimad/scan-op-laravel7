@@ -269,23 +269,23 @@ class Manga extends Model
         $results['items'] = array();
 
         $mangas = DB::table('manga')
-        ->join('chapter', 'manga.id', '=', 'chapter.manga_id')
-        ->select(
-            'manga.id as manga_id',
-            'manga.name as manga_name',
-            'manga.slug as manga_slug', 
-            'manga.cover as manga_cover', 
-            'manga.hot as hot', 
-            'chapter.number as chapter_number', 
-            'chapter.name as chapter_name', 
-            'chapter.slug as chapter_slug', 
-            'chapter.created_at as chapter_created_at',
-			'manga.status_id as manga_status'
-        )
-        ->orderByRaw('chapter.created_at desc')
-        ->groupBy('manga_id')->groupBy('chapter_number')
-        ->skip($limit * ($page - 1))->take($limit)
-        ->get();
+            ->join('chapter', 'manga.id', '=', 'chapter.manga_id')
+            ->select(
+                'manga.id as manga_id',
+                'manga.name as manga_name',
+                'manga.slug as manga_slug',
+                'manga.cover as manga_cover',
+                'manga.hot as hot',
+                'manga.status_id as manga_status',
+                'chapter.id as chapter_id',
+                'chapter.number as chapter_number',
+                'chapter.name as chapter_name',
+                'chapter.slug as chapter_slug',
+                'chapter.created_at as chapter_created_at'
+            )
+            ->orderByRaw('chapter.created_at desc')
+            ->groupBy('manga_id')->groupBy('chapter.number')
+            ->skip($limit * ($page - 1))->take($limit)->get();
 
         $results['totalItems'] = count(Chapter::groupBy('manga_id')->groupBy('number')->get());
         $results['items'] = $mangas;
