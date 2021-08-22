@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use Illuminate\Support\Facades\Response;
+
 class CommentController extends BaseController
 {
 
@@ -49,7 +52,7 @@ class CommentController extends BaseController
      */
     public function store()
     {
-        $input = Input::all();
+        $input = request()->all();
         
         $comment = new Comment();
         $comment->fill($input);

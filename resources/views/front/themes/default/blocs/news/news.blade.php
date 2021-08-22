@@ -42,7 +42,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div>
-            {{$post->content}}
+            {!! $post->content !!}
         </div>
 
         <input type="hidden" id="post_id" name="post_id" value="{{$post->id}}"/>
