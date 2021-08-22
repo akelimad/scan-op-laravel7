@@ -120,7 +120,7 @@ class MangaController extends BaseController
 
         $this->createOrUpdate($input, $this->manga);
 
-        return Redirect::route('admin.manga.index');
+        return Redirect::route('manga.index');
     }
 
     /**

@@ -84,7 +84,7 @@ Breadcrumbs::register(
         $breadcrumbs->parent('admin.manga.chapter.show', $manga, $chapter);
         $breadcrumbs->push(
             Lang::get('messages.admin.chapter.edit.add-pages'),
-            route('admin.manga.chapter.page.create')
+            route('manga.chapter.page.create', [$manga->id, $chapter->id])
         );
     }
 );

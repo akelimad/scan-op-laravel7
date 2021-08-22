@@ -113,7 +113,7 @@ class RoleController extends BaseController
             $role->perms()->sync($perms);	 
         }
 
-        return Redirect::route('admin.role.index')
+        return Redirect::route('role.index')
             ->with('createSuccess', Lang::get('messages.admin.users.role.create-success'));;
     }
 
@@ -163,7 +163,7 @@ class RoleController extends BaseController
 
         $role->delete();
 
-        return Redirect::route('admin.role.index');
+        return Redirect::route('role.index');
     }
 
 }

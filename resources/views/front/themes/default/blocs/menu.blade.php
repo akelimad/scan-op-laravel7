@@ -43,14 +43,14 @@
                     @endif
                     @if(Entrust::can('add_manga') || Entrust::can('add_chapter'))
                     <li>
-                        <a href="{{route('admin.manga.index')}}">
+                        <a href="{{route('manga.index')}}">
                             <i class="fa fa-plus"></i> {{Lang::get('messages.front.myprofil.add-manga-chapter')}}
                         </a>
                     </li>
                     @endif
                     @if(Entrust::can('manage_posts'))
                     <li>
-                        <a href="{{route('admin.posts.index')}}">
+                        <a href="{{route('posts.index')}}">
                             <i class="fa fa-plus"></i> {{Lang::get('messages.front.myprofil.add-post')}}
                         </a>
                     </li>

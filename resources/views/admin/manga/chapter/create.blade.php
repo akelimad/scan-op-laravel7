@@ -11,7 +11,7 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                {{ Form::open(array('route' => 'admin.manga.chapter.store')) }}
+                {{ Form::open(array('route' => 'manga.chapter.store')) }}
                 <div class="form-group">
                     {{Form::label('name', Lang::get('messages.admin.chapter.create.chapter-name'))}}
                     {{Form::text('name', '', array('class' => 'form-control'))}}
@@ -37,7 +37,7 @@
 
 
                 <div class="actionBtn">
-                    {{ link_to_route('admin.manga.show', Lang::get('messages.admin.chapter.back'), $manga->id, array('class' => 'btn btn-default btn-xs')) }}
+                    {{ link_to_route('manga.show', Lang::get('messages.admin.chapter.back'), $manga->id, array('class' => 'btn btn-default btn-xs')) }}
 
                     @if(Entrust::can('add_chapter'))
                     {{Form::submit(Lang::get('messages.admin.chapter.create.create-chapter'), array('class' => 'btn btn-primary btn-xs'))}}

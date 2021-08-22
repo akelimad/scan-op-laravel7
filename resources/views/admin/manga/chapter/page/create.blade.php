@@ -13,7 +13,7 @@
             <div class="panel-heading">
                 <i class="fa fa-book fa-fw"></i> {{ Lang::get('messages.admin.chapter.page.title') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.manga.chapter.show', Lang::get('messages.admin.chapter.page.back'), array('manga' => $manga->id, 'chapter' => $chapter->id), array('class' => 'btn btn-default btn-xs')) }}
+                    {{ link_to_route('manga.chapter.show', Lang::get('messages.admin.chapter.page.back'), array('manga' => $manga->id, 'chapter' => $chapter->id), array('class' => 'btn btn-default btn-xs')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
@@ -87,6 +87,9 @@
                     previewNode.parentNode.removeChild(previewNode);
 
                     var imagesUploadZone = new Dropzone(".panel-body", {
+                        headers: {
+                            'x-csrf-token': "{{ csrf_token() }}"
+                        },
                         url: "{{ action('PageController@store', array('manga' => $manga->id, 'chapter' => $chapter->id)) }}",
                         thumbnailWidth: 100,
                         thumbnailHeight: 100,
@@ -146,7 +149,7 @@
                     function deletefile(value)
                     {
                         $.post(
-                                "{{ action('FileUploadController@deleteImage') }}",
+                                "{{ action('Utils\FileUploadController@deleteImage') }}",
                                 {manga: "{{ $manga->id }}", filename: value.name}
                         );
                     }

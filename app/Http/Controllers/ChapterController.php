@@ -182,7 +182,7 @@ class ChapterController extends BaseController
 
         $chapter->deleteMe();
 
-        return Redirect::route('admin.manga.show', ['mangaId' => $mangaId]);
+        return Redirect::route('manga.show', ['mangaId' => $mangaId]);
     }
 
     public function destroyChapters($mangaId)
@@ -208,7 +208,7 @@ class ChapterController extends BaseController
             }
         }
 
-        return Redirect::route('admin.manga.show', ['mangaId' => $mangaId]);
+        return Redirect::route('manga.show', ['mangaId' => $mangaId]);
     }
     
     /**

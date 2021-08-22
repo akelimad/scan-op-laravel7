@@ -180,7 +180,7 @@ class FrontController extends BaseController {
         }
 		
         // posts
-        $posts = Post::where('manga_id', $mangaInfo->id)
+        $posts = Post::where('manga_id', $mangaInfo != null ? $mangaInfo->id : 0)
                 ->where('posts.status', '1')
                 ->orderBy('created_at','desc')
                 ->with('user')
@@ -188,7 +188,7 @@ class FrontController extends BaseController {
         
         // sorted chapters
         $sortedChapters = array();
-        $chapters = Chapter::where('manga_id', $mangaInfo->id)
+        $chapters = Chapter::where('manga_id', $mangaInfo != null ? $mangaInfo->id : 0)
                 ->with('user')
                 ->get();
         

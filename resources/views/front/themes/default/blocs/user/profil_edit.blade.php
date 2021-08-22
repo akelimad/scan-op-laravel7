@@ -129,7 +129,7 @@
     
     function deletefile(value) {
     $.post(
-        "{{ action('FileUploadController@deleteAvatar') }}",
+        "{{ action('Utils\FileUploadController@deleteAvatar') }}",
         {filename: value}, function() {
             $('.previewWrapper').find('img').remove();
             $('.previewWrapper').append('<img width="200" height="200" class="placeholder" src="{{asset("uploads/users/placeholder.png")}}" alt="avatar placeholder"/>');
@@ -143,7 +143,7 @@
     var previewTemplate = $('#previews').html();
     $('#previewTemplate').remove();
     var myDropzone = new Dropzone("#coverContainer", {
-        url: "{{ action('FileUploadController@uploadAvatar') }}",
+        url: "{{ action('Utils\FileUploadController@uploadAvatar') }}",
         thumbnailWidth: 200,
         thumbnailHeight: 200,
         acceptedFiles: 'image/*',

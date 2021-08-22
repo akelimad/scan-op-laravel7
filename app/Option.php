@@ -40,4 +40,11 @@ class Option extends Model
         return $query->whereKey($key);
     }
 
+    public static function findByKey($key, $default = "")
+    {
+        $option = Option::where("key", $key)->first();
+
+        return $option != null ? $option->value : $default;
+    }
+
 }

@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Chapter;
+use App\Manga;
+use App\Page;
 use Cyberziko\Gdrive\Controllers\GoogleController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
 
 /**
  * Page Controller Class
@@ -31,7 +39,7 @@ class PageController extends BaseController
         $manga = Manga::find($mangaId);
         $chapter = Chapter::find($chapterId);
 
-        return View::make(
+        return view(
             'admin.manga.chapter.page.create',
             ['manga' => $manga, 'chapter' => $chapter]
         );
@@ -45,7 +53,7 @@ class PageController extends BaseController
      * 
      * @return view
      */
-    public function store($mangaId, $chapterId)
+    public function store($mangaId, $chapterId, Request $request)
     {
         $manga = Manga::find($mangaId);
         $chapter = Chapter::find($chapterId);
@@ -57,10 +65,9 @@ class PageController extends BaseController
             $counter = $lastPage->slug;
         }
 
-        $destinationPath = 'uploads/manga/'
-                . $manga->slug . '/chapters/' . $chapter->slug . '/';
+        $destinationPath = 'uploads/manga/'. $manga->slug . '/chapters/' . $chapter->slug . '/';
 
-        $file = Input::file('file');
+        $file = $request->file('file');
 
         if ($file) {
             $counter++;
@@ -91,9 +98,7 @@ class PageController extends BaseController
                     $page->slug = $counter;
                     $page->save();
                     $chapter->pages()->save($page);
-                    return Response::json(
-                                    ['result' => asset($destinationPath . $newName)]
-                    );
+                    return Response::json(['result' => asset($destinationPath . $newName)]);
                 } else {
                     return Response::json('error', 400);
                 }
@@ -118,7 +123,7 @@ class PageController extends BaseController
         $manga = Manga::find($mangaId);
         $chapter = Chapter::find($chapterId);
 
-	if($page->external === 0) {
+	      if($page->external === 0) {
             $destinationPath = 'uploads/manga/' 
                 . $manga->slug . '/chapters/' . $chapter->slug . '/';
 
@@ -159,15 +164,14 @@ class PageController extends BaseController
             $pg->save();
         }
         
-        return Redirect::route(
-            'admin.manga.chapter.show', 
+        return Redirect::route('manga.chapter.show',
             ['mangaId' => $mangaId, 'chapterId' => $chapter->id]
         );
     }
     
     public function destroyPages($mangaId, $chapterId)
     {
-        $ids = Input::get("pages-ids");
+        $ids = request()->get("pages-ids");
         $manga = Manga::find($mangaId);
         $chapter = Chapter::find($chapterId);
 
@@ -223,10 +227,7 @@ class PageController extends BaseController
             $pg->save();
         }
         
-        return Redirect::route(
-            'admin.manga.chapter.show', 
-            ['mangaId' => $mangaId, 'chapterId' => $chapter->id]
-        );
+        return Redirect::route('manga.chapter.show', ['manga' => $mangaId, 'chapter' => $chapter->id]);
     }
     
     /**

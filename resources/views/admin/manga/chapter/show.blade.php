@@ -160,9 +160,9 @@
                         <div class="zipfile well well-sm" style="display: none;">
                             <div class="form-group">
                             @if ($settings['storage.type'] == 'gdrive')
-                            <div class="alert alert-info" role="alert">{{ Lang::get('messages.admin.chapter.scraper.storage-mode.gdrive') }}</div>
+                            <div class="alert alert-info" role="alert">{!! Lang::get('messages.admin.chapter.scraper.storage-mode.gdrive') !!}</div>
                             @else
-                            <div class="alert alert-info" role="alert">{{ Lang::get('messages.admin.chapter.scraper.storage-mode.server') }}</div>
+                            <div class="alert alert-info" role="alert">{!! Lang::get('messages.admin.chapter.scraper.storage-mode.server') !!}</div>
                             @endif
                             </div>
                             
@@ -251,7 +251,7 @@
                                 </tbody>
                                 @else
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         <div class="center-block">{{ Lang::get('messages.admin.chapter.edit.no-page') }}</div>
                                     </td>
                                 </tr>

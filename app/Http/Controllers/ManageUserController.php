@@ -110,7 +110,7 @@ class ManageUserController extends BaseController
             $user->roles()->sync($roles);
         }
 
-        return Redirect::route('admin.user.index')
+        return Redirect::route('user.index')
             ->with('createSuccess', Lang::get('messages.admin.users.user.create-success'));
     }
 	
@@ -208,7 +208,7 @@ class ManageUserController extends BaseController
 
         $user->delete();
 
-        return Redirect::route('admin.user.index');
+        return Redirect::route('user.index');
     }
     
     public function saveSubscription(){

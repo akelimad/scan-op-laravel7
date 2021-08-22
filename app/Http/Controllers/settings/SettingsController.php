@@ -98,7 +98,7 @@ class SettingsController extends BaseController
             Option::where("key", $option)->update(['value' => $value]);
         }
 
-        Session::put("sitename", $input['site_name']);
+        Session::put("sitename", isset($input['site_name']) ? $input['site_name'] : "");
         
         // clean cache
         Cache::forget('options');

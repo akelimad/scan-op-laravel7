@@ -93,7 +93,7 @@ Route::group(['before' => 'auth'], function () {
     Route::post('admin/clear-cache', ['as' => 'admin.settings.cache.clear', 'uses' => 'Settings\SettingsController@clearCache']);
     Route::post('admin/clear-downloads', ['as' => 'admin.settings.downloads.clear', 'uses' => 'Settings\SettingsController@clearDownloads']);
 
-    // Google
+    // Google to update package
     /*Route::get('admin/gdrive', ['as' => 'admin.settings.gdrive', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@index']);
     Route::post('admin/gdrive/reset', ['as' => 'admin.settings.gdrive.reset', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@resetGdrive']);
     Route::post('admin/gdrive', ['as' => 'admin.settings.gdrive.save', 'uses' => 'Cyberziko\Gdrive\Controllers\GoogleController@saveGdrive']);*/

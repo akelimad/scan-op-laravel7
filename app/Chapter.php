@@ -50,7 +50,7 @@ class Chapter extends Model
      */
     public function lastPage()
     {
-        if (count($this->pages())) {
+        if (count($this->pages()->get())) {
             return $this->pages()->getResults()->last();
         } else {
             return 0;

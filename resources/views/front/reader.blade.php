@@ -134,14 +134,14 @@ use App\Http\Controllers\Utils\HelperController;
                             @endif
                             @if(Entrust::can('add_manga') || Entrust::can('add_chapter'))
                             <li>
-                                <a href="{{route('admin.manga.index')}}">
+                                <a href="{{route('manga.index')}}">
                                     <i class="fa fa-plus"></i> {{Lang::get('messages.front.myprofil.add-manga-chapter')}}
                                 </a>
                             </li>
                             @endif
                             @if(Entrust::can('manage_posts'))
                             <li>
-                                <a href="{{route('admin.posts.index')}}">
+                                <a href="{{route('posts.index')}}">
                                     <i class="fa fa-plus"></i> {{Lang::get('messages.front.myprofil.add-post')}}
                                 </a>
                             </li>
@@ -364,9 +364,9 @@ use App\Http\Controllers\Utils\HelperController;
                             <h1><b>{{$current->manga_name}} {{' #'.$current->chapter_number.': '. $current->chapter_name}}</b></h1>@if(!is_null($page))<span class="pager-cnt" style="<?php if ($settings['reader.type'] != 'ppp') { ?> display: none; <?php } ?>"><small> - {{Lang::get('messages.front.reader.page')}} <span class="pagenumber">{{$page->page_slug}}</span></small></span>@endif
                         </div>
                         <div>
-                            <strong>{{Lang::get('messages.front.reader.tips')}}</strong>
+                            <strong>{!! Lang::get('messages.front.reader.tips') !!}</strong>
                             <p>
-                                {{Lang::get('messages.front.reader.tips-message', array('manga' => $current->manga_name, 'chapter' => $current->chapter_number))}}
+                                {!! Lang::get('messages.front.reader.tips-message', array('manga' => $current->manga_name, 'chapter' => $current->chapter_number)) !!}
                             </p>
                         </div>
                     </div>
