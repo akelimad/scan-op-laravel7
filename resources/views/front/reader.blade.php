@@ -341,11 +341,11 @@ use App\Http\Controllers\Utils\HelperController;
             <div class="row">
                 <div class="col-xs-12">
                     @if(isset($prevChapter))
-                    <ul class="pager pull-left" style="margin: 6px 0;">
-                        <li class="previous">
-                            <a href="#" onclick="return prevChap();">{{Lang::get('messages.front.reader.prevChap')}}</a>
-                        </li>
-                    </ul>
+                        <ul class="pager pull-left" style="margin: 6px 0;">
+                            <li class="previous">
+                                <a href="#" onclick="return prevChap();">{{Lang::get('messages.front.reader.prevChap')}}</a>
+                            </li>
+                        </ul>
                     @endif
                     @if(isset($nextChapter))
                     <ul class="pager pull-right" style="margin: 6px 0;">
@@ -431,11 +431,7 @@ use App\Http\Controllers\Utils\HelperController;
 
         <script>
             var title = document.title;
-            var pages = {
-                {
-                    $allPages
-                }
-            };
+            var pages = "{{ $allPages }}";
 
             var next_chapter = @if(isset($nextChapter))
             "{{route('front.manga.reader', array($current->manga_slug,$nextChapter->chapter_slug))}}"
@@ -448,11 +444,7 @@ use App\Http\Controllers\Utils\HelperController;
 
             var preload_next = 3;
             var preload_back = 2;
-            var current_page = {
-                {
-                    $page - > page_slug
-                }
-            };
+            var current_page = {{ $page->page_slug }}
 
             var base_url = "{{route('front.manga.reader', array($current->manga_slug,$current->chapter_slug))}}";
 
