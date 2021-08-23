@@ -95,7 +95,7 @@ class ChapterController extends BaseController
         
         return Redirect::route(
             'manga.chapter.show',
-            ['mangaId' => $mangaId, 'chapterId' => $chapter->id]
+            ['manga' => $mangaId, 'chapter' => $chapter->id]
         );
     }
 
