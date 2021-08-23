@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Chapter;
+use App\Manga;
+use App\Option;
 use Goutte\Client;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Response;
 
 /**
  * Reader Controller Class
@@ -123,7 +129,7 @@ class WebScraperController extends BaseController
         $manga = Manga::find($mangaId);
         $settings = Cache::get('options');
         
-        return View::make(
+        return view(
             'admin.manga.chapter.scraper', 
             ['manga' => $manga, 'websites' => $this->websites, 'settings' => $settings]
         );
@@ -305,12 +311,12 @@ class WebScraperController extends BaseController
             $tmpTitle = $mainPageCrawler
                 ->filterXPath("//table[@id='accordion']//h5/a[contains(text(),'Cáspitulo " . $chapterNumber . " ')]")
                 ->text();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             try {
                 $tmpTitle = $mainPageCrawler
                     ->filterXPath("//table[@id='accordion']//h5/a[contains(text(),'Capítulo " . $chapterNumber . " ')]")
                     ->text();
-            } catch (Exception $e) {}
+            } catch (\Exception $e) {}
         }
         
         $title = trim(substr(trim($tmpTitle), strlen('Capítulo ' . $chapterNumber . ' ')));

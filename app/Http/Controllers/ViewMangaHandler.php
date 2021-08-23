@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Manga;
 use Illuminate\Session\Store;
 
 class ViewMangaHandler

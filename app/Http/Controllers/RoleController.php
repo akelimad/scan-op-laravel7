@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Permission;
 use App\Role;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Role Controller Class
@@ -81,7 +83,7 @@ class RoleController extends BaseController
             }
 	}
 				
-        return View::make(
+        return view(
             'admin.users.role.edit',
             [
             	'permissions' => $permissions,

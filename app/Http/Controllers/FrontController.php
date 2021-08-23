@@ -188,9 +188,7 @@ class FrontController extends BaseController {
         
         // sorted chapters
         $sortedChapters = array();
-        $chapters = Chapter::where('manga_id', $mangaInfo != null ? $mangaInfo->id : 0)
-                ->with('user')
-                ->get();
+        $chapters = Chapter::where('manga_id', $mangaInfo != null ? $mangaInfo->id : 0)->with('user')->get();
         
         foreach ($chapters as $chapter) {
             $sortedChapters[$chapter->number] = $chapter;

@@ -1,6 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+
 /**
  * MySpace Controller Class
  * 
@@ -21,7 +29,7 @@ class MySpaceController extends BaseController
         $theme = Cache::get('theme');
         $variation = Cache::get('variation');
         
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.user.profil', 
             [
                 "theme" => $theme,
@@ -41,7 +49,7 @@ class MySpaceController extends BaseController
         $theme = Cache::get('theme');
         $variation = Cache::get('variation');
         
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.user.profil_edit', 
             [
                 "theme" => $theme,

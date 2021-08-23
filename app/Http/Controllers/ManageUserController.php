@@ -6,6 +6,9 @@ use App\Option;
 use App\Permission;
 use App\Role;
 use App\User;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * User Management System Controller Class

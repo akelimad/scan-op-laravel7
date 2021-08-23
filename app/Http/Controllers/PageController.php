@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
+use ZipArchive;
 
 /**
  * Page Controller Class
@@ -422,7 +424,7 @@ class PageController extends BaseController
                                 'url' => $imageUrl], 400
                     );
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return Response::json(
                                 ['error' => $e->getMessage(),
                             'index' => $index,
@@ -487,7 +489,7 @@ class PageController extends BaseController
                 return Redirect::back()
                     ->with('uploadError', Lang::get('messages.admin.chapter.page.select-file-error'));
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return Redirect::back()->with('uploadError', $e->getMessage());
         }
     }

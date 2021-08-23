@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Utils\HelperController;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * UsersController Class
@@ -21,7 +28,7 @@ class UsersController extends Controller
         if (!Config::get('subscribe')) {
             return Redirect::to('/');
         } else {
-            return View::make('admin.signup');
+            return view('admin.signup');
         }
     }
 
@@ -77,10 +84,10 @@ class UsersController extends Controller
      */
     public function login()
     {
-        if (Confide::user()) {
+        if (Auth::user()) {
             return Redirect::to('admin');
         } else {
-            return View::make('admin.login');
+            return view('admin.login');
         }
     }
 
@@ -127,7 +134,7 @@ class UsersController extends Controller
      */
     public function confirm($code)
     {
-        if (Confide::confirm($code)) {
+        if (Auth::confirm($code)) {
             $notice_msg = Lang::get('confide::confide.alerts.confirmation');
             return Redirect::action('UsersController@login')
                 ->with('notice', $notice_msg);
@@ -145,7 +152,7 @@ class UsersController extends Controller
      */
     public function forgotPassword()
     {
-        return View::make('admin.forgot_password');
+        return view('admin.forgot_password');
     }
 
     /**
@@ -156,7 +163,7 @@ class UsersController extends Controller
     public function doForgotPassword()
     {
         if (HelperController::isValidCaptcha(request()->all())) {
-            if (Confide::forgotPassword(request()->get('email'))) {
+            if (Auth::forgotPassword(request()->get('email'))) {
                 $notice_msg = Lang::get('confide::confide.alerts.password_forgot');
                 return Redirect::action('UsersController@login')
                     ->with('notice', $notice_msg);
@@ -182,7 +189,7 @@ class UsersController extends Controller
      */
     public function resetPassword($token)
     {
-        return View::make('admin.reset_password')
+        return view('admin.reset_password')
                 ->with('token', $token);
     }
 
@@ -220,7 +227,7 @@ class UsersController extends Controller
      */
     public function logout()
     {
-        Confide::logout();
+        Auth::logout();
 
         return Redirect::to('/');
     }

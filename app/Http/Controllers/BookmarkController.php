@@ -1,6 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Bookmark;
+use App\Chapter;
+use App\Manga;
+use App\Option;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
+
 /**
  * Bookmark Controller Class
  * 
@@ -65,7 +76,7 @@ class BookmarkController extends BaseController
         Session::put('variation', $variation);
         Session::put('settings', $settings);
         
-        return View::make(
+        return view(
             'front.themes.' . $theme . '.blocs.bookmark', 
             [
                 "theme" => $theme,
@@ -114,7 +125,7 @@ class BookmarkController extends BaseController
             }
         }
 
-        return View::make(
+        return view(
             'front.themes.' . Session::get('theme') . '.blocs.bookmark_frag', 
             [
                 "bookmarks" => $bookmarks,

@@ -73,7 +73,7 @@ class CommentController extends BaseController
      */
     public function destroy($id)
     {
-            //
+        //
     }
 
 

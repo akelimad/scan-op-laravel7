@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bookmark;
+use Illuminate\Support\Facades\Mail;
 
 class SendNotification {
 

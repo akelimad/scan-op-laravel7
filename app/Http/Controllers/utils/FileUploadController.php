@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\URL;
 
 /**
  * File upload Controller Class
@@ -171,7 +172,7 @@ class FileUploadController extends BaseController
                     ]
                 );
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return Response::json(
                 [
                     'error' => $e->getMessage(), 
