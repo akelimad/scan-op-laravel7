@@ -176,9 +176,10 @@ class SettingsController extends BaseController
     {
         $input = $request->all();
         $user = User::find(Auth::user()->id);
-
+        $password = $input['password'];
+        unset($input['password']);
         $user->fill($input);
-        $user->password = Hash::make($input['password']);
+        if ($password != "") $user->password = Hash::make($password);
 		
         if ($user->save() === false) {
             return Redirect::back()->withInput()->withErrors($user->errors);

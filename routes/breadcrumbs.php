@@ -59,7 +59,7 @@ Breadcrumbs::register(
         $breadcrumbs->parent('admin.manga.show', $manga);
         $breadcrumbs->push(
             Lang::get('messages.admin.chapter.create'), 
-            route('admin.manga.chapter.create')
+            route('manga.chapter.create', [$manga])
         );
     }
 );

@@ -97,7 +97,7 @@ class RoleController extends BaseController
      */
     public function store()
     {
-        $inputs = Input::all();
+        $inputs = request()->all();
         $role = new Role();
 
         if (!$role->fill($inputs)->isValid()) {
@@ -127,7 +127,7 @@ class RoleController extends BaseController
      */
     public function update($id)
     {
-        $inputs = Input::all();
+        $inputs = request()->all();
         $role = Role::find($id);
 
         if (!$role->fill($inputs)->isValid()) {

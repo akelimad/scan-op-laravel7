@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Bookmark;
+
 class SendNotification {
 
     public function fire($job, $data) {

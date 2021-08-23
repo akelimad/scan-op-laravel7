@@ -197,7 +197,7 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     <div class="center-block">
                                         <p>{{ Lang::get('messages.admin.dashboard.no-chapter') }}</p>
                                     </div>

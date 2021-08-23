@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
@@ -72,8 +73,8 @@ class ChapterController extends BaseController
      */
     public function store()
     {
-        $input = Input::all();
-        $mangaId = Input::get('mangaId');
+        $input = request()->all();
+        $mangaId = request()->get('mangaId');
 
         if (!$this->chapter->fill($input)->isValid($mangaId)) {
             return Redirect::back()->withInput()->withErrors($this->chapter->errors);
@@ -86,14 +87,14 @@ class ChapterController extends BaseController
 
         // queue send notification
         $date = \Carbon\Carbon::now()->addMinutes(5);
-        Queue::later($date, 'SendNotification', array(
+        Queue::later($date, SendNotification::class, array(
             'mangaId' => $mangaId, 
             'chapter_number' => $chapter->number,
             'chapter_url' => URL::to("manga/".$manga->slug."/".$chapter->number))
         );
         
         return Redirect::route(
-            'admin.manga.chapter.show', 
+            'manga.chapter.show',
             ['mangaId' => $mangaId, 'chapterId' => $chapter->id]
         );
     }
@@ -182,12 +183,13 @@ class ChapterController extends BaseController
 
         $chapter->deleteMe();
 
-        return Redirect::route('manga.show', ['mangaId' => $mangaId]);
+        return Redirect::route('manga.show', ['manga' => $mangaId]);
     }
 
     public function destroyChapters($mangaId)
     {
-        $ids = Input::get("chapters-ids");
+        $ids = request()->get('chapters-ids');
+
         $manga = Manga::find($mangaId);
         if (strlen(trim($ids)) > 0) {
             $tab_ids = explode(',', $ids);
@@ -196,8 +198,7 @@ class ChapterController extends BaseController
                 if ($id != 'all') {
                     $chapter = Chapter::find($id);
 
-                    $destinationPath = 'uploads/manga/' . $manga->slug . '/chapters/'
-                            . $chapter->slug;
+                    $destinationPath = 'uploads/manga/' . $manga->slug . '/chapters/' . $chapter->slug;
 
                     if (File::isDirectory($destinationPath)) {
                         File::deleteDirectory($destinationPath);
@@ -208,7 +209,7 @@ class ChapterController extends BaseController
             }
         }
 
-        return Redirect::route('manga.show', ['mangaId' => $mangaId]);
+        return Redirect::route('manga.show', ['manga' => $mangaId]);
     }
     
     /**

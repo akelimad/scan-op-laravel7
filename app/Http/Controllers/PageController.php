@@ -437,15 +437,14 @@ class PageController extends BaseController
      * 
      * @return type
      */
-    public function uploadZIPFile()
+    public function uploadZIPFile(Request $request)
     {
         try {
-            $mangaSlug = Input::get('mangaSlug');
-            $chapter = Chapter::find(Input::get('chapterId'));
-            $destinationPath = 'uploads/manga/' 
-                . $mangaSlug . '/chapters/' . $chapter->slug . '/';
+            $mangaSlug = request()->get('mangaSlug');
+            $chapter = Chapter::find(request()->get('chapterId'));
+            $destinationPath = 'uploads/manga/' . $mangaSlug . '/chapters/' . $chapter->slug . '/';
 
-            $file = Input::file('zipfile');
+            $file = $request->file('zipfile');
             if ($file) {
                 if ("zip" == $file->getClientOriginalExtension()) {
                     $filename = $file->getClientOriginalName();

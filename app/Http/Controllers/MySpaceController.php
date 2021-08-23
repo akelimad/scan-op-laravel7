@@ -54,7 +54,7 @@ class MySpaceController extends BaseController
     
     public function saveUserProfil($id)
     {
-        $input = Input::all();
+        $input = request()->all();
         $user = User::find($id);
 
         $user->fill($input);

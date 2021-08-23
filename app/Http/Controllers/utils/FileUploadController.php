@@ -72,12 +72,13 @@ class FileUploadController extends BaseController
      * 
      * @return type
      */
-    public function uploadMangaChapterPage()
+    public function uploadMangaChapterPage(Request $request)
     {
         $mangaId = $_GET['manga'];
         $destinationPath = 'uploads/tmp/mangachapter/' . $mangaId . '/';
 
-        $file = Input::file('file');
+        $file = $request->file('file');
+
         if ($file) {
             $filename = $file->getClientOriginalName();
 
@@ -187,7 +188,7 @@ class FileUploadController extends BaseController
      * 
      * @return type
      */
-    public function uploadAvatar()
+    public function uploadAvatar(Request $request)
     {
         $destinationPath = 'uploads/tmp/avatar/';
 
@@ -195,7 +196,7 @@ class FileUploadController extends BaseController
             File::makeDirectory($destinationPath, 0755, true);
         }
 
-        $file = Input::file('file');
+        $file = $request->file('file');
         if ($file) {
             $avatar = 'avatar' . time() . '.jpg';
 

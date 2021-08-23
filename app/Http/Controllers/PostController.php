@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Manga;
 use App\Post;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -128,14 +129,15 @@ class PostController extends BaseController
 	/**
      * CKeditor upload image
      */
-    public function uploadImage()
+    public function uploadImage(Request $request)
     {
-        $file = Input::file('upload');
+        $file = $request->file('upload');
+
         $uploadDestination = public_path() . '/uploads/posts/'.Auth::user()->team_id;
         $filename = preg_replace('/\s+/', '', $file->getClientOriginalName());
         $file->move($uploadDestination, $filename);
 
-        $CKEditorFuncNum = Input::get('CKEditorFuncNum');
+        $CKEditorFuncNum = request()->get('CKEditorFuncNum');
         return Redirect::route('admin.posts.browseImage', ['CKEditorFuncNum'=>$CKEditorFuncNum]);
     }
 	
@@ -163,8 +165,8 @@ class PostController extends BaseController
      */
     public function deletePostImage()
     {
-        $imgSrc = Input::get('imgSrc');
-		
+        $imgSrc = request()->get('imgSrc');
+
         if (File::exists($imgSrc)) {
             File::delete($imgSrc);
         }

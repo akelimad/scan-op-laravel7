@@ -11,23 +11,23 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                {{ Form::open(array('route' => 'manga.chapter.store')) }}
+                {{ Form::open(array('route' => ['manga.chapter.store', $manga])) }}
                 <div class="form-group">
                     {{Form::label('name', Lang::get('messages.admin.chapter.create.chapter-name'))}}
                     {{Form::text('name', '', array('class' => 'form-control'))}}
-                    {{ $errors->first('name', '<label class="error" for="name">:message</label>') }}
+                    {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
                 </div>
 
                 <div class="form-group">
                     {{Form::label('number', Lang::get('messages.admin.chapter.create.number'))}}
                     {{Form::text('number', '', array('class' => 'form-control'))}}
-                    {{ $errors->first('number', '<label class="error" for="number">:message</label>') }}
+                    {!! $errors->first('number', '<label class="error" for="number">:message</label>') !!}
                 </div>
 
                 <div class="form-group">
                     {{Form::label('slug', Lang::get('messages.admin.chapter.create.slug'))}}
                     {{Form::text('slug', '', array('class' => 'form-control', 'placeholder' => Lang::get('messages.admin.chapter.create.slug-placeholder')))}}
-                    {{ $errors->first('slug', '<label class="error" for="slug">:message</label>') }}
+                    {!! $errors->first('slug', '<label class="error" for="slug">:message</label>') !!}
                 </div>              
 
                 <div class="form-group">

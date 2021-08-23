@@ -32,9 +32,9 @@ class UsersController extends Controller
      */
     public function store()
     {
-        if (HelperController::isValidCaptcha(Input::all())) {
+        if (HelperController::isValidCaptcha(request()->all())) {
             $repo = App::make('UserRepository');
-            $user = $repo->signup(Input::all());
+            $user = $repo->signup(request()->all());
 
             if ($user->id) {
                 // assign default role
@@ -60,12 +60,12 @@ class UsersController extends Controller
                 $error = $user->errors()->all(':message');
 
                 return Redirect::action('UsersController@create')
-                    ->withInput(Input::except('password'))
+                    ->withInput(request()->except('password'))
                     ->with('error', $error);
             }
         } else {
             return Redirect::action('UsersController@create')
-                    ->withInput(Input::except('password'))
+                    ->withInput(request()->except('password'))
                     ->with('error', array("Invalid Captcha!"));
         }
     }
@@ -92,7 +92,7 @@ class UsersController extends Controller
     public function doLogin()
     {
         $repo = App::make('UserRepository');
-        $input = Input::all();
+        $input = request()->all();
         
         if (HelperController::isValidCaptcha($input)) {
             if ($repo->login($input)) {
@@ -108,12 +108,12 @@ class UsersController extends Controller
                 }
 
                 return Redirect::action('UsersController@login')
-                                ->withInput(Input::except('password'))
+                                ->withInput(request()->except('password'))
                                 ->with('error', $err_msg);
             }
         } else {
             return Redirect::action('UsersController@login')
-                            ->withInput(Input::except('password'))
+                            ->withInput(request()->except('password'))
                             ->with('error', "Invalid Captcha!");
         }
     }
@@ -155,8 +155,8 @@ class UsersController extends Controller
      */
     public function doForgotPassword()
     {
-        if (HelperController::isValidCaptcha(Input::all())) {
-            if (Confide::forgotPassword(Input::get('email'))) {
+        if (HelperController::isValidCaptcha(request()->all())) {
+            if (Confide::forgotPassword(request()->get('email'))) {
                 $notice_msg = Lang::get('confide::confide.alerts.password_forgot');
                 return Redirect::action('UsersController@login')
                     ->with('notice', $notice_msg);
@@ -195,9 +195,9 @@ class UsersController extends Controller
     {
         $repo = App::make('UserRepository');
         $input = array(
-            'token'                 =>Input::get('token'),
-            'password'              =>Input::get('password'),
-            'password_confirmation' =>Input::get('password_confirmation'),
+            'token'                 =>request()->get('token'),
+            'password'              =>request()->get('password'),
+            'password_confirmation' =>request()->get('password_confirmation'),
         );
 
         // By passing an array with the token, password and confirmation
