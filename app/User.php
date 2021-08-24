@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'name', 'username', 'email', 'password', 'confirmed'
     ];
 
     /**
@@ -37,4 +37,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function manga()
+    {
+        return $this->hasMany(Manga::class)->orderBy('slug', 'desc');
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class)->orderBy('slug', 'desc');
+    }
 }

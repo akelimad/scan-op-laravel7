@@ -34,7 +34,7 @@
                                 @foreach($roles as $role)
                                 <tr>
                                     <td>{{ $role->name }}</td>
-                                    <td>{{ (new App\Http\Controllers\Utils\HelperController())->listAsString($role->perms, ', ') }}</td>
+                                    <td>{{ (new App\Http\Controllers\Utils\HelperController())->listAsString($role->permissions, ', ') }}</td>
                                     <td style="text-align: right;"> {{ link_to_route('role.edit', Lang::get('messages.admin.users.edit'), $role->id, array('class' => 'btn btn-primary btn-xs')) }}
                                         <div style="display: inline-block">
                                             {{ Form::open(array('route' => array('role.destroy', $role->id), 'method' => 'delete')) }}

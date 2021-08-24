@@ -9,29 +9,35 @@
             <div class="panel-heading">
                 <i class="fa fa-plus-square-o fa-fw"></i> {{ Lang::get('messages.admin.users.create') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.user.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
+                    {{ link_to_route('user.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
 
-                {{ Form::open(array('route' => 'admin.user.store')) }}
+                {{ Form::open(array('route' => 'user.store')) }}
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            {{ Form::label('username', Lang::get('messages.admin.settings.profile.username')) }}
-                            {{ Form::text('username', '', array('class' => 'form-control')) }}
-                            {{ $errors->first('username', '<label class="error" for="username">:message</label>') }}
+                            {{ Form::label('name', Lang::get('messages.admin.settings.profile.name')) }}
+                            {{ Form::text('name', '', array('class' => 'form-control', "required" => true)) }}
+                            {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
                         </div>
+
                         <div class="form-group">
-                            {{ Form::label('password', Lang::get('messages.admin.settings.profile.pwd')) }}
-                            {{ Form::password('password', array('class' => 'form-control')) }}
-                            {{ $errors->first('password', '<label class="error" for="password">:message</label>') }}
+                            {{ Form::label('username', Lang::get('messages.admin.settings.profile.username')) }}
+                            {{ Form::text('username', '', array('class' => 'form-control', "required" => true)) }}
+                            {!! $errors->first('username', '<label class="error" for="username">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             {{ Form::label('email', Lang::get('messages.admin.settings.profile.email')) }}
-                            {{ Form::text('email', '', ['class' => 'form-control']) }}
-                            {{ $errors->first('email', '<label class="error" for="email">:message</label>') }}
+                            {{ Form::text('email', '', ['class' => 'form-control', "required" => true]) }}
+                            {!! $errors->first('email', '<label class="error" for="email">:message</label>') !!}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('password', Lang::get('messages.admin.settings.profile.pwd')) }}
+                            {{ Form::password('password', ['class' => 'form-control', "required" => true]) }}
+                            {!! $errors->first('password', '<label class="error" for="password">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             <label style="margin-right: 10px;">{{ Lang::get('messages.admin.users.account-status') }}</label> 

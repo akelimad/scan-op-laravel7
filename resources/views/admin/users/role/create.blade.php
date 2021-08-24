@@ -9,19 +9,19 @@
             <div class="panel-heading">
                 <i class="fa fa-plus-square-o fa-fw"></i> {{ Lang::get('messages.admin.users.roles.create') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.role.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
+                    {{ link_to_route('role.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
 
-                {{ Form::open(array('route' => 'admin.role.store')) }}
+                {{ Form::open(array('route' => 'role.store')) }}
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            {{Form::label('name', Lang::get('messages.admin.users.roles.role-name'))}}
-                            {{Form::text('name', '', array('class' => 'form-control'))}}
-                            {{ $errors->first('name', '<label class="error" for="name">:message</label>') }}
+                            {{ Form::label('name', Lang::get('messages.admin.users.roles.role-name')) }}
+                            {{ Form::text('name', '', array('class' => 'form-control')) }}
+                            {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
                         </div>
                     </div>
                 </div>

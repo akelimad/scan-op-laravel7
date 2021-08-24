@@ -70,11 +70,11 @@ class RoleController extends BaseController
      */
     public function edit($id)
     {
-    	$role = Role::find($id);
+    	  $role = Role::find($id);
         $permissions = Permission::all();
 
-        if(count($role->perms)>0){
-            foreach ($role->perms as $perm) {
+        if(count($role->permissions)> 0 ){
+            foreach ($role->permissions as $perm) {
                 foreach ($permissions as $key=>$permission) {
                     if($permission->id === $perm->id) {
                         unset($permissions[$key]);
@@ -112,7 +112,7 @@ class RoleController extends BaseController
         $perms = explode(",", $permsList);
 
         if (count($perms)>=1 && $perms[0] != "") {
-            $role->perms()->sync($perms);	 
+            $role->permissions()->sync($perms);
         }
 
         return Redirect::route('role.index')
@@ -140,9 +140,9 @@ class RoleController extends BaseController
         $perms = explode(",", $permsList);
 
         if (count($perms)==1 && $perms[0] == "") {
-            $role->perms()->detach();	 
+            $role->permissions()->detach();
         } else {
-            $role->perms()->sync($perms);	 
+            $role->permissions()->sync($perms);
         }
 
         $role->save();

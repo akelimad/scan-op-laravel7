@@ -65,9 +65,9 @@
                                                 <td>{{ $user->manga != null ? count($user->manga) : '---' }}</td>
                                                 <td>{{ $user->chapters != null ? count($user->chapters) : '---' }}</td>
                                                 <td style="text-align: right;"> @if($user->id != 1)
-                                                    {{ link_to_route('admin.user.edit', Lang::get('messages.admin.users.edit'), $user->id, array('class' => 'btn btn-primary btn-xs')) }}
+                                                    {{ link_to_route('user.edit', Lang::get('messages.admin.users.edit'), $user->id, array('class' => 'btn btn-primary btn-xs')) }}
                                                     <div style="display: inline-block">
-                                                        {{ Form::open(array('route' => array('admin.user.destroy', $user->id), 'method' => 'delete')) }}
+                                                        {{ Form::open(array('route' => array('user.destroy', $user->id), 'method' => 'delete')) }}
                                                         {{ Form::submit(Lang::get('messages.admin.users.delete'), array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'.Lang::get('messages.admin.users.confirm-delete').'")) {return false;}')) }}
                                                         {{ Form::close() }}
                                                     </div> @endif</td>

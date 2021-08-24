@@ -15,24 +15,30 @@
             <div class="panel-heading">
                 <i class="fa fa-pencil-square-o fa-fw"></i> {{ Lang::get('messages.admin.users.edit-user') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.user.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
+                    {{ link_to_route('user.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
 
-                {{ Form::open(array('route' => array('admin.user.update', $user->id), 'method' => 'PUT')) }}
+                {{ Form::open(array('route' => array('user.update', $user->id), 'method' => 'PUT')) }}
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
+                            {{ Form::label('name', Lang::get('messages.admin.settings.profile.name')) }}
+                            {{ Form::text('name', $user->name, array('class' => 'form-control', "required")) }}
+                            {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
+                        </div>
+
+                        <div class="form-group">
                             {{Form::label('username', Lang::get('messages.admin.settings.profile.username'))}}
                             {{Form::text('username', $user->username, array('class' => 'form-control'))}}
-                            {{ $errors->first('username', '<label class="error" for="name">:message</label>') }}
+                            {!! $errors->first('username', '<label class="error" for="name">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             {{Form::label('email', Lang::get('messages.admin.settings.profile.email'))}}
                             <input name="email" type="email" class="form-control" value="{{$user->email}}"/>
-                            {{ $errors->first('email', '<label class="error" for="name">:message</label>') }}
+                            {!! $errors->first('email', '<label class="error" for="name">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             <label style="margin-right: 10px;">{{ Lang::get('messages.admin.users.account-status') }}</label>

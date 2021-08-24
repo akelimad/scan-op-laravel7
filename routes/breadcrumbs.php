@@ -218,9 +218,9 @@ Breadcrumbs::register(
 );
 
 Breadcrumbs::register(
-    'admin.user.edit', 
+    'user.edit',
     function ($breadcrumbs) {
-        $breadcrumbs->parent('admin.user.index');
+        $breadcrumbs->parent('user.index');
         $breadcrumbs->push(Lang::get('messages.admin.users.edit-user'));
     }
 );
@@ -234,17 +234,17 @@ Breadcrumbs::register(
 );
 
 Breadcrumbs::register(
-    'admin.role.create', 
+    'role.create',
     function ($breadcrumbs) {
-        $breadcrumbs->parent('admin.role.index');
+        $breadcrumbs->parent('role.index');
         $breadcrumbs->push(Lang::get('messages.admin.users.roles.create'));
     }
 );
 
 Breadcrumbs::register(
-    'admin.role.edit', 
+    'role.edit',
     function ($breadcrumbs) {
-        $breadcrumbs->parent('admin.role.index');
+        $breadcrumbs->parent('role.index');
         $breadcrumbs->push(Lang::get('messages.admin.users.roles.edit'));
     }
 );

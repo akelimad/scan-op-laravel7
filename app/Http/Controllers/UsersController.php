@@ -55,7 +55,7 @@ class UsersController extends Controller
                         compact('user'),
                         function ($message) use ($user) {
                             $message
-                                ->to($user->email, $user->username)
+                              ->to($user->email, $user->username)
                                 ->subject(Lang::get('confide::confide.email.account_confirmation.subject'));
                         }
                     );
@@ -189,8 +189,7 @@ class UsersController extends Controller
      */
     public function resetPassword($token)
     {
-        return view('admin.reset_password')
-                ->with('token', $token);
+        return view('admin.reset_password')->with('token', $token);
     }
 
     /**

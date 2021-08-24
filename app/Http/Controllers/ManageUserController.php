@@ -7,6 +7,7 @@ use App\Permission;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 
@@ -98,9 +99,10 @@ class ManageUserController extends BaseController
     {
         $inputs = request()->all();
         $user = new User();
-
+        $password = $inputs['password'];
+        unset($inputs['password']);
         $user->fill($inputs);
-        $user->password_confirmation = $inputs['password'];
+        if ($password != null) $user->password = Hash::make($password);
 		
         if($user->save() === false) {
             return Redirect::back()->withInput()->withErrors($user->errors);
@@ -126,7 +128,7 @@ class ManageUserController extends BaseController
      */
     public function edit($id)
     {
-    	$user = User::find($id);
+    	  $user = User::find($id);
         $roles = Role::all();
 
         if(count($user->roles)>0){
@@ -160,7 +162,7 @@ class ManageUserController extends BaseController
     {
 		    $inputs = request()->all();
         $user = User::find($id);
-		
+
         $user->fill($inputs);
 
         if($user->save() === false) {

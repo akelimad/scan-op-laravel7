@@ -15,13 +15,13 @@
             <div class="panel-heading">
                 <i class="fa fa-pencil-square-o fa-fw"></i> {{ Lang::get('messages.admin.users.roles.edit') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.role.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
+                    {{ link_to_route('role.index', Lang::get('messages.admin.manga.back'), null, array('class' => 'btn btn-default btn-xs', 'role' => 'button')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
 
-                {{ Form::open(array('route' => array('admin.role.update', $role->id), 'method' => 'PUT')) }}
+                {{ Form::open(array('route' => array('role.update', $role->id), 'method' => 'PUT')) }}
                 @if($role->name !== 'Admin')
                 <div class="row">
                     <div class="col-sm-6">
@@ -67,8 +67,8 @@
                                 {{ Lang::get('messages.admin.users.roles.role-perms') }}
                                 <input title="toggle all" class="all pull-right" type="checkbox">
                             </div>
-                            @if(count($role->perms)>0)
-                            @foreach ($role->perms as $permission)
+                            @if(count($role->permissions)>0)
+                            @foreach ($role->permissions as $permission)
                             <div class="list-group-item" data-id="{{ $permission->id }}">
                                 {{ $permission->display_name }}
                                 <input class="pull-right" type="checkbox">
