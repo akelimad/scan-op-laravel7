@@ -211,6 +211,7 @@
                 id = parent.find('input[type="hidden"]').val();
                 if (confirm('are you sure to delete this bloc?')) {
                     $.ajax({
+                        headers: {'x-csrf-token': "{{ csrf_token() }}"},
                         url: "{{url('/admin/ads') }}" + '/' + id,
                         type: 'post',
                         data: {_method: 'delete'},

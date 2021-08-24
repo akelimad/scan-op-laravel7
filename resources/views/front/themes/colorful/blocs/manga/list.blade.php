@@ -120,6 +120,7 @@
         $('#waiting').show();
 
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: "{{action('FrontController@filterList')}}",
             data: {'page': page, 'cat': cat, 'alpha': alpha, 'sortBy': sortBy, 'asc': asc, 'author': author, 'tag': tag}
         }).done(function(data) {

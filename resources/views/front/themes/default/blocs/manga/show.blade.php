@@ -61,6 +61,7 @@
         e.preventDefault();
 
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: "{{route('bookmark.store')}}",
             method: 'POST',
             data: {
@@ -433,11 +434,9 @@
             // store score in DB
             var score = $(this).data("score")
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 url: "{{ route("score.store") }}",
                 type: "post",
-                headers: {
-                    'x-csrf-token': "{{ csrf_token() }}"
-                },
                 data: {
                     item_id: {{ $manga->id }},
                     score: score,

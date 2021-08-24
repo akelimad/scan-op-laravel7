@@ -55,6 +55,7 @@ score: score
         e.preventDefault();
 
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: "{{route('bookmark.store')}}",
             method: 'POST',
             data: {

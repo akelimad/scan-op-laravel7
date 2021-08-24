@@ -143,6 +143,7 @@
     var previewTemplate = $('#previews').html();
     $('#previewTemplate').remove();
     var myDropzone = new Dropzone("#coverContainer", {
+        headers: {'x-csrf-token': "{{ csrf_token() }}"},
         url: "{{ action('Utils\FileUploadController@uploadAvatar') }}",
         thumbnailWidth: 200,
         thumbnailHeight: 200,

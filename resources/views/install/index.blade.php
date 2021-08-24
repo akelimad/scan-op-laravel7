@@ -31,6 +31,7 @@
                 formData.append('_token', "{{ csrf_token() }}");
 
                 $.ajax({
+                    headers: {'x-csrf-token': "{{ csrf_token() }}"},
                     method: 'POST',
                     url: "{{ action('InstallerController@startInstall') }}",
                     processData: false,

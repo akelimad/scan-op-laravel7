@@ -283,6 +283,7 @@
             tr = $(this).parents('tr');
 
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 method: "POST",
                 url: "{{ action('PageController@movePage') }}",
                 data: {'index': tr.index(), 'mangaSlug': "{{ $manga->slug }}", 'chapterId': chapterId, 'position': position},
@@ -344,6 +345,7 @@
         $('#waiting').show();
 
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             method: "POST",
             url: "{{ action('PageController@createExternalPages') }}",
             data: {'urls': $.trim($('#imagesUrl').val()).replace(/\n/g, ';'), 'mangaId': mangaId, 'chapterId': chapterId},

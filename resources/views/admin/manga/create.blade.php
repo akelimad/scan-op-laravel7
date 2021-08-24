@@ -248,6 +248,7 @@
     $('#previewTemplate').remove();
 
     var myDropzone = new Dropzone("#coverContainer", {
+        headers: {'x-csrf-token': "{{ csrf_token() }}"},
         url: "{{ action('Utils\FileUploadController@uploadMangaCover') }}",
         thumbnailWidth: 200,
         thumbnailHeight: 280,
@@ -348,6 +349,7 @@
     $('#get-data').click(function() {
         if($.trim($('#url-data').val()).length > 0) {
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 url: "{{route('admin.manga.autoMangaInfo')}}",
                 method: 'POST',
                 data: {

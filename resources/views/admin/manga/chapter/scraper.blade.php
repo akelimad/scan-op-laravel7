@@ -15,18 +15,18 @@
             <div class="panel-heading">
                 <i class="fa fa-magnet fa-fw"></i> {{ Lang::get('messages.admin.chapter.scraper.title') }}
                 <div class="pull-right">
-                    {{ link_to_route('admin.manga.show', Lang::get('messages.admin.manga.back'), array('manga' => $manga->id), array('class' => 'btn btn-default btn-xs pull-right')) }}
+                    {{ link_to_route('manga.show', Lang::get('messages.admin.manga.back'), array('manga' => $manga->id), array('class' => 'btn btn-default btn-xs pull-right')) }}
                 </div>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="form-group">
                 @if ($settings['storage.type'] == 'gdrive')
-                <div class="alert alert-info" role="alert">{{ Lang::get('messages.admin.chapter.scraper.storage-mode.gdrive') }}</div>
+                <div class="alert alert-info" role="alert">{!! Lang::get('messages.admin.chapter.scraper.storage-mode.gdrive') !!}</div>
                 @elseif ($settings['storage.type'] == 'mirror')
-                <div class="alert alert-info" role="alert">{{ Lang::get('messages.admin.chapter.scraper.storage-mode.mirror') }}</div>
+                <div class="alert alert-info" role="alert">{!! Lang::get('messages.admin.chapter.scraper.storage-mode.mirror') !!}</div>
                 @else
-                <div class="alert alert-info" role="alert">{{ Lang::get('messages.admin.chapter.scraper.storage-mode.server') }}</div>
+                <div class="alert alert-info" role="alert">{!! Lang::get('messages.admin.chapter.scraper.storage-mode.server') !!}</div>
                 @endif
                 </div>
                 
@@ -318,6 +318,7 @@
             $('#waiting').show();
 
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 type: 'POST',
                 url: "{{ action('WebScraperController@getTotalChapters') }}",
                 data: {'mangaPageUrl': $('#mangaPageUrl').val()},
@@ -381,6 +382,7 @@
                     }
                 } else {
                     $.ajax({
+                        headers: {'x-csrf-token': "{{ csrf_token() }}"},
                         type: 'POST',
                         url: "{{ action('WebScraperController@getChapter') }}",
                         data: {'chapterUrl': urls[k].url, 'mangaId': mangaId, 'selectedWebsite': $('#scan-source').val(), 'chapterTitle': urls[k].title},
@@ -430,6 +432,7 @@
         function getChapterImage(i, chapterId, k) {
             if (i < scanList[chapterId].length) {
                 $.ajax({
+                    headers: {'x-csrf-token': "{{ csrf_token() }}"},
                     method: "POST",
                     url: "{{ action('PageController@downloadImageFromUrl') }}",
                     data: {scanURL: scanList[chapterId][i].url, index: scanList[chapterId][i].index, 'mangaSlug': mangaSlug, 'chapterId': chapterId},
@@ -505,6 +508,7 @@
         // save bulk download stat
         function saveDownloadStat() {
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 method: "POST",
                 url: "{{ action('WebScraperController@abort') }}",
                 data: {'mangaId': mangaId, 'bulkStatus': JSON.stringify(bulkObj)}
@@ -516,6 +520,7 @@
             $('#waiting').show();
 
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 method: "POST",
                 url: "{{ action('WebScraperController@resume') }}",
                 data: {'mangaId': mangaId},
@@ -563,6 +568,7 @@
 
         function resumeDownloadingImage(k, i, url, chapterId, totalPage) {
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 method: "POST",
                 url: "{{ action('PageController@downloadImageFromUrl') }}",
                 data: {'scanURL': url, 'index': i, 'mangaSlug': mangaSlug, 'chapterId': chapterId},
@@ -628,6 +634,7 @@
         function startScarpingChapters(k) {
             if (k < urls.length) {
                 $.ajax({
+                    headers: {'x-csrf-token': "{{ csrf_token() }}"},
                     type: 'POST',
                     url: "{{ action('WebScraperController@startScraper') }}",
                     data: {'chapterUrl': urls[k], 'mangaId': mangaId, 'selectedWebsite': $('#scan-source').val()},
@@ -691,6 +698,7 @@
         function startDownloading(i, chapterId) {
             if (i < scanList[chapterId].length) {
                 $.ajax({
+                    headers: {'x-csrf-token': "{{ csrf_token() }}"},
                     method: "POST",
                     url: "{{ action('PageController@downloadImageFromUrl') }}",
                     data: {scanURL: scanList[chapterId][i].url, index: scanList[chapterId][i].index, 'mangaSlug': mangaSlug, 'chapterId': chapterId},
@@ -739,6 +747,7 @@
 
         function retryDownloading(i, chapterId) {
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 method: "POST",
                 url: "{{ action('PageController@downloadImageFromUrl', array('mangaSlug' => $manga->slug)) }}",
                 data: {scanURL: scanList[chapterId][parseInt(i) - 1].url, index: i, 'mangaSlug': mangaSlug, 'chapterId': chapterId},
@@ -757,6 +766,7 @@
         
         function notifyUsers() {
             $.ajax({
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
                 method: "POST",
                 url: "{{ action('ChapterController@notifyUsers') }}",
                 data: {mangaId: mangaId, 'mangaSlug': mangaSlug},

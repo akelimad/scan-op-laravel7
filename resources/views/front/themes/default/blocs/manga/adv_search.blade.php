@@ -46,6 +46,7 @@
         var params = form.serialize();
 
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             type: 'POST',
             url: "{{action('FrontController@advSearchFilter')}}",
             data: {params: params, 'page': page},

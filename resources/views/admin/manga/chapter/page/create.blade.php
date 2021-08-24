@@ -87,9 +87,7 @@
                     previewNode.parentNode.removeChild(previewNode);
 
                     var imagesUploadZone = new Dropzone(".panel-body", {
-                        headers: {
-                            'x-csrf-token': "{{ csrf_token() }}"
-                        },
+                        headers: {'x-csrf-token': "{{ csrf_token() }}"},
                         url: "{{ action('PageController@store', array('manga' => $manga->id, 'chapter' => $chapter->id)) }}",
                         thumbnailWidth: 100,
                         thumbnailHeight: 100,
