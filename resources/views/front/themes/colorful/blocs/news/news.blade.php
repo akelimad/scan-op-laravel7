@@ -41,7 +41,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="widget-container boxed" style="padding:15px;">
-            {{$post->content}}
+            {!! $post->content !!}
         </div>
 
         <input type="hidden" id="post_id" name="post_id" value="{{$post->id}}"/>

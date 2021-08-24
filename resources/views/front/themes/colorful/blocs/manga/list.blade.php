@@ -165,8 +165,8 @@
         });
     }
 </script>
+{{-- Jraty::js() --}}
 
-{{ Jraty::js() }}
 @stop
 
 @include('front.themes.'.$theme.'.blocs.menu')
@@ -191,7 +191,7 @@
         <div class="panel-heading">{{ Lang::get('messages.front.directory.browse-category') }}</div>
         <div class="panel-body">
             <ul class="list-category">
-                @foreach(Category::all() as $category)
+                @foreach(\App\Category::all() as $category)
                 <li><a href="{{ route('front.manga.list', array('cat' => $category->id))}}" class="category">{{$category->name}}</a></li>
                 @endforeach
             </ul>
@@ -208,7 +208,7 @@
             </div>
         </div>
     </div>
-    <?php $tags = Tag::all();?>
+    <?php $tags = \App\Tag::all();?>
     @if(count($tags)>0)
     <div class="panel panel-default">
         <div class="panel-heading">{{ Lang::get('messages.front.directory.browse-tags') }}</div>

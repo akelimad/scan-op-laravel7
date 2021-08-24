@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Chewy" type="text/css" />
 
     {{ HTML::style('assets/css/bootstrap.min.css') }}
+    {{ HTML::style('assets/css/font-awesome.min.css') }}
     {{ HTML::style('assets/css/colorful/style.css') }}
 
     {{ HTML::script('assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}

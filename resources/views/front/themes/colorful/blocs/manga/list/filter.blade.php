@@ -12,12 +12,12 @@
             </a>
         </div>
         <div class="media-body">
-            <?php $rate = Jraty::get($manga->id); ?>
+            <?php // $rate = Jraty::get($manga->id); ?>
             <h5 class="media-heading"><a href="{{route('front.manga.show',$manga->slug)}}" class="chart-title"><strong>{{$manga->name}}</strong></a></h5>
-            <div class="readOnly-{{$manga->id}}" style="display: inline-block;"></div> <span style="vertical-align: middle;">{{$rate->avg}}</span>
-            <script>$('.readOnly-{{$manga->id}}').raty({path: "{{asset('/packages/escapeboy/jraty/raty/lib/img')}}", readOnly: true, score: {{$rate->avg}}});</script>
+            <div class="readOnly-{{$manga->id}}" style="display: inline-block;"></div> <span style="vertical-align: middle;">avg</span>
+            <script>$('.readOnly-{{$manga->id}}').raty({path: "{{asset('/packages/escapeboy/jraty/raty/lib/img')}}", readOnly: true, score: "avg"});</script>
             <div>
-                <i class="glyphicon glyphicon-eye-open"></i> {{$manga->views}}
+                <i class="fa fa-eye"></i> {{$manga->views}}
             </div>
             @if (count($manga->categories)>0)
             <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 95%;">
