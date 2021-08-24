@@ -85,11 +85,9 @@
 <div class="price-list style3">
     <div class="price-item boxed">
         <div class="price-content bg-image-home">
-            <h3 class="price-title">{{$settings['site.name']}}</h3>
-            <h6 class="price-subtitle">{{$settings['site.slogan']}}</h6>
-            <p>
-                {{$settings['site.description']}}
-            </p>
+            <h3 class="price-title">{!! $settings['site.name'] !!}</h3>
+            <h6 class="price-subtitle">{!! $settings['site.slogan'] !!}</h6>
+            <p>{!! $settings['site.description'] !!}</p>
         </div>
     </div>
 </div>

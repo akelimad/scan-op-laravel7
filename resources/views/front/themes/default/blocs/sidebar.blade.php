@@ -17,11 +17,9 @@
         <!-- About Me -->
         <div class="alert alert-success">
         <div class="about">
-            <h2>{{$settings['site.name']}}</h2>
-            <h6>{{$settings['site.slogan']}}</h6>
-            <p>
-                {{$settings['site.description']}}
-            </p>
+            <h2>{!! $settings['site.name'] !!}</h2>
+            <h6>{!! $settings['site.slogan'] !!}</h6>
+            <p>{!! $settings['site.description'] !!}</p>
         </div>
     </div>
         <!--/ About Me -->

@@ -22,7 +22,7 @@
                     </div>
                     <div class="schedule-links">
                         <a class="schedule-details" href="{{route('front.manga.show',$manga->manga_slug)}}">
-							<i class="icon-small-info"></i>{{ Lang::get('messages.front.home.about-manga') }}
+							<i class="icon-small-info"></i>{!! Lang::get('messages.front.home.about-manga') !!}
 						</a>
                         <a class="schedule-add" href='{{asset("/manga/$manga->manga_slug/$manga->chapter_slug") }}'>
 							<i class="glyphicon glyphicon-book"></i>{{ Lang::get('messages.front.home.read-chapter') }}
