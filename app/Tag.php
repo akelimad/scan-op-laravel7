@@ -17,8 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tag extends Model
 {
+    public $incrementing = false;
 
-    public $fillable = ['name', 'slug'];
+    public $fillable = ['id', 'name', 'slug'];
+
     public static $rules = [
         'name' => 'required', 
         'slug' => 'required|unique:tag,slug,:id'

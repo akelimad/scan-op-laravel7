@@ -153,7 +153,7 @@
             @if (count($manga->tags)>0)
             <dt>{{ Lang::get('messages.front.manga.tags') }}</dt>
             <dd class="tag-links">
-                @foreach($manga->tags as $index=>$tag)
+                @foreach($manga->tags as $index => $tag)
                 {{ link_to("/manga-list/tag/$tag->id", $tag->name) }}
                 @endforeach
             </dd>
@@ -174,7 +174,7 @@
                 </div>
             </dd>
             --}}
-                @php($item = App\ItemRating::where("ip_address", Request::ip())->orderBy('id', 'desc')->first())
+                @php($item = App\ItemRating::where("item_id", $manga->id)->where("ip_address", Request::ip())->orderBy('id', 'desc')->first())
                 <dd class="rating">
                     @for($i = 1; $i <= 5; $i++)
                         <i class="fa fa-star{{ $item != null && $i <= $item->score ? "":"-o" }} {{ $item != null && $item->score == $i ? "active":"" }}" aria-hidden="true" data-score="{{ $i }}" style="{{ $item != null ? "color: orange;":"" }}"></i>

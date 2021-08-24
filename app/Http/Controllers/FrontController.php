@@ -871,7 +871,7 @@ class FrontController extends BaseController {
     }
 
     public function storeRatingScore(Request $request) {
-        $item_rating = ItemRating::where("ip_address", $request->ip())->first();
+        $item_rating = ItemRating::where("item_id", $request->item_id)->where("ip_address", $request->ip())->first();
         if (!$item_rating) {
             $item_rating = new ItemRating();
         }

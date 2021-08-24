@@ -41,6 +41,7 @@ class MangaController extends BaseController
      */
     public function __construct(Manga $manga)
     {
+        $this->middleware('auth');
         $this->manga = $manga;
     }
 
@@ -300,7 +301,8 @@ class MangaController extends BaseController
 
         $manga->user_id = Auth::user()->id;
         $manga->save();
-        if (count(request()->get('categories')) > 0) {
+        $cats = request()->get('categories');
+        if (is_array($cats) && count($cats) > 0) {
             $manga->categories()->detach();
             $manga->categories()->attach(array_values(request()->get('categories')));
         } else {

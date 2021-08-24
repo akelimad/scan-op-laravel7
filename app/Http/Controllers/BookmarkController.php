@@ -28,7 +28,7 @@ class BookmarkController extends BaseController
 
     public function index()
     {
-        $bookmarks0 = Bookmark::myBookmarks(Auth::getUser()->id);
+        $bookmarks0 = Bookmark::myBookmarks(Auth::user()->id);
         $settings = Option::lists('value', 'key');
 
         $bookmarks = [];
@@ -91,7 +91,7 @@ class BookmarkController extends BaseController
     {
         $status = filter_input(INPUT_GET, 'status');
         
-        $bookmarks0 = Bookmark::myBookmarks(Auth::getUser()->id, $status);
+        $bookmarks0 = Bookmark::myBookmarks(Auth::user()->id, $status);
 
         $bookmarks = [];
         foreach ($bookmarks0 as $bookmark) {
@@ -138,9 +138,9 @@ class BookmarkController extends BaseController
         $manga_id = filter_input(INPUT_POST, 'manga_id');
         $chapter_id = filter_input(INPUT_POST, 'chapter_id');
         $page_slug = filter_input(INPUT_POST, 'page_slug');
-        $user_id = Auth::getUser()->id;
+        $user_id = Auth::user()->id;
 
-        $bookmark = Bookmark::bookmarkExist(Auth::getUser()->id, $manga_id, $chapter_id);
+        $bookmark = Bookmark::bookmarkExist(Auth::user()->id, $manga_id, $chapter_id);
         
         if(is_null($bookmark)){
             $bookmark = new Bookmark();
@@ -175,7 +175,7 @@ class BookmarkController extends BaseController
     {
         $rootBookmark = filter_input(INPUT_POST, 'rootBookmark');
         if($rootBookmark == 'true'){
-            Bookmark::where('user_id', '=', Auth::getUser()->id)
+            Bookmark::where('user_id', '=', Auth::user()->id)
                 ->where('manga_id', '=', $id)
                 ->delete();
         } else {
@@ -190,7 +190,7 @@ class BookmarkController extends BaseController
         $ids = filter_input(INPUT_POST, 'ids');
         $status = filter_input(INPUT_POST, 'status');
 
-        $bookmarks = Bookmark::where('user_id', '=', Auth::getUser()->id)
+        $bookmarks = Bookmark::where('user_id', '=', Auth::user()->id)
             ->whereIn('manga_id', explode(',', $ids))
             ->get();
         
@@ -210,7 +210,7 @@ class BookmarkController extends BaseController
     {
         $ids = filter_input(INPUT_POST, 'ids');
 
-        Bookmark::where('user_id', '=', Auth::getUser()->id)
+        Bookmark::where('user_id', '=', Auth::user()->id)
             ->whereIn('manga_id', explode(',', $ids))
             ->delete();
         
