@@ -23,7 +23,7 @@
                         <div class="form-group">
                             {{Form::label('label', Lang::get('messages.admin.comictype.label'))}}
                             {{Form::text('label','', array('class' => 'form-control'))}}
-                            {{ $errors->first('label', '<label class="error" for="name">:message</label>') }}
+                            {!! $errors->first('label', '<label class="error" for="name">:message</label>') !!}
                         </div>
 
                         <div class="actionBtn">

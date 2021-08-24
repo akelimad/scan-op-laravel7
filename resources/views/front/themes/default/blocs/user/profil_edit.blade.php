@@ -76,17 +76,17 @@
                         <div class="form-group">
                             {{ Form::label('username', Lang::get('messages.admin.settings.profile.username')) }}
                             {{ Form::text('username', $user->username, array('class' => 'form-control')) }}
-                            {{ $errors->first('username', '<label class="error" for="username">:message</label>') }}
+                            {!! $errors->first('username', '<label class="error" for="username">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             {{ Form::label('password', Lang::get('messages.admin.settings.profile.pwd')) }}
                             {{ Form::password('password', array('class' => 'form-control')) }}
-                            {{ $errors->first('password', '<label class="error" for="password">:message</label>') }}
+                            {!! $errors->first('password', '<label class="error" for="password">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             {{ Form::label('email', Lang::get('messages.admin.settings.profile.email')) }}
                             {{ Form::text('email', $user->email, ['class' => 'form-control']) }}
-                            {{ $errors->first('email', '<label class="error" for="email">:message</label>') }}
+                            {!! $errors->first('email', '<label class="error" for="email">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             {{ Form::submit(Lang::get('messages.front.myprofil.edit'), ['class' => 'btn btn-primary']) }}

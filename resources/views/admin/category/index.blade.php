@@ -23,13 +23,13 @@
                         <div class="form-group">
                             {{Form::label('name', Lang::get('messages.admin.category.name'))}}
                             {{Form::text('name','', array('class' => 'form-control'))}}
-                            {{ $errors->first('name', '<label class="error" for="name">:message</label>') }}
+                            {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
                         </div>
 
                         <div class="form-group">
                             {{Form::label('slug', Lang::get('messages.admin.category.slug'))}}
                             {{Form::text('slug','', array('class' => 'form-control', 'placeholder' => Lang::get('messages.admin.category.slug-placeholder')))}}
-                            {{ $errors->first('slug', '<label class="error" for="slug">:message</label>') }}
+                            {!! $errors->first('slug', '<label class="error" for="slug">:message</label>') !!}
                         </div>
                         <div class="actionBtn">
                             {{ link_to_route('manga.index', Lang::get('messages.admin.category.back'), null, array('class' => 'btn btn-default btn-xs')) }}

@@ -17,13 +17,13 @@
                         <div class="form-group">
                             {{Form::label('name', Lang::get('messages.admin.category.name'))}}
                             {{Form::text('name', $category->name, array('class' => 'form-control'))}}
-                            {{ $errors->first('name', '<label class="error" for="name">:message</label>') }}
+                            {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
                         </div>
 
                         <div class="form-group">
                             {{Form::label('slug', Lang::get('messages.admin.category.slug'))}}
                             {{Form::text('slug', $category->slug, array('class' => 'form-control', 'placeholder' => Lang::get('messages.admin.category.slug-placeholder')))}}
-                            {{ $errors->first('slug', '<label class="error" for="slug">:message</label>') }}
+                            {!! $errors->first('slug', '<label class="error" for="slug">:message</label>') !!}
                         </div>
 
                         <div class="actionBtn">
@@ -58,7 +58,7 @@
                                         {{ Form::open(array('route' => array('category.destroy', $category->id), 'method' => 'delete')) }}
                                         {{ Form::submit(Lang::get('messages.admin.category.delete'), array('class' => 'btn btn-danger btn-xs',  'onclick' => 'if (!confirm("'. Lang::get('messages.admin.category.confirm-delete') .'")) {return false;}')) }}
                                         {{ Form::close() }}
-                                    </div>   
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

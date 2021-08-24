@@ -71,12 +71,12 @@
                                 <div class="form-group">
                                     {{ Form::label('site.name', Lang::get('messages.admin.settings.general.site-name')) }}
                                     {{ Form::text('site.name', $options['site.name'], ['class' => 'form-control']) }}
-                                    {{ $errors->first('site.name', '<label class="error" for="site.name">:message</label>') }}
+                                    {!! $errors->first('site.name', '<label class="error" for="site.name">:message</label>') !!}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('site.slogan', Lang::get('messages.admin.settings.general.slogan')) }}
                                     {{ Form::text('site.slogan', $options['site.slogan'], ['class' => 'form-control']) }}
-                                    {{ $errors->first('site.slogan', '<label class="error" for="site.slogan">:message</label>') }}
+                                    {!! $errors->first('site.slogan', '<label class="error" for="site.slogan">:message</label>') !!}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('site.description', Lang::get('messages.admin.settings.general.description')) }}

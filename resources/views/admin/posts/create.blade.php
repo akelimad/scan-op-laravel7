@@ -27,7 +27,7 @@
                         <div class="form-group">
                             {{ Form::label('title', Lang::get('messages.admin.posts.title')) }}
                             {{ Form::text('title', '', array('class' => 'form-control rtl', 'placeholder' => 'Enter title here')) }}
-                            {{ $errors->first('title', '<label class="error" for="title">:message</label>') }}
+                            {!! $errors->first('title', '<label class="error" for="title">:message</label>') !!}
                         </div>
                         <div class="form-group">
                             {{Form::textarea('content', '', array('id'=>'content', 'class' => 'form-control'))}}

@@ -28,7 +28,7 @@
                         <div class="form-group">
                             {{Form::label('name', Lang::get('messages.admin.users.roles.role-name'))}}
                             {{Form::text('name', $role->name, array('class' => 'form-control'))}}
-                            {{ $errors->first('name', '<label class="error" for="name">:message</label>') }}
+                            {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
                         </div>
                     </div>
                 </div>

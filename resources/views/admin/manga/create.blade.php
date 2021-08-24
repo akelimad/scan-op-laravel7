@@ -46,13 +46,13 @@
                 <div class="form-group">
                     {{Form::label('name', Lang::get('messages.admin.manga.create.manga-name'))}}
                     {{Form::text('name','', array('class' => 'form-control'))}}
-                    {{ $errors->first('name', '<label class="error" for="name">:message</label>') }}
+                    {!! $errors->first('name', '<label class="error" for="name">:message</label>') !!}
                 </div>
 
                 <div class="form-group">
                     {{Form::label('slug', Lang::get('messages.admin.manga.create.manga-slug'))}}
                     {{Form::text('slug','', array('class' => 'form-control', 'placeholder' => Lang::get('messages.admin.manga.create.slug-placeholder')))}}
-                    {{ $errors->first('slug', '<label class="error" for="slug">:message</label>') }}
+                    {!! $errors->first('slug', '<label class="error" for="slug">:message</label>') !!}
                 </div>
 
                 <div class="form-group">

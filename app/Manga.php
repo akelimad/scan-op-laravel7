@@ -108,8 +108,8 @@ class Manga extends Model
      */
     public function deleteMe()
     {
-        // delete all related chapters 
-        if (count($this->chapters())) {
+        // delete all related chapters
+        if (count($this->chapters()->get()) > 0) {
             foreach ($this->chapters()->getResults() as $chapter) {
                 $chapter->deleteMe();
             }
