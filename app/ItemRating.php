@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use willvincent\Rateable\Rateable;
 
 class ItemRating extends Model
 {
-  use Rateable;
 
   protected $table = 'item_ratings';
 

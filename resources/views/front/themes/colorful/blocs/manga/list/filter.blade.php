@@ -12,10 +12,16 @@
             </a>
         </div>
         <div class="media-body">
-            <?php // $rate = Jraty::get($manga->id); ?>
             <h5 class="media-heading"><a href="{{route('front.manga.show',$manga->slug)}}" class="chart-title"><strong>{{$manga->name}}</strong></a></h5>
-            <div class="readOnly-{{$manga->id}}" style="display: inline-block;"></div> <span style="vertical-align: middle;">avg</span>
-            <script>$('.readOnly-{{$manga->id}}').raty({path: "{{asset('/packages/escapeboy/jraty/raty/lib/img')}}", readOnly: true, score: "avg"});</script>
+
+            <div class="rating">
+                @php($item = App\ItemRating::get($manga->id, Request::ip()))
+                <span>{{ \App\ItemRating::getVotesAvg($manga->id) }}</span>
+                @for($i = 1; $i <= 5; $i++)
+                    <i class="fa fa-star{{ $item != null && $i <= $item->score ? "":"-o" }} {{ $item != null && $item->score == $i ? "active":"" }} cursor-auto" aria-hidden="true" data-score="{{ $i }}" style="{{ $item != null ? "color: orange;":"" }}"></i>
+                @endfor
+            </div>
+
             <div>
                 <i class="fa fa-eye"></i> {{$manga->views}}
             </div>
