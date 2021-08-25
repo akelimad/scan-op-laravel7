@@ -174,12 +174,13 @@
                 </div>
             </dd>
             --}}
-                @php($item = App\ItemRating::where("item_id", $manga->id)->where("ip_address", Request::ip())->orderBy('id', 'desc')->first())
+                @php($item = App\ItemRating::get($manga->id, Request::ip()))
                 <dd class="rating">
                     @for($i = 1; $i <= 5; $i++)
                         <i class="fa fa-star{{ $item != null && $i <= $item->score ? "":"-o" }} {{ $item != null && $item->score == $i ? "active":"" }}" aria-hidden="true" data-score="{{ $i }}" style="{{ $item != null ? "color: orange;":"" }}"></i>
                     @endfor
                 </dd>
+                <dd>{{ __("Moyenne de :avg/5 sur :vote vote(s)", ["avg"  => App\ItemRating::getVotesAvg($manga->id), 'vote' => App\ItemRating::getTotalVotes($manga->id)]) }}</dd>
         </dl>
 
         @if ($manga->caution == 1)
