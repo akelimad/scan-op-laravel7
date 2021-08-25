@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('admin', 'DashboardController@index');
 
 
@@ -176,8 +172,5 @@ Route::group(array('prefix' => 'api'), function() {
 
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 
 Route::post('score/store', 'FrontController@storeRatingScore')->name("score.store");
