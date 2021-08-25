@@ -207,44 +207,41 @@ class Manga extends Model
 	 
      * @return type
      */
-    public function scopeTopManga($query, $limit = 10, $direction = 'desc')
+    public static function getTopManga($limit = 10, $direction = "desc")
     {
-        $sql = "SELECT 
-                manga.id AS manga_id, 
-                manga.name AS manga_name, 
-                manga.slug AS manga_slug, 
-                manga.cover AS manga_cover, 
-                c1.slug AS chapter_slug, 
-                c1.name AS chapter_name, 
-                c1.number AS chapter_number, 
+        $sql = "SELECT
+                manga.id AS manga_id,
+                manga.name AS manga_name,
+                manga.slug AS manga_slug,
+                manga.cover AS manga_cover,
+                c1.slug AS chapter_slug,
+                c1.name AS chapter_name,
+                c1.number AS chapter_number,
                 ((avg_num_votes * avg_rating) + ( this_num_votes * this_rating )) / ( avg_num_votes + this_num_votes ) AS real_rating
-            FROM 
+            FROM
                 (select `item_ratings`.`item_id` AS `item_id`,
                     ((select count(`item_ratings`.`item_id`) from `item_ratings`) / (select count(distinct `item_ratings`.`item_id`) from `item_ratings`)) AS `avg_num_votes`,
                     (select avg(`item_ratings`.`score`) from `item_ratings`) AS `avg_rating`,
                     count(`item_ratings`.`item_id`) AS `this_num_votes`,
-                    avg(`item_ratings`.`score`) AS `this_rating` 
-                from `item_ratings` group by `item_ratings`.`item_id`) top_manga, 
-                manga, 
-                chapter c1, 
-                (SELECT  `manga_id` , MAX(cast(number AS decimal(10, 2))) AS `number` FROM  `chapter` 
-                    JOIN  `manga` ON  `manga`.`id` =  `chapter`.`manga_id` 
+                    avg(`item_ratings`.`score`) AS `this_rating`
+                from `item_ratings` group by `item_ratings`.`item_id`) top_manga,
+                manga,
+                chapter c1,
+                (SELECT  `manga_id` , MAX(cast(number AS decimal(10, 2))) AS `number` FROM  `chapter`
+                    JOIN  `manga` ON  `manga`.`id` =  `chapter`.`manga_id`
                     GROUP BY  `manga_id`) c2
-            WHERE 
+            WHERE
                 manga.id = top_manga.item_id
                 AND c1.manga_id = manga.id
                 AND c1.number = c2.number and c2.manga_id = c1.manga_id
-            ORDER BY `real_rating` $direction 
-            LIMIT $limit";
+            ORDER BY `real_rating` $direction LIMIT $limit";
 
         return DB::select($sql);
     }
 
-    public function scopeTopViewsManga($query, $limit = 10, $direction = 'desc')
+    public function scopeTopViewsManga($query = null, $limit = 10, $direction = 'desc')
     {
-    	return Manga::orderBy('views', $direction)
-                ->limit($limit)
-                ->get();
+    	return Manga::orderBy('views', $direction)->limit($limit)->get();
     }
     
     /**

@@ -123,13 +123,13 @@ class FrontController extends BaseController {
         
         foreach ($widgets as $widget) {
             if ($widget->type == 'top_rates' && count($topManga) == 0) {
-                $topMangaResutlSet = Manga::topManga(strlen($widget->number)>0?$widget->number:10);
+                $topMangaResutlSet = Manga::getTopManga((int) $widget->number > 0 ? $widget->number : 10);
                 foreach ($topMangaResutlSet as $manga) {
                     array_push($topManga, $manga);
                 }
             }
             if ($widget->type == 'top_views' && count($topViewsManga) == 0) {
-                $topViewsManga = Manga::topViewsManga(strlen($widget->number)>0?$widget->number:10);
+                $topViewsManga = Manga::topViewsManga((int) $widget->number > 0 ? $widget->number : 10);
             }
             if ($widget->type == 'tags') {
                 $tags = Tag::all();

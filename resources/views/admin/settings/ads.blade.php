@@ -25,33 +25,33 @@
         <div class="row">
             <div class="col-xs-12">
                 @if (Session::has('updateSuccess'))
-                <div class="alert text-center alert-info ">
-                    {{ Session::get('updateSuccess') }}
-                </div>
+                    <div class="alert text-center alert-info ">
+                        {{ Session::get('updateSuccess') }}
+                    </div>
                 @endif
 
                 {{ Form::open(array('route' => 'ads.store', 'role' => 'form', 'id' => 'ads')) }}
-                @if(count($ads)>0)
-                @foreach($ads as $index => $ad)
-                <div class="col-xs-6 bloc">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a href="#" class="pull-right remove-bloc" title="remove bloc"><i class="fa fa-minus"></i></a>{{Lang::get('messages.admin.settings.ads.block')}} {{$ad->bloc_id}}
-                        </div>
-                        <div class="panel-body">
-                            <input name="bloc_id[]" class="form-control" type="text" placeholder="{{Lang::get('messages.admin.settings.ads.block-id')}}" value="{{$ad->bloc_id}}"/>
-                            <br/>
-                            <textarea name="code[]" class="form-control" rows="5" placeholder="{{Lang::get('messages.admin.settings.ads.block-code')}}">{{$ad->code}}</textarea>
-                            <input name="id[]" type="hidden" value="{{$ad->id}}"/>
-                        </div>
+                    @if(count($ads) > 0)
+                        @foreach($ads as $index => $ad)
+                            <div class="col-xs-6 bloc">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a href="#" class="pull-right remove-bloc" title="remove bloc"><i class="fa fa-minus"></i></a>{{Lang::get('messages.admin.settings.ads.block')}} {{$ad->bloc_id}}
+                                    </div>
+                                    <div class="panel-body">
+                                        <input name="bloc_id[]" class="form-control" type="text" placeholder="{{Lang::get('messages.admin.settings.ads.block-id')}}" value="{{$ad->bloc_id}}"/>
+                                        <br/>
+                                        <textarea name="code[]" class="form-control" rows="5" placeholder="{{Lang::get('messages.admin.settings.ads.block-code')}}">{{$ad->code}}</textarea>
+                                        <input name="id[]" type="hidden" value="{{$ad->id}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                    <div class="form-group action" style="clear: both;">
+                        <button class="btn btn-default add-bloc"><i class="fa fa-plus"></i>{{Lang::get('messages.admin.settings.ads.add-block')}}</button>
+                        {{ Form::submit(Lang::get('messages.admin.settings.save'), ['class' => 'btn btn-primary']) }}
                     </div>
-                </div>
-                @endforeach
-                @endif
-                <div class="form-group action" style="clear: both;">
-                    <button class="btn btn-default add-bloc"><i class="fa fa-plus"></i>{{Lang::get('messages.admin.settings.ads.add-block')}}</button>
-                    {{ Form::submit(Lang::get('messages.admin.settings.save'), ['class' => 'btn btn-primary']) }}
-                </div>
                 {{ Form::close() }}
             </div>
         </div>
