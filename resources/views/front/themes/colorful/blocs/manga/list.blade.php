@@ -165,7 +165,6 @@
         });
     }
 </script>
-{{-- Jraty::js() --}}
 
 @stop
 

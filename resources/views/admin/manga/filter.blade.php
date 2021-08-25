@@ -37,14 +37,15 @@
                     </h5>
 
                     <div class="readOnly-{{$manga->id}}" style="display: inline-block;"></div>
-                    <span style="vertical-align: middle;">{{-- Jraty::get($manga->id)->avg --}}</span>
-                    <script>
-                        $('.readOnly-{{$manga->id}}').raty({
-                            path: "{{asset('/packages/escapeboy/jraty/raty/lib/img')}}",
-                            readOnly: true,
-                            score: "{{-- Jraty::get($manga->id)->avg --}}"
-                        });
-                    </script>
+
+                    @php($avg = \App\ItemRating::getVotesAvg($manga->id))
+                    <span style="vertical-align: middle;">{{ $avg }}</span>
+                    <div class="rating">
+                        @for($i = 1; $i <= 5; $i++)
+                            <i class="fa fa-star{{ $avg != null && $i <= $avg ? "":"-o" }} {{ $avg != null && $avg == $i ? "active":"" }}" aria-hidden="true" data-score="{{ $i }}" style="{{ $avg != null ? "color: orange;":"" }}"></i>
+                        @endfor
+                    </div>
+
                     <div>
                         <i class="fa fa-eye"></i> {{$manga->views}}
                     </div>

@@ -27,22 +27,7 @@
 @include('front.themes.'.$theme.'.blocs.menu')
 
 @section('header')
-    {{--
-        {{ Jraty::js() }}
 
-        {{ Jraty::js_init(array(
-        'score' => 'function() { return $(this).attr(\'data-score\'); }',
-        'number' => 5,
-        'click' => 'function(score, evt) {
-        $.post("'.URL::to('/').'/save/item_rating",{
-        item_id: $(\'[data-item]\').attr(\'data-item\'),
-        score: score
-        });
-        }',
-        'path' => "'".asset('/packages/escapeboy/jraty/raty/lib/img')."'"
-        )) }}
-        @stop
-    --}}
 
     @section('allpage')
     <h2 class="widget-title">{{$manga->name}}</h2>
@@ -163,15 +148,7 @@
                     <dd>{{ $manga->views }}</dd>
 
                     <dt>{{ Lang::get('messages.front.manga.rating') }}</dt>
-                    {{--
-                    <dd>
-                        <div class="rating clearfix">
-                            <?php echo Jraty::html($manga->id, $manga->name, asset("uploads/manga/{$manga->slug}/cover/cover_250x350.jpg"), $seo = true); ?>
-                            <?php $rating = Jraty::get($manga->id) ?>
-                            {{ Lang::get('messages.front.manga.note', array('avg' => $rating->avg, 'votes' => $rating->votes)) }}
-                        </div>
-                    </dd>
-                    --}}
+
                         @php($item = App\ItemRating::get($manga->id, Request::ip()))
                         <dd class="rating" style="margin-left: 18px;">
                             @for($i = 1; $i <= 5; $i++)

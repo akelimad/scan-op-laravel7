@@ -2,9 +2,6 @@
 
 @section('breadcrumbs', Breadcrumbs::render('admin.manga.index'))
 
-@section('head')
-<!-- Jraty::js() -->
-@stop
 
 @section('content')
 <div class="row">

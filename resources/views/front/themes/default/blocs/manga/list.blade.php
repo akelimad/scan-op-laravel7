@@ -166,7 +166,6 @@
     }
 </script>
 
-{{-- Jraty::js --}}
 @stop
 
 @include('front.themes.'.$theme.'.blocs.menu')
