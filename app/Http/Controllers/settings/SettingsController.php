@@ -339,11 +339,7 @@ class SettingsController extends BaseController
 
         if (File::isDirectory($destinationPath)) {
             File::deleteDirectory($destinationPath, true);
-            return Redirect::route('admin.index')
-            ->with(
-                'updateSuccess', 
-                Lang::get('messages.admin.settings.downloads.cleared')
-            );
+            return Redirect::route('admin.index')->with('updateSuccess', Lang::get('messages.admin.settings.downloads.cleared'));
         } else {
             return Redirect::back();
         }

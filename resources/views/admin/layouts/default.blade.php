@@ -226,15 +226,16 @@
                         @endif
                         @if(Entrust::can('edit_general'))
                         <li style="margin: 50px 0">
-                            {{ Form::open(array('link_to_route' => 'admin.settings.cache.clear', 'role' => 'form')) }}
-                            <div class="form-group" style="display: table; margin: 0 auto 15px;">
-                                {{ Form::submit(Lang::get('messages.admin.settings.cache.clear'), ['class' => 'btn btn-danger submit']) }}
-                            </div>
+                            {{ Form::open(["route" => ['admin.settings.cache.clear', 'role' => 'form']]) }}
+                                <div class="form-group" style="display: table; margin: 0 auto 15px;">
+                                    {{ Form::submit(Lang::get('messages.admin.settings.cache.clear'), ['class' => 'btn btn-danger submit']) }}
+                                </div>
                             {{ Form::close() }}
-                            {{ Form::open(array('link_to_route' => 'admin.settings.downloads.clear', 'role' => 'form')) }}
-                            <div class="form-group" style="display: table; margin: 0 auto 15px;">
-                                {{ Form::submit(Lang::get('messages.admin.settings.downloads.clear'), ['class' => 'btn btn-danger submit']) }}
-                            </div>
+
+                            {{ Form::open(["route" => ['admin.settings.downloads.clear', 'role' => 'form']]) }}
+                                <div class="form-group" style="display: table; margin: 0 auto 15px;">
+                                    {{ Form::submit(Lang::get('messages.admin.settings.downloads.clear'), ['class' => 'btn btn-danger submit']) }}
+                                </div>
                             {{ Form::close() }}
                         </li>
                         @endif
