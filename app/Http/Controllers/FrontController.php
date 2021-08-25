@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Chapter;
+use App\Events\MangaViewed;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Utils\HelperController;
 use App\ItemRating;
@@ -168,8 +169,8 @@ class FrontController extends BaseController {
         $mangaOptions = json_decode($settings['manga.options']);
         $advancedSEO = json_decode($settings['seo.advanced']);
         
-        // +1 hit
-        Event::dispatch('manga.views', $mangaInfo);
+        // fire MangaViewed Event
+        event(new MangaViewed($mangaInfo));
             
         // ad placement
         $info = Placement::where('page', '=', 'MANGAINFO')->first();
