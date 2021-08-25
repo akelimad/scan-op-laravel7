@@ -18,6 +18,7 @@
     {{ HTML::style('assets/css/font-awesome.min.css') }}
     {{ HTML::style('assets/css/admin/metisMenu.min.css') }}
     {{ HTML::style('assets/css/admin/main.css') }}
+    {{ HTML::style('assets/css/margin-padding.css') }}
 
     {{ HTML::script('assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
     {{ HTML::script('assets/js/vendor/jquery-1.11.0.min.js') }}

@@ -60,26 +60,30 @@ class MangaController extends BaseController
     public function filterList()
     {
         $alpha = filter_input(INPUT_GET, 'alpha');
+        $query = filter_input(INPUT_GET, 'query');
         $sortBy = 'name';
-        if ($alpha != "") {
+        if ($alpha != "" || $query != "") {
             if($alpha == "Other") {
                 $mangaList = Manga::where('name', 'like', "LOWER($alpha%)")
                     ->orWhere('name', 'REGEXP', "^[^a-z,A-Z]")
                     ->orderBy($sortBy)->paginate($this->mangaPerPage);
             } else {
-                $mangaList = Manga::where('name', 'like', "LOWER($alpha%)")
-                    ->orWhere('name', 'like', "$alpha%")
-                    ->orderBy($sortBy)->paginate($this->mangaPerPage);
+                if ($alpha != "") {
+                    $mangaList = Manga::where('name', 'like', "LOWER($alpha%)")->orWhere('name', 'like', "$alpha%");
+                }
+                if ($query != "") {
+                    $mangaList = Manga::where('name', 'like', "%$query%");
+                }
+
+                $mangaList = $mangaList->orderBy($sortBy)->paginate($this->mangaPerPage);
             }
         } else {
             $mangaList = Manga::orderBy($sortBy)->paginate($this->mangaPerPage);
         }
 
-        return view(
-            'admin.manga.filter', [
-                "mangas" => $mangaList
-            ]
-        )->render();
+        return view('admin.manga.filter', [
+            "mangas" => $mangaList
+        ])->render();
     }
     
     /**
