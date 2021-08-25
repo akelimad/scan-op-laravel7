@@ -167,7 +167,7 @@ class PageController extends BaseController
         }
         
         return Redirect::route('manga.chapter.show',
-            ['mangaId' => $mangaId, 'chapterId' => $chapter->id]
+            ['manga' => $mangaId, 'chapter' => $chapter->id]
         );
     }
     
@@ -278,8 +278,7 @@ class PageController extends BaseController
             $pageName2 = '' . $page2->slug . $fileExtension2;
         }
             
-        $destinationPath = 'uploads/manga/' 
-            . $mangaSlug . '/chapters/' . $chapter->slug . '/';
+        $destinationPath = 'uploads/manga/' . $mangaSlug . '/chapters/' . $chapter->slug . '/';
 
         if (File::isDirectory($destinationPath)) {
             $newPath = $destinationPath . $pageName;
@@ -351,10 +350,12 @@ class PageController extends BaseController
             }
 
             return Response::json(
-                            ['index' => $index,
-                                'path' => $imageUrl,
-                                'filename' => "",
-                                'url' => $imageUrl,]
+                [
+                  'index' => $index,
+                  'path' => $imageUrl,
+                  'filename' => "",
+                  'url' => $imageUrl,
+                ]
             );
         } else {
             $fileExtension = strtolower(pathinfo($imageUrl, PATHINFO_EXTENSION));
@@ -530,11 +531,11 @@ class PageController extends BaseController
      */
     public function createExternalPages()
     {
-    	//$mangaId = filter_input(INPUT_POST, 'mangaId');
+    	  //$mangaId = filter_input(INPUT_POST, 'mangaId');
         $chapterId = filter_input(INPUT_POST, 'chapterId');
         $urls = filter_input(INPUT_POST, 'urls');
 
-        if(strlen($urls)>0) {
+        if(strlen($urls) > 0) {
             //$manga = Manga::find($mangaId);
             $chapter = Chapter::find($chapterId);
             $images = explode(';', $urls);
@@ -542,7 +543,7 @@ class PageController extends BaseController
             $lastPage = $chapter->lastPage();
 
             $counter = 0;
-            if (!is_null($lastPage)) {
+            if (is_object($lastPage)) {
                 $counter = $lastPage->slug;
             }
 
