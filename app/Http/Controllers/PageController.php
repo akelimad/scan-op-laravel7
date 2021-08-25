@@ -63,7 +63,7 @@ class PageController extends BaseController
         $settings = Cache::get('options');
 
         $counter = 0;
-        if (!is_null($lastPage)) {
+        if (is_object($lastPage)) {
             $counter = $lastPage->slug;
         }
 

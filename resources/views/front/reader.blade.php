@@ -584,11 +584,7 @@ use App\Http\Controllers\Utils\HelperController;
                 } else if (typeof nextPageVal == 'undefined' &&
                     typeof nextChapterVal != 'undefined') {
                     @if(!is_null($nextChapter))
-                    changeChapter({
-                        {
-                            $nextChapter - > chapter_slug
-                        }
-                    }, null);
+                    changeChapter({{ $nextChapter->chapter_slug}}, null);
                     @endif
                 } else {
                     alert('{{Lang::get("messages.front.reader.last-page-message")}}');
@@ -610,15 +606,7 @@ use App\Http\Controllers\Utils\HelperController;
                 } else if (typeof prevPageVal == 'undefined' &&
                     typeof prevChapterVal != 'undefined') {
                     @if(!is_null($prevChapter))
-                    changeChapter({
-                        {
-                            $prevChapter - > chapter_slug
-                        }
-                    }, {
-                        {
-                            $prevChapterLastPage
-                        }
-                    });
+                    changeChapter({{ $prevChapter->chapter_slug }}, {{ $prevChapterLastPage }});
                     @endif
                 } else {
                     alert('{{Lang::get("messages.front.reader.first-page-message")}}');
