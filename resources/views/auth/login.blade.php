@@ -8,7 +8,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-4 col-md-offset-4 mt-5">
-            <h3 class="text-center mb-5">{{ \App\Option::findByKey('site.name') }}</h3>
+            <h3 class="text-center mb-5">{{ \App\Option::get('site.name') }}</h3>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">{{ __("Sign in to start your session") }}</h3>

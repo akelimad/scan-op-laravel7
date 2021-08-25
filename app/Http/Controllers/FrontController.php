@@ -800,8 +800,7 @@ class FrontController extends BaseController {
 
             Mail::send('admin.emails.contact-us', compact('data'), function($message) use ($data,$user)
             {
-              $message->to($user->email, $user->username)
-                      ->subject('Contact from ' . $data['name']);
+              $message->to($user->email, $user->username)->subject('Contact from ' . $data['name']);
             });
 
             return Redirect::back()->with('sentSuccess', 'Message sent');

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row justify-content-center mt-5">
         <div class="col-md-8">
-            <h3 class="text-center mb-5">{{ \App\Option::findByKey('site.name') }}</h3>
+            <h3 class="text-center mb-5">{{ \App\Option::get('site.name') }}</h3>
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
 

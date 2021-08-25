@@ -220,12 +220,7 @@ class ManageUserController extends BaseController
         $input = request()->all();
         unset($input['_token']);
 
-        Option::findByKey("site.subscription")
-            ->update(
-                [
-                    'value' => json_encode($input)
-                ]
-            );
+        Option::where("key", "site.subscription")->update(['value' => json_encode($input)]);
 
         // clean cache
         Cache::forget('options');
