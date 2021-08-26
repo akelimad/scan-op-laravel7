@@ -30,6 +30,7 @@ class RoleController extends BaseController
      */
     public function __construct(Role $role)
     {
+        $this->middleware("auth");
         $this->role = $role;
     }
 

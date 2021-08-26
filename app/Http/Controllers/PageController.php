@@ -28,6 +28,11 @@ use ZipArchive;
 class PageController extends BaseController
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * The create page
      * 

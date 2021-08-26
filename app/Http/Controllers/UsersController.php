@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Redirect;
 class UsersController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Displays the form for account creation
      *

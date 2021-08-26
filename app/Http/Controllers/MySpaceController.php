@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Redirect;
  */
 class MySpaceController extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
 	
     public function userProfil($username) {
         $user = User::where('username', $username)->first();

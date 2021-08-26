@@ -34,6 +34,7 @@ class ManageUserController extends BaseController
      */
     public function __construct(User $user)
     {
+        $this->middleware("auth");
         $this->user = $user;
     }
 

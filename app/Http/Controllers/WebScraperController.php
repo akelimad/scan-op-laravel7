@@ -42,6 +42,7 @@ class WebScraperController extends BaseController
      */
     public function __construct(Client $client)
     {
+        $this->middleware("auth");
         $client->setServerParameter('User-Agent', "Google Mozilla/5.0 (compatible; Googlebot/2.1;)");
         $client->setServerParameter('Referer', "http://www.google.com/bot.html");
     

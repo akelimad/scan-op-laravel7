@@ -34,6 +34,7 @@ class PostController extends BaseController
      */
     public function __construct(Post $post)
     {
+        $this->middleware("auth");
         $this->post = $post;
     }
     

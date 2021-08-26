@@ -26,10 +26,15 @@ use Illuminate\Support\Facades\Session;
 class BookmarkController extends BaseController
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $bookmarks0 = Bookmark::myBookmarks(Auth::user()->id);
-        $settings = Option::lists('value', 'key');
+        $settings = Option::pluck('value', 'key')->toArray();
 
         $bookmarks = [];
         foreach ($bookmarks0 as $bookmark) {
@@ -233,5 +238,11 @@ class BookmarkController extends BaseController
         }
 
         $user->save();
+
+        return Response::json(
+          [
+            'status' => 'ok'
+          ]
+        );
     }
 }

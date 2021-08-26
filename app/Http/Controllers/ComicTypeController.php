@@ -29,6 +29,7 @@ class ComicTypeController extends BaseController
      */
     public function __construct(ComicType $type)
     {
+        $this->middleware('auth');
         $this->type = $type;
     }
 

@@ -30,6 +30,7 @@ class CategoryController extends BaseController
      */
     public function __construct(Category $category)
     {
+        $this->middleware('auth');
         $this->category = $category;
     }
 
