@@ -431,7 +431,7 @@ use App\Http\Controllers\Utils\HelperController;
 
         <script>
             var title = document.title;
-            var pages = "{{ $allPages }}";
+            var pages = @json($allPages);
 
             var next_chapter = @if(isset($nextChapter))
             "{{route('front.manga.reader', array($current->manga_slug,$nextChapter->chapter_slug))}}"
@@ -565,7 +565,7 @@ use App\Http\Controllers\Utils\HelperController;
             }
 
             function changePage(value) {
-                var url = "{{route('front.manga.reader', array($current->manga_slug,$current->chapter_slug,':toPage'))}}";
+                var url = "{{ route('front.manga.reader', array($current->manga_slug, $current->chapter_slug, ':toPage')) }}";
                 location.href = url.replace(':toPage', value);
             }
             @endif
