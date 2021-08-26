@@ -57,12 +57,13 @@
     $(document).ready(function() {
         $('#bookmarks-notify').click(function () {
             $.ajax({
-	            url: '{{action("BookmarkController@saveNotificationOption")}}',
-	            method: 'POST',
-	            data: {
-	                'bookmarks-notify': $('#bookmarks-notify').is(':checked')
-	            }
-	        });
+                headers: {'x-csrf-token': "{{ csrf_token() }}"},
+	              url: '{{action("BookmarkController@saveNotificationOption")}}',
+	              method: 'POST',
+	              data: {
+	                  'bookmarks-notify': $('#bookmarks-notify').is(':checked')
+	              }
+	          });
         });
         
         $('.nav-tabs a').click(function (e) {
