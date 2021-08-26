@@ -102,6 +102,7 @@ require (__DIR__ . '/function.php');
     	if (!confirm("Are you sure to delete this image?")) {return false;}
     	
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: "<?php echo action('PostController@deletePostImage')?>",
             method: 'POST',
             data: {

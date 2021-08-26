@@ -97,6 +97,7 @@
         $('#waiting').show();
 
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: 'filterMangaList',
             data: {
                 'page': page,

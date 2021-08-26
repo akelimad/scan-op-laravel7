@@ -133,7 +133,7 @@
 
                     /*imagesUploadZone.on("success", function(file, response) {
                      $.ajax({
-                     url: "{{ action('ChapterController@show', array('manga' => $manga->id, 'chapter' => $chapter->id)) }}",
+                     url: "{{-- action('ChapterController@show', array('manga' => $manga->id, 'chapter' => $chapter->id)) --}}",
                      type: "GET"
                      });
                      $.post(

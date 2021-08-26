@@ -140,6 +140,7 @@
         
         status_name = status != 'all' ? status : '';
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: 'loadTabData',
             data: {'status': status_name}
         }).done(function(data) {
@@ -151,6 +152,7 @@
     
     function changeStatus(status) {
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: "changeStatus",
             method: 'POST',
             data: {
@@ -171,6 +173,7 @@
     
     function deleteChecked() {
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: "deleteChecked",
             method: 'POST',
             data: {

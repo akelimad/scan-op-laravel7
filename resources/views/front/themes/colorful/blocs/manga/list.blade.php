@@ -140,6 +140,7 @@
         $('#waiting').show();
 
         $.ajax({
+            headers: {'x-csrf-token': "{{ csrf_token() }}"},
             url: '{{action("FrontController@changeMangaList")}}',
             data: {'type': type}
         }).done(function(data) {
