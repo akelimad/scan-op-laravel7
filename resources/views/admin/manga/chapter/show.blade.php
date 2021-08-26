@@ -222,31 +222,32 @@
                                 @if (count($chapter->pages) > 0)
                                 <tbody>
                                     @foreach ($chapter->pages as $key=>$page)
-                                    <tr>
-                                        <td><input type="checkbox" value="{{ $page->id }}"/></td>
-                                        <td>
-                                            <span class="btn btn-primary btn-xs move-page" data-position="up"><i class="fa fa-arrow-up"></i></span>
-                                            <span class="index">{{ $key+1 }}</span>
-                                            <span class="btn btn-primary btn-xs move-page" data-position="down"><i class="fa fa-arrow-down"></i></span>
-                                            <input type="hidden" value="{{$page->id}}"/>
-                                        </td>
-                                        <td>
-                                            <img class="img-responsive" width="160" alt="{{ $page->image }}" src='@if($page->external == 0) {{asset("uploads/manga/$manga->slug/chapters/$chapter->slug/$page->image")}}<?php echo '?' . time() ?>  @else  {{$page->image}} @endif' />
-                                        </td>
-                                        <td class="image">
-                                            {{ $page->image }}
-                                        </td>
-                                        <td class="slug">
-                                            {{ $page->slug }}
-                                        </td>
-                                        <td>
-                                            @if(Entrust::hasRole('Admin') || (Auth::user()->id===$chapter->user->id && Entrust::can('delete_chapter')))
-                                            {{ Form::open(array('route' => array('manga.chapter.page.destroy', $manga->id, $chapter->id, $page->id), 'method' => 'delete')) }}
-                                            {{ Form::submit(Lang::get('messages.admin.chapter.edit.delete-page'), array('class' => 'btn btn-danger btn-xs', 'onclick' => 'if (!confirm("'. Lang::get('messages.admin.chapter.edit.confirm-delete-page'). '")) {return false;}')) }}
-                                            {{ Form::close() }}
-                                            @endif
-                                        </td>
-                                    </tr>
+                                        @php($shortImgSrc = \Illuminate\Support\Str::limit($page->image, 20))
+                                        <tr>
+                                            <td><input type="checkbox" value="{{ $page->id }}"/></td>
+                                            <td>
+                                                <span class="btn btn-primary btn-xs move-page" data-position="up"><i class="fa fa-arrow-up"></i></span>
+                                                <span class="index">{{ $key+1 }}</span>
+                                                <span class="btn btn-primary btn-xs move-page" data-position="down"><i class="fa fa-arrow-down"></i></span>
+                                                <input type="hidden" value="{{$page->id}}"/>
+                                            </td>
+                                            <td>
+                                                <img class="img-responsive" width="160" alt="{{ $shortImgSrc }}" src='@if($page->external == 0){{asset("uploads/manga/$manga->slug/chapters/$chapter->slug/$page->image")}}<?php echo '?' . time() ?>@else{{$page->image}}@endif' />
+                                            </td>
+                                            <td class="image" title="{{ $page->image }}">
+                                                {{ $shortImgSrc }}
+                                            </td>
+                                            <td class="slug">
+                                                {{ $page->slug }}
+                                            </td>
+                                            <td>
+                                                @if(Entrust::hasRole('Admin') || (Auth::user()->id===$chapter->user->id && Entrust::can('delete_chapter')))
+                                                {{ Form::open(array('route' => array('manga.chapter.page.destroy', $manga->id, $chapter->id, $page->id), 'method' => 'delete')) }}
+                                                {{ Form::submit(Lang::get('messages.admin.chapter.edit.delete-page'), array('class' => 'btn btn-danger btn-xs', 'onclick' => 'if (!confirm("'. Lang::get('messages.admin.chapter.edit.confirm-delete-page'). '")) {return false;}')) }}
+                                                {{ Form::close() }}
+                                                @endif
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                                 @else

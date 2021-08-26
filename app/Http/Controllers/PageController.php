@@ -182,6 +182,7 @@ class PageController extends BaseController
         $manga = Manga::find($mangaId);
         $chapter = Chapter::find($chapterId);
 
+        $destinationPath = "";
         if (strlen(trim($ids)) > 0) {
             $tab_ids = explode(',', $ids);
 
@@ -210,7 +211,7 @@ class PageController extends BaseController
         foreach($chapter->pages as $index => $pg) {
             $index = $index + 1;
             
-            if($page->external === 0) {
+            if($pg->external === 0) {
                 $fileExtension = substr($pg->image, strpos($pg->image, '.'));
                 $pageName="";
 
