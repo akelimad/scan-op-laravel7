@@ -174,8 +174,7 @@ class ChapterController extends BaseController
         $manga = Manga::find($mangaId);
         $chapter = Chapter::find($chapterId);
 
-        $destinationPath = 'uploads/manga/' . $manga->slug . '/chapters/' 
-            . $chapter->slug;
+        $destinationPath = 'uploads/manga/' . $manga->slug . '/chapters/' . $chapter->slug;
 
         if (File::isDirectory($destinationPath)) {
             File::deleteDirectory($destinationPath);

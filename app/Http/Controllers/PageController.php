@@ -248,7 +248,7 @@ class PageController extends BaseController
         $mangaSlug = filter_input(INPUT_POST, 'mangaSlug');
         $chapterId = filter_input(INPUT_POST, 'chapterId');
         $position = filter_input(INPUT_POST, 'position');
-        
+
         $chapter = Chapter::find($chapterId);
         $pages = $chapter->pages;
         
@@ -259,14 +259,17 @@ class PageController extends BaseController
             $page->slug = $page->slug + 1;
         }
         $fileExtension = substr($page->image, strpos($page->image, '.'));
-        $pageName="";
 
-        if ($page->slug < 10) {
-            $pageName = '0' . $page->slug . $fileExtension;
-        } else {
-            $pageName = '' . $page->slug . $fileExtension;
+        $pageName = $page->image;
+        if ($page->external == 0) {
+            if ($page->slug < 10) {
+                $pageName = '0' . $page->slug . $fileExtension;
+            } else {
+                $pageName = '' . $page->slug . $fileExtension;
+            }
         }
-        
+
+
         if($position == 'up') {
             $page2 = $pages[$index-1];
             $page2->slug = $page2->slug + 1;
@@ -276,14 +279,16 @@ class PageController extends BaseController
         }
         
         $fileExtension2 = substr($page2->image, strpos($page2->image, '.'));
-        $pageName2="";
 
-        if ($page2->slug < 10) {
-            $pageName2 = '0' . $page2->slug . $fileExtension2;
-        } else {
-            $pageName2 = '' . $page2->slug . $fileExtension2;
+        $pageName2 = $page2->image;
+        if ($page2->external == 0) {
+            if ($page2->slug < 10) {
+                $pageName2 = '0' . $page2->slug . $fileExtension2;
+            } else {
+                $pageName2 = '' . $page2->slug . $fileExtension2;
+            }
         }
-            
+
         $destinationPath = 'uploads/manga/' . $mangaSlug . '/chapters/' . $chapter->slug . '/';
 
         if (File::isDirectory($destinationPath)) {
