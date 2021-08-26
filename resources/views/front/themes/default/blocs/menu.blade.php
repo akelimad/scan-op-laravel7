@@ -1,6 +1,6 @@
 @section('menu')
 <?php $menus = json_decode(isset($settings['site.menu']) ? $settings['site.menu'] : ""); ?>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default border-radius-0" role="navigation">
     <div class="navbar-header">
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">

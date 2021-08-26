@@ -7,7 +7,9 @@ body {
     background-color: #FFF;
     max-width: 960px;
 }
-
+.border-radius-0{
+    border-radius: 0;
+}
 h2  {
     font-size: 20px;
 }

@@ -24,6 +24,7 @@
     {{ HTML::style('assets/css/bootswatch/'.$variation.'/bootstrap.min.css') }}
     {{ HTML::style('assets/css/style.css') }}
     {{ HTML::style('assets/css/font-awesome.min.css') }}
+    {{ HTML::style('assets/css/margin-padding.css') }}
 
     {{ HTML::script('assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
     {{ HTML::script('assets/js/vendor/jquery-1.11.0.min.js') }}
@@ -55,7 +56,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 pl-0 pr-0">
                 <!-- Website Menu -->
                 @yield('menu')
                 <!--/ Website Menu -->
