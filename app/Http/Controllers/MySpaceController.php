@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 
@@ -68,9 +69,10 @@ class MySpaceController extends BaseController
     {
         $input = request()->all();
         $user = User::find($id);
-
+        $password = $input['password'];
+        unset($input['password']);
         $user->fill($input);
-        $user->password_confirmation = $input['password'];
+        if ($password != "") $user->password = Hash::make($password);
 	
         if ($user->save() === false) {
             return Redirect::back()->withInput()->withErrors($user->errors);
@@ -109,8 +111,7 @@ class MySpaceController extends BaseController
         if (!File::isDirectory($coverNewPath)) {
             File::makeDirectory($coverNewPath, 0755, true);
         }
-        
-        $cover_name = substr(strrchr($cover, "/"), count($cover));
+        $cover_name = substr(strrchr($cover, "/"), count([$cover]));
         $coverCreated = File::move(
             $coverTmpPath . $cover_name, $coverNewPath . 'avatar.jpg'
         );
