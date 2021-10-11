@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Option;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -29,14 +30,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        $cacheValidity = Carbon::now()->addHours(1);
 
-        $options = Cache::remember('options', 60, function() {
+        $options = Cache::remember('options', $cacheValidity, function() {
             $opts = Option::pluck('value', 'key');
             unset($opts['site.gdrive']);
             return  $opts;
         });
 
-        Cache::remember('theme', 60, function() use ($options) {
+
+        Cache::remember('theme', $cacheValidity, function() use ($options) {
             $theme = $options['site.theme'];
             if (strpos($theme, 'default') !== false) {
                 $tab = explode('.', $theme);
@@ -45,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
             return $theme;
         });
 
-        Cache::remember('variation', 60, function() use ($options) {
+        Cache::remember('variation', $cacheValidity, function() use ($options) {
             $theme = $options['site.theme'];
             $variation = "";
             if (strpos($theme, 'default') !== false) {
@@ -68,5 +71,7 @@ class AppServiceProvider extends ServiceProvider
 
         // default role
         Config::set('default_role', $subscription->default_role);
+
+        // dd(Cache::get('theme'));
     }
 }

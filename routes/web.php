@@ -154,7 +154,8 @@ Route::get('/install', ['as' => 'install.index', 'uses' => 'InstallerController@
 Route::post('startInstall', 'InstallerController@startInstall');
 
 Route::get('/robots.txt', 'FrontController@robots');
-Route::get('/sitemap.xml', 'FrontController@sitemap');
+Route::get('/sitemap.xml', ['as' => 'sitemap.mangas', 'uses' => 'SitemapController@index']);
+Route::get('/sitemap/manga/{slug}/sitemap.xml', ['as' => 'sitemap.chapters', 'uses' => 'SitemapController@mangaChapters']);
 Route::get('/feed', 'FrontController@feed');
 
 // Route::when('manga/*', 'manga.view_throttle');

@@ -125,6 +125,8 @@
                         <a href="{{URL::to('/contact-us')}}" title="{{Lang::get('messages.front.home.contact-us')}}"><i class="fa fa-envelope-square"></i></a>
                         &nbsp;
                         <a href="{{URL::to('/feed')}}" title="{{Lang::get('messages.front.home.rss-feed')}}" style="color: #FF9900"><i class="fa fa-rss-square"></i></a>
+                        &nbsp;
+                        <a href="{{ route('sitemap.mangas') }}" title="{{ __("Sitemap") }}" style="color: #d3d3d3"><i class="fa fa-sitemap"></i></a>
                         <div style="text-align: center; font-size: 10px; position: absolute; left: 0px; right: 0px; bottom: 5px; visibility: hidden;">
                             Powered by <a href="http://getcyberworks.com/works/mangareadercms/demo/" title="my Manga Reader CMS">my Manga Reader CMS</a> v1.8
                         </div>
